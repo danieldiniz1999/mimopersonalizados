@@ -85,7 +85,6 @@ function Index() {
           </p>
           <div className="mimo-reveal mt-10 flex flex-wrap justify-center gap-4" style={{ animationDelay: ".4s" }}>
             <a href="#catalogo" className="mimo-btn mimo-btn-cta">VER CATÁLOGO</a>
-            <a href={WA_URL} target="_blank" rel="noopener" className="mimo-btn mimo-btn-pink">FALAR NO WHATSAPP</a>
           </div>
           <div className="mt-14 flex justify-center">
             <a href="#quem-somos" aria-label="Role para baixo" className="mimo-bounce-down text-[#F97FAF]">
