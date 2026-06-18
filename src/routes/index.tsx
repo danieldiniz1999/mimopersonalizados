@@ -182,9 +182,10 @@ function Index() {
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className="mimo-btn mimo-btn-lilac mt-3 w-full text-sm"
+                aria-label={`Baixar imagem de ${p.name}`}
+                className="mimo-btn mimo-btn-lilac mt-3 h-10 w-10 !p-0 grid place-items-center rounded-full"
               >
-                <Download className="h-4 w-4" /> BAIXAR IMAGEM
+                <Download className="h-4 w-4" />
               </a>
             </article>
           ))}
