@@ -114,16 +114,13 @@ function Index() {
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
           </div>
 
-          <div className="mimo-reveal grid grid-cols-1 sm:grid-cols-2 gap-6" style={{ animationDelay: ".2s" }}>
-            {[
-              { name: "Mahyra", caption: "A tia criativa", color: "#F97FAF" },
-              { name: "Halexia", caption: "A sobrinha organizadora", color: "#C77FC2" },
-            ].map((p) => (
-              <figure key={p.name} className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: p.color }}>
-                <img src={quemSomosAsset.url} alt={`${p.name} — ${p.caption}`} className="w-full aspect-[4/5] object-cover" />
-                <figcaption className="bg-white p-3 text-center font-bold text-[#5b2b48]">{p.name} — {p.caption}</figcaption>
-              </figure>
-            ))}
+          <div className="mimo-reveal" style={{ animationDelay: ".2s" }}>
+            <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
+              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da MIMO" className="w-full aspect-[4/5] object-cover" />
+              <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
+                Mahyra &amp; Halexia — As fundadoras 💕
+              </figcaption>
+            </figure>
           </div>
         </div>
 
