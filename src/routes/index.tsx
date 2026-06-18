@@ -70,14 +70,14 @@ function Index() {
       <section className="relative overflow-hidden" id="home">
         <Particles />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
-          <h1 className="mimo-reveal text-4xl md:text-6xl font-black leading-tight">
+          <h1 className="text-4xl md:text-6xl font-black leading-tight">
             <span className="mimo-title-glow">A MIMO transforma aniversários em memórias inesquecíveis.</span>{" "}
             <span className="mimo-heart-beat">💕</span>
           </h1>
-          <p className="mimo-reveal mt-6 text-lg md:text-xl text-[#7a4a64]" style={{ animationDelay: ".2s" }}>
+          <p className="mt-6 text-lg md:text-xl text-[#7a4a64]">
             Itens personalizados feitos com amor, criatividade e muito carinho para a sua festa.
           </p>
-          <div className="mimo-reveal mt-10 flex flex-wrap justify-center gap-4" style={{ animationDelay: ".4s" }}>
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <a href="#catalogo" className="mimo-btn mimo-btn-cta">VER CATÁLOGO</a>
           </div>
           <div className="mt-14 flex justify-center">
