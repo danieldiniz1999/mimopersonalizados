@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Search, Download, X, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ChevronDown, Download, X, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles } from "lucide-react";
 import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
@@ -51,14 +51,8 @@ function ProductPlaceholder({ hue }: { hue: number }) {
 
 function Index() {
   useReveal();
-  const [query, setQuery] = useState("");
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
-
-  const filtered = useMemo(
-    () => PRODUCTS.filter((p) => p.name.toLowerCase().includes(query.toLowerCase())),
-    [query],
-  );
 
   useEffect(() => {
     if (lightbox !== null) {
@@ -165,19 +159,8 @@ function Index() {
           Navegue pelos produtos e inspire-se para sua festa
         </p>
 
-        <div className="mimo-reveal mt-8 max-w-md mx-auto relative" style={{ animationDelay: ".3s" }}>
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-[#C77FC2]" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar produto..."
-            maxLength={80}
-            className="mimo-input pl-12"
-          />
-        </div>
-
         <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {filtered.map((p, i) => (
+          {PRODUCTS.map((p, i) => (
             <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
               {p.isNew && (
                 <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-[#3a1a2f]" style={{ backgroundColor: "#D5DB1F" }}>
@@ -205,10 +188,6 @@ function Index() {
             </article>
           ))}
         </div>
-
-        {filtered.length === 0 && (
-          <p className="text-center mt-8 text-[#7a4a64]">Nenhum produto encontrado.</p>
-        )}
       </section>
 
       {/* Lightbox */}
