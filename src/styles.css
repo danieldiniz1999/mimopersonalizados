@@ -63,25 +63,31 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
+  --background: oklch(0.977 0.012 12);
+  --foreground: oklch(0.28 0.04 340);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
+  --card-foreground: oklch(0.28 0.04 340);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
+  --popover-foreground: oklch(0.28 0.04 340);
+  --primary: oklch(0.88 0.18 115);
+  --primary-foreground: oklch(0.25 0.04 340);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
   --muted: oklch(0.968 0.007 247.896);
   --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
+  --accent: oklch(0.7 0.13 330);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
+  --border: oklch(0.92 0.03 340);
+  --input: oklch(0.92 0.03 340);
+  --ring: oklch(0.75 0.2 350);
+  /* MIMO brand */
+  --mimo-bg: #FEF5F6;
+  --mimo-cta: #D5DB1F;
+  --mimo-lilac: #C77FC2;
+  --mimo-pink: #F97FAF;
+  --mimo-whatsapp: #25D366;
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -138,7 +144,103 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    background-color: var(--mimo-bg);
+    color: #5b2b48;
+    font-family: 'Nunito', 'Quicksand', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
+  html { scroll-behavior: smooth; }
 }
+
+/* ====== MIMO animations ====== */
+@keyframes mimo-float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes mimo-bounce-down {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+@keyframes mimo-heart {
+  0%,100% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(0.95); }
+  75% { transform: scale(1.15); }
+}
+@keyframes mimo-pulse-soft {
+  0%,100% { box-shadow: 0 0 0 0 rgba(37,211,102,.5); }
+  50% { box-shadow: 0 0 0 14px rgba(37,211,102,0); }
+}
+@keyframes mimo-glow-text {
+  0%,100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes mimo-particle {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+@keyframes mimo-slide-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.mimo-reveal { opacity: 0; }
+.mimo-reveal.is-visible {
+  animation: mimo-slide-up .7s ease-in-out forwards;
+}
+
+.mimo-float { animation: mimo-float 4s ease-in-out infinite; }
+.mimo-heart-beat { display:inline-block; animation: mimo-heart 1.6s ease-in-out infinite; }
+.mimo-bounce-down { animation: mimo-bounce-down 1.4s ease-in-out infinite; }
+.mimo-wa-pulse { animation: mimo-pulse-soft 2s ease-in-out infinite; }
+
+.mimo-title-glow {
+  background: linear-gradient(90deg, #F97FAF, #C77FC2, #F97FAF, #C77FC2);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: mimo-glow-text 4s ease-in-out infinite;
+}
+
+.mimo-menu-link {
+  position: relative; padding: 6px 2px;
+  transition: color .4s ease-in-out;
+}
+.mimo-menu-link::after {
+  content:''; position:absolute; left:0; bottom:0; height:2px; width:100%;
+  background:#F97FAF; transform: scaleX(0); transform-origin: right;
+  transition: transform .4s ease-in-out;
+}
+.mimo-menu-link:hover { color:#F97FAF; }
+.mimo-menu-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.mimo-btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding: .85rem 1.6rem; border-radius: 20px; font-weight: 800;
+  letter-spacing:.02em; box-shadow: 0 6px 18px rgba(199,127,194,.25);
+  transition: all .4s ease-in-out; cursor: pointer; border: none;
+  color: #3a1a2f;
+}
+.mimo-btn:hover { transform: translateY(-5px); box-shadow: 0 14px 28px rgba(199,127,194,.35); background:#C77FC2 !important; color:#fff; }
+.mimo-btn-cta { background:#D5DB1F; }
+.mimo-btn-pink { background:#F97FAF; color:#fff; }
+.mimo-btn-lilac { background:#C77FC2; color:#fff; }
+
+.mimo-card {
+  background:#fff; border-radius:20px; padding:1.5rem;
+  box-shadow: 0 8px 24px rgba(249,127,175,.10);
+  transition: all .4s ease-in-out; border: 2px solid transparent;
+}
+.mimo-card:hover { transform: translateY(-8px); box-shadow: 0 18px 38px rgba(249,127,175,.22); border-color:#F97FAF; }
+
+.mimo-input {
+  width:100%; padding:.8rem 1rem; border-radius:20px;
+  border:2px solid #f3d6e0; background:#fff; transition: border-color .3s ease-in-out;
+  font-family: inherit;
+}
+.mimo-input:focus { outline:none; border-color:#F97FAF; }
+
+.mimo-particle { position:absolute; top:0; animation: mimo-particle linear infinite; pointer-events:none; user-select:none; }
