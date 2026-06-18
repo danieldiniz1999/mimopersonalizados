@@ -256,25 +256,7 @@ function Index() {
           Conte para a gente o que você sonhou para o seu aniversário
         </p>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-10">
-          <form
-            className="mimo-reveal mimo-card space-y-4"
-            onSubmit={(e) => {
-              e.preventDefault();
-              const data = new FormData(e.currentTarget);
-              const text = `Olá MIMO! Sou ${data.get("nome")}. Evento: ${data.get("data")}. Produto: ${data.get("produto")}. ${data.get("mensagem")}`;
-              window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
-            }}
-          >
-            <input name="nome" required maxLength={100} placeholder="Nome" className="mimo-input" />
-            <input name="email" type="email" required maxLength={150} placeholder="E-mail" className="mimo-input" />
-            <input name="whatsapp" required maxLength={30} placeholder="WhatsApp" className="mimo-input" />
-            <input name="data" type="date" className="mimo-input" />
-            <input name="produto" maxLength={120} placeholder="Produto Desejado" className="mimo-input" />
-            <textarea name="mensagem" required maxLength={1000} rows={4} placeholder="Mensagem" className="mimo-input" />
-            <button className="mimo-btn mimo-btn-cta w-full">Enviar</button>
-          </form>
-
+        <div className="mt-12 max-w-2xl mx-auto">
           <div className="mimo-reveal space-y-4" style={{ animationDelay: ".2s" }}>
             <a href={WA_URL} target="_blank" rel="noopener" className="mimo-card flex items-center gap-3 text-[#5b2b48] hover:!border-[#F97FAF]">
               <span className="text-2xl">💬</span> <span><strong>WhatsApp</strong> — Fale com a gente agora</span>
