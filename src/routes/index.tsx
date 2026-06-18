@@ -52,7 +52,7 @@ function ProductPlaceholder({ hue }: { hue: number }) {
 function Index() {
   useReveal();
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   useEffect(() => {
     if (lightbox !== null) {
