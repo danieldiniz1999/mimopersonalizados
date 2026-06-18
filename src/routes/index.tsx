@@ -41,7 +41,7 @@ const FAQ = [
 function ProductPlaceholder({ hue }: { hue: number }) {
   return (
     <div
-      className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-4xl"
+      className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] grid place-items-center text-4xl"
       style={{ background: `linear-gradient(135deg, hsl(${hue} 90% 92%), hsl(${(hue + 30) % 360} 90% 85%))` }}
     >
       🎁
