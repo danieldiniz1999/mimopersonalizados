@@ -41,7 +41,7 @@ const FAQ = [
 function ProductPlaceholder({ hue }: { hue: number }) {
   return (
     <div
-      className="aspect-square w-full rounded-[20px] grid place-items-center text-5xl"
+      className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-4xl"
       style={{ background: `linear-gradient(135deg, hsl(${hue} 90% 92%), hsl(${(hue + 30) % 360} 90% 85%))` }}
     >
       🎁
@@ -158,7 +158,7 @@ function Index() {
           />
         </div>
 
-        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
           {filtered.map((p, i) => (
             <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
               {p.isNew && (
