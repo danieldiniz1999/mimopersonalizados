@@ -195,23 +195,49 @@ function Index() {
       </section>
 
       {/* Lightbox */}
-      {lightbox !== null && (
-        <div
-          className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-300"
-          onClick={() => setLightbox(null)}
-        >
-          <button
-            className="absolute top-4 right-4 h-12 w-12 grid place-items-center rounded-full bg-white text-[#F97FAF]"
+      {lightbox !== null && (() => {
+        const product = PRODUCTS.find((p) => p.id === lightbox);
+        return (
+          <div
+            className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-300"
             onClick={() => setLightbox(null)}
-            aria-label="Fechar"
+            role="dialog"
+            aria-modal="true"
           >
-            <X />
-          </button>
-          <div className="max-w-lg w-full" onClick={(e) => e.stopPropagation()}>
-            <ProductPlaceholder hue={PRODUCTS.find((p) => p.id === lightbox)?.hue ?? 330} />
+            <button
+              className="absolute top-4 right-4 h-12 w-12 grid place-items-center rounded-full bg-white text-[#F97FAF] shadow-lg hover:scale-110 transition-transform"
+              onClick={() => setLightbox(null)}
+              aria-label="Fechar"
+            >
+              <X />
+            </button>
+            <div
+              className="w-full max-w-3xl bg-white rounded-[24px] p-4 md:p-6 shadow-2xl animate-in zoom-in-95 duration-300"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="overflow-hidden rounded-[20px]">
+                <div className="scale-100 md:scale-100">
+                  <div className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-8xl md:text-9xl"
+                    style={{ background: `linear-gradient(135deg, hsl(${product?.hue ?? 330} 90% 92%), hsl(${((product?.hue ?? 330) + 30) % 360} 90% 85%))` }}>
+                    🎁
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex items-center justify-between gap-4">
+                <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48]">{product?.name}</h3>
+                <a
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  aria-label={`Baixar imagem de ${product?.name}`}
+                  className="mimo-btn mimo-btn-lilac h-11 w-11 !p-0 grid place-items-center rounded-full shadow-md"
+                >
+                  <Download className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* FAQ */}
       <section id="faq" className="max-w-3xl mx-auto px-4 py-20">
