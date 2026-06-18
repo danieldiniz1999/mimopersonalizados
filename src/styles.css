@@ -243,4 +243,4 @@
 }
 .mimo-input:focus { outline:none; border-color:#F97FAF; }
 
-.mimo-particle { position:absolute; top:0; animation: mimo-particle linear infinite; pointer-events:none; user-select:none; }
+.mimo-particle { position:absolute; top:0; animation: mimo-particle linear infinite both; pointer-events:none; user-select:none; }
