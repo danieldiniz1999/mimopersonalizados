@@ -17,7 +17,7 @@ export function Header() {
     <header className="w-full bg-[#FEF5F6] border-b border-[#f7dde6]">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-2 shrink-0 transition-transform duration-300 hover:scale-105">
-          <img src={logoAsset.url} alt="MIMO Personalizados" className="h-14 w-auto rounded-[20px]" />
+          <img src={logoAsset.url} alt="MIMÔ Personalizados" className="h-14 w-auto rounded-[20px]" />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8 text-[#5b2b48] font-bold">

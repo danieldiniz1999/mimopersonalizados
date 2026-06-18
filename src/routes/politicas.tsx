@@ -7,16 +7,16 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/politicas")({
   head: () => ({
     meta: [
-      { title: "Combinados da MIMO — Políticas" },
-      { name: "description", content: "Conheça os combinados da MIMO: pedido mínimo, prazos, pagamento, entregas e cancelamentos." },
-      { property: "og:title", content: "Combinados da MIMO" },
+      { title: "Combinados da MIMÔ — Políticas" },
+      { name: "description", content: "Conheça os combinados da MIMÔ: pedido mínimo, prazos, pagamento, entregas e cancelamentos." },
+      { property: "og:title", content: "Combinados da MIMÔ" },
       { property: "og:description", content: "Combinados para que tudo dê certo na sua festa." },
     ],
   }),
   component: PoliticasPage,
 });
 
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMO! Vi os combinados e quero um orçamento");
+const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi os combinados e quero um orçamento");
 
 const CARDS = [
   { icon: "🛒", title: "Pedido Mínimo", text: "R$ 100,00 em compras. Produtos diversos." },
@@ -33,7 +33,7 @@ function PoliticasPage() {
     <div className="min-h-screen">
       <Header />
       <section className="max-w-6xl mx-auto px-4 py-16 md:py-20">
-        <h1 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">📋 Combinados da MIMO</h1>
+        <h1 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">📋 Combinados da MIMÔ</h1>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Aqui estão nossos combinados para que tudo dê certo na sua festa
         </p>
