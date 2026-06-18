@@ -98,7 +98,7 @@ function Index() {
       {/* QUEM SOMOS */}
       <section id="quem-somos" className="max-w-7xl mx-auto px-4 py-20">
         <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">
-          Quem Somos <span className="mimo-heart-beat">💕</span> <span className="mimo-heart-beat">🎂</span>
+          Quem Somos <span className="mimo-heart-beat">💕</span>
         </h2>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Uma história de amor, família e muita alegria
