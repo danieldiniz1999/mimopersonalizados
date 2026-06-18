@@ -168,25 +168,27 @@ function Index() {
                   NOVIDADE!
                 </span>
               )}
-              <button
-                onClick={() => setLightbox(p.id)}
-                className="block w-full overflow-hidden rounded-[20px] mimo-float"
-                style={{ animationDelay: `${(i % 5) * 0.4}s` }}
-                aria-label={`Ampliar ${p.name}`}
-              >
-                <div className="transition-transform duration-500 hover:scale-110">
-                  <ProductPlaceholder hue={p.hue} />
-                </div>
-              </button>
+              <div className="relative">
+                <button
+                  onClick={() => setLightbox(p.id)}
+                  className="block w-full overflow-hidden rounded-[20px] mimo-float"
+                  style={{ animationDelay: `${(i % 5) * 0.4}s` }}
+                  aria-label={`Ampliar ${p.name}`}
+                >
+                  <div className="transition-transform duration-500 hover:scale-110">
+                    <ProductPlaceholder hue={p.hue} />
+                  </div>
+                </button>
+                <a
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
+                  aria-label={`Baixar imagem de ${p.name}`}
+                  className="mimo-btn mimo-btn-lilac absolute bottom-2 right-2 h-9 w-9 !p-0 grid place-items-center rounded-full shadow-md z-10"
+                >
+                  <Download className="h-4 w-4" />
+                </a>
+              </div>
               <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
-              <a
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                aria-label={`Baixar imagem de ${p.name}`}
-                className="mimo-btn mimo-btn-lilac mt-3 h-10 w-10 !p-0 grid place-items-center rounded-full"
-              >
-                <Download className="h-4 w-4" />
-              </a>
             </article>
           ))}
         </div>
