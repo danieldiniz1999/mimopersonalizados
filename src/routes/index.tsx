@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { ChevronDown, Search, Download, X, Plus, Minus, Instagram, Mail, Clock } from "lucide-react";
+import { ChevronDown, Search, Download, X, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles } from "lucide-react";
 import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
@@ -125,16 +125,35 @@ function Index() {
         </div>
 
         {/* Valores */}
-        <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { icon: "💕", title: "Amor em cada detalhe" },
-            { icon: "🎨", title: "Criatividade sem limites" },
-            { icon: "🤝", title: "Parceria e família" },
-            { icon: "🎉", title: "Alegria contagiante" },
+            { Icon: Heart,    title: "Amor em cada detalhe",     desc: "Cada peça é feita com cuidado e atenção em todos os mínimos detalhes." },
+            { Icon: Palette,  title: "Criatividade sem limites", desc: "Designs únicos e exclusivos que dão personalidade à sua festa." },
+            { Icon: Users,    title: "Parceria e família",        desc: "Mais que um negócio, um laço de confiança com cada cliente." },
+            { Icon: Sparkles, title: "Alegria contagiante",       desc: "Levamos brilho e emoção para tornar o seu dia inesquecível." },
           ].map((v, i) => (
-            <div key={v.title} className="mimo-reveal mimo-card text-center" style={{ animationDelay: `${0.15 * i}s` }}>
-              <div className="text-5xl mimo-heart-beat">{v.icon}</div>
-              <p className="mt-3 font-bold text-[#5b2b48]">{v.title}</p>
+            <div
+              key={v.title}
+              className="mimo-reveal group relative bg-white rounded-[20px] p-7 text-left transition-all duration-500 hover:-translate-y-2"
+              style={{
+                animationDelay: `${0.15 * i}s`,
+                boxShadow: "0 1px 0 rgba(249,127,175,.08), 0 10px 30px -12px rgba(199,127,194,.18)",
+                border: "1px solid #f3dfe7",
+              }}
+            >
+              <span
+                aria-hidden
+                className="absolute top-0 left-7 right-7 h-[2px] rounded-full"
+                style={{ background: "linear-gradient(90deg, #F97FAF, #C77FC2)" }}
+              />
+              <div
+                className="h-12 w-12 rounded-[14px] grid place-items-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
+                style={{ background: "linear-gradient(135deg, #FEF5F6, #f7dde6)", color: "#F97FAF" }}
+              >
+                <v.Icon className="h-6 w-6" strokeWidth={2.2} />
+              </div>
+              <h3 className="mt-5 font-extrabold text-[#3a1a2f] tracking-tight">{v.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-[#7a4a64]">{v.desc}</p>
             </div>
           ))}
         </div>
