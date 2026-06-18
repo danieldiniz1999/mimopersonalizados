@@ -1,0 +1,55 @@
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import logoAsset from "@/assets/logo.png.asset.json";
+
+const links = [
+  { label: "Home", to: "/", hash: "" },
+  { label: "Quem Somos", to: "/", hash: "#quem-somos" },
+  { label: "Catálogo", to: "/", hash: "#catalogo" },
+  { label: "Combinados", to: "/politicas", hash: "" },
+  { label: "Contato", to: "/", hash: "#contato" },
+];
+
+export function Header() {
+  const [open, setOpen] = useState(false);
+  return (
+    <header className="w-full bg-[#FEF5F6] border-b border-[#f7dde6]">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-2 shrink-0 transition-transform duration-300 hover:scale-105">
+          <img src={logoAsset.url} alt="MIMO Personalizados" className="h-14 w-auto rounded-[20px]" />
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-8 text-[#5b2b48] font-bold">
+          {links.map((l) => (
+            <a key={l.label} href={l.hash ? l.hash : l.to} className="mimo-menu-link">
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        <button
+          className="md:hidden p-2 rounded-[20px] text-[#F97FAF]"
+          onClick={() => setOpen((v) => !v)}
+          aria-label="Menu"
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+      {open && (
+        <div className="md:hidden px-4 pb-4 flex flex-col gap-3 font-bold text-[#5b2b48]">
+          {links.map((l) => (
+            <a
+              key={l.label}
+              href={l.hash ? l.hash : l.to}
+              className="mimo-menu-link"
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </a>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}
