@@ -11,16 +11,16 @@ import quemSomosAsset from "@/assets/quem-somos.png.asset.json";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MIMO Personalizados — Aniversários inesquecíveis" },
-      { name: "description", content: "A MIMO transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
-      { property: "og:title", content: "MIMO Personalizados" },
+      { title: "MIMÔ Personalizados — Aniversários inesquecíveis" },
+      { name: "description", content: "A MIMÔ transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
+      { property: "og:title", content: "MIMÔ Personalizados" },
       { property: "og:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
     ],
   }),
   component: Index,
 });
 
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMO! Vi o site e quero um orçamento");
+const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi o site e quero um orçamento");
 
 const PRODUCTS = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
@@ -71,7 +71,7 @@ function Index() {
         <Particles />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
           <h1 className="text-4xl md:text-6xl font-black leading-tight">
-            <span className="mimo-title-glow">A MIMO transforma aniversários em memórias inesquecíveis.</span>{" "}
+            <span className="mimo-title-glow">A MIMÔ transforma aniversários em memórias inesquecíveis.</span>{" "}
             <span className="mimo-heart-beat">💕</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-[#7a4a64]">
@@ -101,15 +101,15 @@ function Index() {
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
             <p>Mahyra e Halexia são mais que sócias — são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
             <p>Mahyra, com sua criatividade afiada e olhar atento para as tendências, sempre foi a tia que caprichava nos presentes e fazia questão de que cada celebração fosse especial. Halexia, sua sobrinha, cresceu vendo esse cuidado e herdou o mesmo brilho nos olhos pela arte de encantar.</p>
-            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a MIMO nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
+            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a MIMÔ nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
             <p>Mahyra desenha, cria e dá vida a cada peça. Halexia organiza, planeja e garante que tudo chegue no tempo certo e com o cuidado que cada cliente merece. Juntas, elas transformam papel em memória, e festa em emoção.</p>
-            <p>Hoje, a MIMO é o reflexo de um laço que vai além do sangue — é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
+            <p>Hoje, a MIMÔ é o reflexo de um laço que vai além do sangue — é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
           </div>
 
           <div className="mimo-reveal order-1 md:order-2" style={{ animationDelay: ".2s" }}>
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
-              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da MIMO" className="w-full aspect-[4/5] object-cover" />
+              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da MIMÔ" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
                 Mahyra &amp; Halexia — As fundadoras 💕
               </figcaption>
@@ -127,7 +127,8 @@ function Index() {
           ].map((v, i) => (
             <div
               key={v.title}
-              className="mimo-reveal group relative bg-white rounded-[20px] p-7 text-left transition-all duration-500 hover:-translate-y-2 hover:!border-2 hover:!border-[#F97FAF] hover:[box-shadow:0_0_0_2px_rgba(249,127,175,.18),0_18px_38px_-12px_rgba(199,127,194,.25)]"
+              tabIndex={0}
+              className="mimo-reveal group relative bg-white rounded-[20px] p-7 text-left transition-all duration-500 outline-none cursor-pointer hover:-translate-y-2 hover:!border-2 hover:!border-[#F97FAF] hover:[box-shadow:0_0_0_2px_rgba(249,127,175,.18),0_18px_38px_-12px_rgba(199,127,194,.25)] focus:-translate-y-2 focus:!border-2 focus:!border-[#F97FAF] focus:[box-shadow:0_0_0_2px_rgba(249,127,175,.18),0_18px_38px_-12px_rgba(199,127,194,.25)] active:!border-2 active:!border-[#F97FAF]"
               style={{
                 animationDelay: `${0.15 * i}s`,
                 boxShadow: "0 1px 0 rgba(249,127,175,.08), 0 10px 30px -12px rgba(199,127,194,.18)",
@@ -272,7 +273,7 @@ function Index() {
         </div>
 
         <div className="mimo-reveal mt-16 text-center bg-white rounded-[20px] p-8 shadow-lg">
-          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a MIMO. Vamos conversar? 💬</p>
+          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a MIMÔ. Vamos conversar? 💬</p>
           <a href={WA_URL} target="_blank" rel="noopener" className="mimo-btn mimo-btn-pink mt-5">FALAR NO WHATSAPP</a>
         </div>
       </section>
