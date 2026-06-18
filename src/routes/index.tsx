@@ -98,7 +98,7 @@ function Index() {
         </p>
 
         <div className="mt-12 grid md:grid-cols-2 gap-10 items-start">
-          <div className="mimo-reveal space-y-4 text-[#5b2b48] leading-relaxed">
+          <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
             <p>Mahyra e Halexia são mais que sócias — são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
             <p>Mahyra, com sua criatividade afiada e olhar atento para as tendências, sempre foi a tia que caprichava nos presentes e fazia questão de que cada celebração fosse especial. Halexia, sua sobrinha, cresceu vendo esse cuidado e herdou o mesmo brilho nos olhos pela arte de encantar.</p>
             <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a MIMO nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
@@ -107,7 +107,7 @@ function Index() {
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
           </div>
 
-          <div className="mimo-reveal" style={{ animationDelay: ".2s" }}>
+          <div className="mimo-reveal order-1 md:order-2" style={{ animationDelay: ".2s" }}>
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
               <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da MIMO" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
