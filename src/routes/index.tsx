@@ -127,7 +127,7 @@ function Index() {
           ].map((v, i) => (
             <div
               key={v.title}
-              className="mimo-reveal group relative bg-white rounded-[20px] p-7 text-left transition-all duration-500 hover:-translate-y-2 hover:!border-[#F97FAF] hover:[box-shadow:0_0_0_4px_rgba(249,127,175,.25),0_18px_38px_-12px_rgba(199,127,194,.25)]"
+              className="mimo-reveal group relative bg-white rounded-[20px] p-7 text-left transition-all duration-500 hover:-translate-y-2 hover:!border-[3px] hover:!border-[#F97FAF] hover:[box-shadow:0_0_0_4px_rgba(249,127,175,.25),0_18px_38px_-12px_rgba(199,127,194,.25)]"
               style={{
                 animationDelay: `${0.15 * i}s`,
                 boxShadow: "0 1px 0 rgba(249,127,175,.08), 0 10px 30px -12px rgba(199,127,194,.18)",
