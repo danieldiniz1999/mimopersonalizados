@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, Save, X, Upload, Eye, EyeOff } from "lucide-react";
+import { Pencil, Trash2, Plus, LogOut, Save, X, Upload, Eye, EyeOff, ImagePlus } from "lucide-react";
 import { productsStore, useProducts, type Product } from "@/lib/products-store";
 import logoAsset from "@/assets/logo.png.asset.json";
 
@@ -216,10 +216,14 @@ function ProductModal({
   const [hue, setHue] = useState(initial.hue);
   const [image, setImage] = useState<string | undefined>(initial.image);
   const [active, setActive] = useState(initial.active !== false);
+  const [dragOver, setDragOver] = useState(false);
 
-  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    const f = e.target.files?.[0];
+  function handleFile(f: File | undefined | null) {
     if (!f) return;
+    if (!f.type.startsWith("image/")) {
+      alert("Envie um arquivo de imagem (PNG ou JPG).");
+      return;
+    }
     if (f.size > 2 * 1024 * 1024) {
       alert("Imagem muito grande. Use até 2MB.");
       return;
@@ -227,6 +231,17 @@ function ProductModal({
     const reader = new FileReader();
     reader.onload = () => setImage(String(reader.result));
     reader.readAsDataURL(f);
+  }
+
+  function onFile(e: React.ChangeEvent<HTMLInputElement>) {
+    handleFile(e.target.files?.[0]);
+    e.target.value = "";
+  }
+
+  function onDrop(e: React.DragEvent<HTMLLabelElement>) {
+    e.preventDefault();
+    setDragOver(false);
+    handleFile(e.dataTransfer.files?.[0]);
   }
 
   function submit(e: React.FormEvent) {
@@ -251,19 +266,43 @@ function ProductModal({
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Imagem</label>
-        <div className="mt-1 flex items-center gap-3">
-          <div className="h-20 w-20 rounded-xl overflow-hidden border border-[#f3dfe7] grid place-items-center bg-[#fff5f8]">
-            {image ? <img src={image} alt="" className="w-full h-full object-cover" /> : <span className="text-2xl">🎁</span>}
-          </div>
-          <label className="mimo-btn mimo-btn-lilac cursor-pointer !py-2 text-sm">
-            <Upload className="h-4 w-4" /> Escolher arquivo
-            <input type="file" accept="image/*" onChange={onFile} className="hidden" />
-          </label>
-          {image && (
-            <button type="button" onClick={() => setImage(undefined)} className="text-sm text-red-600 hover:underline">Remover</button>
+        <label
+          onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={onDrop}
+          className={`mt-1 flex flex-col items-center justify-center gap-2 cursor-pointer rounded-2xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
+            dragOver ? "border-[#F97FAF] bg-[#fff0f5]" : "border-[#f3c6d5] bg-white hover:bg-[#fff5f8]"
+          }`}
+        >
+          {image ? (
+            <>
+              <img src={image} alt="" className="h-32 w-32 object-cover rounded-xl border border-[#f3dfe7]" />
+              <p className="text-sm text-[#5b2b48] font-bold">Imagem selecionada</p>
+              <p className="text-xs text-[#7a4a64]">Clique ou arraste para trocar</p>
+            </>
+          ) : (
+            <>
+              <div className="h-12 w-12 rounded-full bg-[#fff0f5] grid place-items-center text-[#F97FAF]">
+                <ImagePlus className="h-6 w-6" />
+              </div>
+              <p className="text-sm font-bold text-[#5b2b48]">
+                Arraste a imagem aqui ou <span className="text-[#F97FAF] underline">clique para escolher</span>
+              </p>
+              <p className="text-xs text-[#7a4a64]">PNG ou JPG até 2MB</p>
+            </>
           )}
-        </div>
-        <p className="text-xs text-[#7a4a64] mt-1">PNG/JPG até 2MB. Sem imagem, usamos um fundo colorido.</p>
+          <input type="file" accept="image/*" onChange={onFile} className="hidden" />
+        </label>
+        {image && (
+          <button
+            type="button"
+            onClick={() => setImage(undefined)}
+            className="mt-2 text-xs text-red-600 hover:underline"
+          >
+            Remover imagem
+          </button>
+        )}
+        <p className="text-xs text-[#7a4a64] mt-1">Sem imagem, usamos um fundo colorido.</p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Cor de fundo (matiz: {hue}°)</label>
         <input type="range" min={0} max={360} value={hue} onChange={(e) => setHue(Number(e.target.value))} className="w-full" />
