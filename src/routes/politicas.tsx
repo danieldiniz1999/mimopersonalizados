@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
+import { SectionTitle } from "@/components/mimo/SectionTitle";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/politicas")({
@@ -33,7 +34,7 @@ function PoliticasPage() {
     <div className="min-h-screen">
       <Header />
       <section className="max-w-6xl mx-auto px-4 py-16 md:py-20">
-        <h1 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">📋 Combinados da MIMÔ</h1>
+        <SectionTitle as="h1">Combinados da MIMÔ</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Aqui estão nossos combinados para que tudo dê certo na sua festa
         </p>
