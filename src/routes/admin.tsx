@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, RotateCcw, Save, X, Upload, Eye, EyeOff } from "lucide-react";
+import { Pencil, Trash2, Plus, LogOut, Save, X, Upload, Eye, EyeOff } from "lucide-react";
 import { productsStore, useProducts, type Product } from "@/lib/products-store";
 import logoAsset from "@/assets/logo.png.asset.json";
 
@@ -90,18 +90,9 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       <main className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-5 gap-2 flex-wrap">
           <p className="text-sm text-[#7a4a64]">{products.length} produto(s)</p>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => { if (confirm("Restaurar produtos padrão? Isso apaga suas alterações.")) productsStore.reset(); }}
-              className="mimo-btn mimo-btn-lilac !py-2 !px-3 text-sm"
-              title="Restaurar padrão"
-            >
-              <RotateCcw className="h-4 w-4" /> Restaurar
-            </button>
-            <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-3 text-sm">
-              <Plus className="h-4 w-4" /> Novo produto
-            </button>
-          </div>
+          <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-3 text-sm">
+            <Plus className="h-4 w-4" /> Novo produto
+          </button>
         </div>
 
         {products.length === 0 ? (
@@ -117,12 +108,6 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
               <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-4 text-sm">
                 <Plus className="h-4 w-4" /> Cadastrar primeiro produto
-              </button>
-              <button
-                onClick={() => { if (confirm("Restaurar produtos padrão?")) productsStore.reset(); }}
-                className="mimo-btn mimo-btn-lilac !py-2 !px-4 text-sm"
-              >
-                <RotateCcw className="h-4 w-4" /> Restaurar padrão
               </button>
             </div>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-2xl mx-auto">
