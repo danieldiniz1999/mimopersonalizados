@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles } from "lucide-react";
+import { ChevronDown, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles, ShieldCheck, BadgeCheck, Truck, MessageCircle } from "lucide-react";
 import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
