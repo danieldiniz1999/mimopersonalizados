@@ -12,7 +12,12 @@ export const Route = createFileRoute("/politicas")({
       { name: "description", content: "Conheça os combinados da MIMÔ: pedido mínimo, prazos, pagamento, entregas e cancelamentos." },
       { property: "og:title", content: "Combinados da MIMÔ" },
       { property: "og:description", content: "Combinados para que tudo dê certo na sua festa." },
+      { property: "og:url", content: "https://mimopersonalizados.lovable.app/politicas" },
+      { property: "og:type", content: "article" },
+      { name: "twitter:title", content: "Combinados da MIMÔ" },
+      { name: "twitter:description", content: "Combinados para que tudo dê certo na sua festa." },
     ],
+    links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/politicas" }],
   }),
   component: PoliticasPage,
 });
