@@ -11,6 +11,9 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import logoAsset from "../assets/logo.png.asset.json";
+
+const LOGO_URL = `https://mimopersonalizados.lovable.app${logoAsset.url}`;
 
 function NotFoundComponent() {
   return (
@@ -82,6 +85,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "MIMÔ Personalizados" },
       { property: "og:locale", content: "pt_BR" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: LOGO_URL },
+      { name: "twitter:image", content: LOGO_URL },
     ],
     links: [
       {
@@ -100,6 +105,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@type": "Organization",
           name: "MIMÔ Personalizados",
           url: "https://mimopersonalizados.lovable.app",
+          logo: LOGO_URL,
           description:
             "Itens personalizados para festas e aniversários, feitos com amor em Caucaia-CE.",
           areaServed: "BR",
