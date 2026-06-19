@@ -104,6 +104,43 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           </div>
         </div>
 
+        {products.length === 0 ? (
+          <div className="mt-10 bg-white rounded-2xl border border-dashed border-[#f3c6d5] p-10 text-center">
+            <div className="mx-auto h-16 w-16 rounded-full bg-[#fff0f5] grid place-items-center text-3xl mb-4">
+              🎁
+            </div>
+            <h2 className="text-lg font-black text-[#5b2b48]">Nenhum produto cadastrado</h2>
+            <p className="text-sm text-[#7a4a64] mt-2 max-w-md mx-auto">
+              Comece adicionando seu primeiro produto ao catálogo. Você pode incluir nome, imagem,
+              marcar como novidade e ativar ou desativar a qualquer momento.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+              <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-4 text-sm">
+                <Plus className="h-4 w-4" /> Cadastrar primeiro produto
+              </button>
+              <button
+                onClick={() => { if (confirm("Restaurar produtos padrão?")) productsStore.reset(); }}
+                className="mimo-btn mimo-btn-lilac !py-2 !px-4 text-sm"
+              >
+                <RotateCcw className="h-4 w-4" /> Restaurar padrão
+              </button>
+            </div>
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-2xl mx-auto">
+              <div className="rounded-xl bg-[#fff5f8] p-4">
+                <p className="text-xs font-black text-[#F97FAF]">1. Cadastrar</p>
+                <p className="text-xs text-[#7a4a64] mt-1">Clique em "Novo produto" e preencha as informações.</p>
+              </div>
+              <div className="rounded-xl bg-[#fff5f8] p-4">
+                <p className="text-xs font-black text-[#F97FAF]">2. Organizar</p>
+                <p className="text-xs text-[#7a4a64] mt-1">Marque novidades e ative ou desative quando quiser.</p>
+              </div>
+              <div className="rounded-xl bg-[#fff5f8] p-4">
+                <p className="text-xs font-black text-[#F97FAF]">3. Publicar</p>
+                <p className="text-xs text-[#7a4a64] mt-1">Os produtos ativos aparecem automaticamente no site.</p>
+              </div>
+            </div>
+          </div>
+        ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
           {products.map((p) => {
             const inactive = p.active === false;
@@ -158,6 +195,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             );
           })}
         </div>
+        )}
       </main>
 
       {creating && (
