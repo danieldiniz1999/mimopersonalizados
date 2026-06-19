@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, Save, X, Upload, Eye, EyeOff, ImagePlus } from "lucide-react";
+import { Pencil, Trash2, Plus, LogOut, Save, X, Eye, EyeOff, ImagePlus } from "lucide-react";
 import { productsStore, useProducts, type Product } from "@/lib/products-store";
 import logoAsset from "@/assets/logo.png.asset.json";
 
