@@ -11,13 +11,7 @@ export type Product = {
 
 const KEY = "mimo:products";
 
-const DEFAULTS: Product[] = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  name: `Kit Personalizado ${i + 1}`,
-  isNew: i < 3,
-  hue: [330, 290, 70, 340, 310, 80][i % 6],
-  active: true,
-}));
+const DEFAULTS: Product[] = [];
 
 function read(): Product[] {
   if (typeof window === "undefined") return DEFAULTS;
