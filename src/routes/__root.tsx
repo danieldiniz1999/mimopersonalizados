@@ -90,11 +90,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "MIMÔ Personalizados — Mimos para Aniversários" },
       { property: "og:title", content: "MIMÔ Personalizados — Mimos para Aniversários" },
       { name: "twitter:title", content: "MIMÔ Personalizados — Mimos para Aniversários" },
-      { name: "description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { property: "og:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { name: "twitter:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/k4iGXd0KeFOBwkpNK1NHwV2NR5Y2/social-images/social-1781911064065-IMG_0545.webp" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/k4iGXd0KeFOBwkpNK1NHwV2NR5Y2/social-images/social-1781911064065-IMG_0545.webp" },
+      { name: "description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
+Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { property: "og:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
+Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { name: "twitter:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
+Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4b690716-5783-4cd3-85f5-8f3cc8a56970/id-preview-5f56c7e4--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781910903780.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4b690716-5783-4cd3-85f5-8f3cc8a56970/id-preview-5f56c7e4--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781910903780.png" },
     ],
     links: [
       {
