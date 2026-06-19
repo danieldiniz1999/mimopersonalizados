@@ -90,12 +90,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "MIMÔ Personalizados — Mimos para Aniversários" },
       { property: "og:title", content: "MIMÔ Personalizados — Mimos para Aniversários" },
       { name: "twitter:title", content: "MIMÔ Personalizados — Mimos para Aniversários" },
-      { name: "description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
-Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { property: "og:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
-Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { name: "twitter:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. 
-Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { name: "description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { property: "og:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
+      { name: "twitter:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
       { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/k4iGXd0KeFOBwkpNK1NHwV2NR5Y2/social-images/social-1781911064065-IMG_0545.webp" },
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/k4iGXd0KeFOBwkpNK1NHwV2NR5Y2/social-images/social-1781911064065-IMG_0545.webp" },
     ],
