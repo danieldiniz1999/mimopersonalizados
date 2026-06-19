@@ -141,6 +141,56 @@ function Index() {
         </div>
       </section>
 
+      {/* COMPRA SEGURA */}
+      <section id="compra-segura" className="max-w-7xl mx-auto px-4 py-16">
+        <div className="bg-white rounded-[24px] p-8 md:p-12 shadow-lg border border-[#f3dfe7]">
+          <div className="text-center max-w-2xl mx-auto">
+            <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FEF5F6] text-[#F97FAF] font-bold text-sm">
+              <ShieldCheck className="h-4 w-4" /> Compra Segura
+            </span>
+            <h2 className="mimo-reveal mt-4 text-2xl md:text-4xl font-black text-[#5b2b48]">
+              Sua festa nas mãos de quem cuida 💕
+            </h2>
+            <p className="mimo-reveal text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+              Trabalhamos com transparência do orçamento à entrega para você comprar com tranquilidade.
+            </p>
+          </div>
+
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              { Icon: ShieldCheck, title: "Pagamento protegido", desc: "PIX com entrada de 50% e saldo 1 dia antes do envio, ou cartão de crédito." },
+              { Icon: BadgeCheck, title: "Garantia de qualidade", desc: "Cada peça é conferida com carinho antes de sair do ateliê." },
+              { Icon: Truck, title: "Envio rastreado", desc: "Retirada no ateliê, UBER em Fortaleza ou Correios para todo o Brasil." },
+              { Icon: MessageCircle, title: "Atendimento humano", desc: "Tire dúvidas direto no WhatsApp, de segunda a sábado." },
+            ].map((v, i) => (
+              <div
+                key={v.title}
+                className="mimo-reveal rounded-[20px] p-6 bg-[#FEF5F6]/50 border border-[#f3dfe7]"
+                style={{ animationDelay: `${0.1 * i}s` }}
+              >
+                <div
+                  className="h-12 w-12 rounded-[14px] grid place-items-center"
+                  style={{ background: "linear-gradient(135deg, #FEF5F6, #f7dde6)", color: "#F97FAF" }}
+                >
+                  <v.Icon className="h-6 w-6" strokeWidth={2.2} />
+                </div>
+                <h3 className="mt-4 font-extrabold text-[#3a1a2f]">{v.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#7a4a64]">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-8 text-center text-xs text-[#7a4a64]">
+            Confira nossas{" "}
+            <Link to="/politicas" className="font-bold text-[#F97FAF] hover:underline">
+              políticas e combinados
+            </Link>{" "}
+            para mais detalhes sobre pedidos, prazos e desistência.
+          </p>
+        </div>
+      </section>
+
+
       {/* FAQ */}
       <section id="faq" className="max-w-3xl mx-auto px-4 py-20">
         <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">❓ Dúvidas Frequentes</h2>
