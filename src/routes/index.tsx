@@ -47,6 +47,15 @@ function Index() {
       <section className="relative overflow-hidden" id="home">
         <Particles />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
+          <div className="mimo-reveal flex justify-center mb-6">
+            <span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-sm border border-[#f3dfe7] text-[#C77FC2] font-black uppercase tracking-[0.18em] text-xs md:text-sm shadow-sm"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-[#F97FAF]" strokeWidth={2.5} />
+              MIMÔ Personalizados
+              <Sparkles className="h-3.5 w-3.5 text-[#F97FAF]" strokeWidth={2.5} />
+            </span>
+          </div>
           <h1 className="text-4xl md:text-6xl font-black leading-tight">
             <span className="mimo-title-glow">A MIMÔ transforma aniversários em memórias inesquecíveis.</span>{" "}
             <span className="mimo-heart-beat">💕</span>
