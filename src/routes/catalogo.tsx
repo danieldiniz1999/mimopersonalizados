@@ -4,6 +4,7 @@ import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
 import { CatalogGrid } from "@/components/mimo/CatalogGrid";
+import { SectionTitle } from "@/components/mimo/SectionTitle";
 import { useReveal } from "@/hooks/use-reveal";
 
 export const Route = createFileRoute("/catalogo")({
@@ -29,7 +30,7 @@ function CatalogoPage() {
             <ArrowLeft className="h-4 w-4" /> Voltar para a home
           </Link>
         </div>
-        <h1 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">Catálogo Completo 🎈</h1>
+        <SectionTitle as="h1">Catálogo Completo</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Todos os nossos mimos em um só lugar
         </p>
