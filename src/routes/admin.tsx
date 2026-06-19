@@ -289,10 +289,23 @@ function ProductModal({
           Marcar como <strong>NOVIDADE</strong>
         </label>
 
-        <label className="mt-3 flex items-center gap-2 text-[#5b2b48]">
-          <input type="checkbox" checked={active} onChange={(e) => setActive(e.target.checked)} />
-          Produto <strong>ativo</strong> (visível no site)
-        </label>
+        <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-[#f3dfe7] bg-white px-4 py-3">
+          <div>
+            <p className="text-sm font-bold text-[#5b2b48]">Produto ativo</p>
+            <p className="text-xs text-[#7a4a64]">Quando ligado, aparece no site.</p>
+          </div>
+          <button
+            type="button"
+            role="switch"
+            aria-checked={active}
+            onClick={() => setActive((v) => !v)}
+            className={`relative inline-flex h-7 w-12 shrink-0 items-center rounded-full transition-colors ${active ? "bg-[#F97FAF]" : "bg-[#e5d4dd]"}`}
+          >
+            <span
+              className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform ${active ? "translate-x-6" : "translate-x-1"}`}
+            />
+          </button>
+        </div>
 
         <div className="mt-8 flex justify-end gap-2">
           <button type="button" onClick={onClose} className="mimo-btn !py-2 bg-white border border-[#f3dfe7] text-[#5b2b48]">Cancelar</button>
