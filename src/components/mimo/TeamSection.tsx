@@ -1,6 +1,11 @@
 import { SectionTitle } from "./SectionTitle";
-import { SELLERS, openSellersModal } from "./SellersModal";
+import { SELLERS } from "./SellersModal";
 import { Heart, MessageCircle } from "lucide-react";
+
+const WA_MSG = (name: string) =>
+  encodeURIComponent(
+    `Oiê, ${name}! 💕 Vim pelo site da MIMÔ e me apaixonei pelos mimos de vocês ✨ Será que dá pra você me ajudar com um orçamento super especial?`,
+  );
 
 export function TeamSection() {
   return (
@@ -45,13 +50,15 @@ export function TeamSection() {
             </p>
             <p className="mt-3 text-sm text-[#7a4a64] leading-relaxed">{s.desc}</p>
 
-            <button
-              onClick={openSellersModal}
+            <a
+              href={`https://wa.me/${s.phone}?text=${WA_MSG(s.name)}`}
+              target="_blank"
+              rel="noopener"
               className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-bold text-sm shadow-md hover:scale-105 transition-transform"
               style={{ backgroundColor: "#25D366" }}
             >
               <MessageCircle className="h-4 w-4" /> Chamar {s.name}
-            </button>
+            </a>
           </div>
         ))}
       </div>
