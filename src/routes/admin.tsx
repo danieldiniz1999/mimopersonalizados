@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, RotateCcw, Save, X, Upload } from "lucide-react";
+import { Pencil, Trash2, Plus, LogOut, RotateCcw, Save, X, Upload, Eye, EyeOff } from "lucide-react";
 import { productsStore, useProducts, type Product } from "@/lib/products-store";
 import logoAsset from "@/assets/logo.png.asset.json";
 
@@ -59,7 +59,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   );
 }
 
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, active: true };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -69,8 +69,27 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
   return (
     <div className="min-h-screen bg-[#fff5f8]">
       <header className="bg-white border-b border-[#f3dfe7]">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-black text-[#F97FAF]">Painel MIMÔ — Catálogo</h1>
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3 min-w-0">
+            <img
+              src={logoAsset.url}
+              alt="MIMÔ"
+              className="h-10 w-10 rounded-full object-cover border border-[#f3dfe7] shrink-0"
+            />
+            <h1 className="text-lg md:text-xl font-black text-[#5b2b48] truncate">Painel MIMÔ</h1>
+          </div>
+          <button
+            onClick={onLogout}
+            className="mimo-btn !py-2 !px-3 text-sm bg-white border border-[#f3dfe7] text-[#5b2b48] shrink-0"
+          >
+            <LogOut className="h-4 w-4" /> Sair
+          </button>
+        </div>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-5 gap-2 flex-wrap">
+          <p className="text-sm text-[#7a4a64]">{products.length} produto(s)</p>
           <div className="flex items-center gap-2">
             <button
               onClick={() => { if (confirm("Restaurar produtos padrão? Isso apaga suas alterações.")) productsStore.reset(); }}
@@ -79,54 +98,65 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             >
               <RotateCcw className="h-4 w-4" /> Restaurar
             </button>
-            <button onClick={onLogout} className="mimo-btn !py-2 !px-3 text-sm bg-white border border-[#f3dfe7] text-[#5b2b48]">
-              <LogOut className="h-4 w-4" /> Sair
+            <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-3 text-sm">
+              <Plus className="h-4 w-4" /> Novo produto
             </button>
           </div>
         </div>
-      </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-[#7a4a64]">{products.length} produto(s) no catálogo</p>
-          <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink">
-            <Plus className="h-4 w-4" /> Novo produto
-          </button>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((p) => (
-            <div key={p.id} className="bg-white rounded-[20px] p-4 border border-[#f3dfe7] shadow-sm">
-              <div className="aspect-[4/3] rounded-xl overflow-hidden mb-3">
-                {p.image ? (
-                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full grid place-items-center text-5xl"
-                    style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
-                    🎁
-                  </div>
-                )}
-              </div>
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <h3 className="font-bold text-[#5b2b48]">{p.name}</h3>
-                  {p.isNew && <span className="text-xs font-bold text-[#3a1a2f] bg-[#D5DB1F] px-2 py-0.5 rounded-full">NOVIDADE</span>}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+          {products.map((p) => {
+            const inactive = p.active === false;
+            return (
+              <div
+                key={p.id}
+                className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}
+              >
+                <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
+                  {p.image ? (
+                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full grid place-items-center text-3xl"
+                      style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
+                      🎁
+                    </div>
+                  )}
+                  {p.isNew && (
+                    <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+                      NOVO
+                    </span>
+                  )}
+                  {inactive && (
+                    <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-[#5b2b48]/80 px-1.5 py-0.5 rounded-full">
+                      INATIVO
+                    </span>
+                  )}
                 </div>
-                <div className="flex gap-1">
-                  <button onClick={() => setEditing(p)} className="h-8 w-8 grid place-items-center rounded-lg bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]" title="Editar">
-                    <Pencil className="h-4 w-4" />
-                  </button>
+                <h3 className="font-bold text-[#5b2b48] text-xs leading-tight line-clamp-2 min-h-[2rem]">{p.name}</h3>
+                <div className="mt-2 flex items-center justify-between gap-1">
                   <button
-                    onClick={() => { if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id); }}
-                    className="h-8 w-8 grid place-items-center rounded-lg bg-red-50 text-red-600 hover:bg-red-100"
-                    title="Excluir"
+                    onClick={() => productsStore.update(p.id, { active: inactive ? true : false })}
+                    className={`h-7 w-7 grid place-items-center rounded-md ${inactive ? "bg-[#f3eaf0] text-[#5b2b48]" : "bg-[#eaf7ec] text-emerald-700"} hover:opacity-80`}
+                    title={inactive ? "Ativar" : "Desativar"}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    {inactive ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                   </button>
+                  <div className="flex gap-1">
+                    <button onClick={() => setEditing(p)} className="h-7 w-7 grid place-items-center rounded-md bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]" title="Editar">
+                      <Pencil className="h-3.5 w-3.5" />
+                    </button>
+                    <button
+                      onClick={() => { if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id); }}
+                      className="h-7 w-7 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100"
+                      title="Excluir"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </main>
 
@@ -162,6 +192,7 @@ function ProductModal({
   const [isNew, setIsNew] = useState(initial.isNew);
   const [hue, setHue] = useState(initial.hue);
   const [image, setImage] = useState<string | undefined>(initial.image);
+  const [active, setActive] = useState(initial.active !== false);
 
   function onFile(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
@@ -178,7 +209,7 @@ function ProductModal({
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim()) return;
-    onSave({ name: name.trim(), isNew, hue, image });
+    onSave({ name: name.trim(), isNew, hue, image, active });
   }
 
   return (
@@ -220,6 +251,11 @@ function ProductModal({
         <label className="mt-4 flex items-center gap-2 text-[#5b2b48]">
           <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} />
           Marcar como <strong>NOVIDADE</strong>
+        </label>
+
+        <label className="mt-3 flex items-center gap-2 text-[#5b2b48]">
+          <input type="checkbox" checked={active} onChange={(e) => setActive(e.target.checked)} />
+          Produto <strong>ativo</strong> (visível no site)
         </label>
 
         <div className="mt-6 flex justify-end gap-2">
