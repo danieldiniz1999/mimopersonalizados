@@ -12,10 +12,10 @@ export function SectionTitle({ children, as = "h2", className = "", size = "lg" 
   const Tag = as;
   const text =
     size === "lg"
-      ? "text-xl md:text-3xl"
-      : "text-lg md:text-2xl";
-  const pad = size === "lg" ? "px-7 md:px-10 py-3 md:py-4" : "px-6 py-2.5";
-  const icon = size === "lg" ? "h-5 w-5 md:h-6 md:w-6" : "h-4 w-4 md:h-5 md:w-5";
+      ? "text-base md:text-xl"
+      : "text-sm md:text-lg";
+  const pad = size === "lg" ? "px-5 md:px-7 py-2 md:py-2.5" : "px-4 py-2";
+  const icon = size === "lg" ? "h-4 w-4 md:h-5 md:w-5" : "h-3.5 w-3.5 md:h-4 md:w-4";
 
   return (
     <div className={`mimo-reveal flex justify-center ${className}`}>
