@@ -14,7 +14,12 @@ export const Route = createFileRoute("/catalogo")({
       { name: "description", content: "Explore o catálogo completo da MIMÔ Personalizados com todos os nossos kits e itens para festas." },
       { property: "og:title", content: "Catálogo Completo — MIMÔ Personalizados" },
       { property: "og:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
+      { property: "og:url", content: "https://mimopersonalizados.lovable.app/catalogo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "Catálogo Completo — MIMÔ Personalizados" },
+      { name: "twitter:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
     ],
+    links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/catalogo" }],
   }),
   component: CatalogoPage,
 });
