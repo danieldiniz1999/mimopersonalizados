@@ -24,7 +24,8 @@ function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string;
 
 export function CatalogGrid({ limit }: { limit?: number }) {
   const all = useProducts();
-  const products: Product[] = limit ? all.slice(0, limit) : all;
+  const visible = all.filter((p) => p.active !== false);
+  const products: Product[] = limit ? visible.slice(0, limit) : visible;
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   useEffect(() => {
