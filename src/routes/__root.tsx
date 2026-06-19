@@ -77,18 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Companion AI is a web application that creates animated, multi-page websites." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Companion AI is a web application that creates animated, multi-page websites." },
+      { name: "author", content: "MIMÔ Personalizados" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Companion AI is a web application that creates animated, multi-page websites." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1f381b07-e2fe-46f9-9eac-51b5019a3e74/id-preview-b30acad2--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781811104826.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/1f381b07-e2fe-46f9-9eac-51b5019a3e74/id-preview-b30acad2--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781811104826.png" },
+      { property: "og:site_name", content: "MIMÔ Personalizados" },
+      { property: "og:locale", content: "pt_BR" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
       {
@@ -99,6 +92,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" },
     ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "MIMÔ Personalizados",
+          url: "https://mimopersonalizados.lovable.app",
+          description:
+            "Itens personalizados para festas e aniversários, feitos com amor em Caucaia-CE.",
+          areaServed: "BR",
+        }),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -108,7 +115,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="pt-BR">
       <head>
         <HeadContent />
       </head>

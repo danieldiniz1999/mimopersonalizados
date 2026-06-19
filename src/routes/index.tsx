@@ -17,8 +17,25 @@ export const Route = createFileRoute("/")({
     meta: [
       { title: "MIMÔ Personalizados — Aniversários inesquecíveis" },
       { name: "description", content: "A MIMÔ transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
-      { property: "og:title", content: "MIMÔ Personalizados" },
+      { property: "og:title", content: "MIMÔ Personalizados — Aniversários inesquecíveis" },
       { property: "og:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
+      { property: "og:url", content: "https://mimopersonalizados.lovable.app/" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "MIMÔ Personalizados — Aniversários inesquecíveis" },
+      { name: "twitter:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
+    ],
+    links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/" }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "MIMÔ Personalizados",
+          url: "https://mimopersonalizados.lovable.app/",
+          inLanguage: "pt-BR",
+        }),
+      },
     ],
   }),
   component: Index,
