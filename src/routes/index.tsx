@@ -9,6 +9,8 @@ import { useReveal } from "@/hooks/use-reveal";
 import quemSomosAsset from "@/assets/quem-somos.png.asset.json";
 import { CatalogGrid } from "@/components/mimo/CatalogGrid";
 import { SectionTitle } from "@/components/mimo/SectionTitle";
+import { TeamSection } from "@/components/mimo/TeamSection";
+import { openSellersModal } from "@/components/mimo/SellersModal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -140,6 +142,9 @@ function Index() {
         </div>
       </section>
 
+      {/* EQUIPE */}
+      <TeamSection />
+
       {/* COMPRA SEGURA */}
       <section id="compra-segura" className="max-w-7xl mx-auto px-4 py-16">
         <div className="bg-white rounded-[24px] p-8 md:p-12 shadow-lg border border-[#f3dfe7]">
@@ -234,9 +239,12 @@ function Index() {
 
         <div className="mt-12 max-w-2xl mx-auto">
           <div className="mimo-reveal space-y-4" style={{ animationDelay: ".2s" }}>
-            <a href={WA_URL} target="_blank" rel="noopener" className="mimo-card flex items-center gap-3 text-[#5b2b48] hover:!border-[#F97FAF]">
+            <button
+              onClick={openSellersModal}
+              className="mimo-card flex items-center gap-3 text-[#5b2b48] hover:!border-[#F97FAF] w-full text-left"
+            >
               <span className="text-2xl">💬</span> <span><strong>WhatsApp</strong> — Fale com a gente agora</span>
-            </a>
+            </button>
             <a href="https://www.instagram.com/mimopersonalizadoos" target="_blank" rel="noopener" className="mimo-card flex items-center gap-3 text-[#5b2b48]">
               <Instagram className="text-[#F97FAF]" /> <span><strong>Instagram</strong> — @mimopersonalizadoos</span>
             </a>
@@ -252,7 +260,7 @@ function Index() {
 
         <div className="mimo-reveal mt-16 text-center bg-white rounded-[20px] p-8 shadow-lg">
           <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a MIMÔ. Vamos conversar? 💬</p>
-          <a href={WA_URL} target="_blank" rel="noopener" className="mimo-btn mimo-btn-pink mt-5">FALAR NO WHATSAPP</a>
+          <button onClick={openSellersModal} className="mimo-btn mimo-btn-pink mt-5">FALAR NO WHATSAPP</button>
         </div>
       </section>
 

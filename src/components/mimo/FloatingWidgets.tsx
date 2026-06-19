@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { MessageCircle, Send, X } from "lucide-react";
-
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi o site e quero um orçamento");
+import { SellersModal, openSellersModal } from "./SellersModal";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -25,16 +24,15 @@ export function FloatingWidgets() {
 
   return (
     <>
-      <a
-        href={WA_URL}
-        target="_blank"
-        rel="noopener"
+      <button
+        onClick={openSellersModal}
         className="mimo-wa-pulse fixed bottom-6 right-6 z-50 grid place-items-center h-14 w-14 rounded-full text-white shadow-lg transition-transform duration-300 hover:scale-110"
         style={{ backgroundColor: "#25D366" }}
         aria-label="WhatsApp"
       >
         <WhatsAppIcon className="h-8 w-8" />
-      </a>
+      </button>
+      <SellersModal />
 
       <div className="fixed bottom-6 left-6 z-50">
         {open && (
