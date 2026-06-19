@@ -7,6 +7,7 @@ import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
 import { Particles } from "@/components/mimo/Particles";
 import { useReveal } from "@/hooks/use-reveal";
 import quemSomosAsset from "@/assets/quem-somos.png.asset.json";
+import { useProducts } from "@/lib/products-store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -22,13 +23,6 @@ export const Route = createFileRoute("/")({
 
 const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi o site e quero um orçamento");
 
-const PRODUCTS = Array.from({ length: 12 }, (_, i) => ({
-  id: i + 1,
-  name: `Kit Personalizado ${i + 1}`,
-  isNew: i < 3,
-  hue: [330, 290, 70, 340, 310, 80][i % 6],
-}));
-
 const FAQ = [
   { q: "Qual o valor mínimo do pedido?", a: "O pedido mínimo é de R$ 100,00 em compras de produtos diversos." },
   { q: "Como funciona o prazo de entrega?", a: "Trabalhamos por agendamento. Nos informe o dia da festa que vemos a data disponível para o envio." },
@@ -38,7 +32,16 @@ const FAQ = [
   { q: "As embalagens vêm com doces?", a: "Não. Todas as nossas embalagens são vazias. Trabalhamos apenas com os itens personalizados." },
 ];
 
-function ProductPlaceholder({ hue }: { hue: number }) {
+function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string; name?: string }) {
+  if (image) {
+    return (
+      <img
+        src={image}
+        alt={name ?? "Produto"}
+        className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] object-cover"
+      />
+    );
+  }
   return (
     <div
       className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] grid place-items-center text-4xl"
@@ -51,6 +54,7 @@ function ProductPlaceholder({ hue }: { hue: number }) {
 
 function Index() {
   useReveal();
+  const products = useProducts();
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -161,7 +165,7 @@ function Index() {
         </p>
 
         <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-          {PRODUCTS.map((p, i) => (
+          {products.map((p, i) => (
             <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
               {p.isNew && (
                 <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-[#3a1a2f]" style={{ backgroundColor: "#D5DB1F" }}>
@@ -176,12 +180,13 @@ function Index() {
                   aria-label={`Ampliar ${p.name}`}
                 >
                   <div className="transition-transform duration-500 hover:scale-110">
-                    <ProductPlaceholder hue={p.hue} />
+                    <ProductPlaceholder hue={p.hue} image={p.image} name={p.name} />
                   </div>
                 </button>
                 <a
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
+                  href={p.image ?? "#"}
+                  download={p.image ? `${p.name}.png` : undefined}
+                  onClick={(e) => { if (!p.image) e.preventDefault(); }}
                   aria-label={`Baixar imagem de ${p.name}`}
                   className="mimo-btn mimo-btn-lilac absolute bottom-2 right-2 h-9 w-9 !p-0 grid place-items-center rounded-full shadow-md z-10"
                 >
@@ -196,7 +201,7 @@ function Index() {
 
       {/* Lightbox */}
       {lightbox !== null && (() => {
-        const product = PRODUCTS.find((p) => p.id === lightbox);
+        const product = products.find((p) => p.id === lightbox);
         return (
           <div
             className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-300"
@@ -217,17 +222,22 @@ function Index() {
             >
               <div className="overflow-hidden rounded-[20px]">
                 <div className="scale-100 md:scale-100">
-                  <div className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-8xl md:text-9xl"
-                    style={{ background: `linear-gradient(135deg, hsl(${product?.hue ?? 330} 90% 92%), hsl(${((product?.hue ?? 330) + 30) % 360} 90% 85%))` }}>
-                    🎁
-                  </div>
+                  {product?.image ? (
+                    <img src={product.image} alt={product.name} className="w-full aspect-[4/3] object-cover rounded-[20px]" />
+                  ) : (
+                    <div className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-8xl md:text-9xl"
+                      style={{ background: `linear-gradient(135deg, hsl(${product?.hue ?? 330} 90% 92%), hsl(${((product?.hue ?? 330) + 30) % 360} 90% 85%))` }}>
+                      🎁
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="mt-4 flex items-center justify-between gap-4">
                 <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48]">{product?.name}</h3>
                 <a
-                  href="#"
-                  onClick={(e) => e.preventDefault()}
+                  href={product?.image ?? "#"}
+                  download={product?.image ? `${product?.name}.png` : undefined}
+                  onClick={(e) => { if (!product?.image) e.preventDefault(); }}
                   aria-label={`Baixar imagem de ${product?.name}`}
                   className="mimo-btn mimo-btn-lilac h-11 w-11 !p-0 grid place-items-center rounded-full shadow-md"
                 >
