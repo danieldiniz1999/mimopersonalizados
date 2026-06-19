@@ -6,7 +6,7 @@ import logoAsset from "@/assets/logo.png.asset.json";
 const links = [
   { label: "Home", to: "/", hash: "" },
   { label: "Quem Somos", to: "/", hash: "#quem-somos" },
-  { label: "Catálogo", to: "/", hash: "#catalogo" },
+  { label: "Catálogo", to: "/catalogo", hash: "" },
   { label: "Combinados", to: "/politicas", hash: "" },
   { label: "Contato", to: "/", hash: "#contato" },
 ];
