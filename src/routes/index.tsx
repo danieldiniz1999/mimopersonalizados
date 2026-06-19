@@ -8,6 +8,7 @@ import { Particles } from "@/components/mimo/Particles";
 import { useReveal } from "@/hooks/use-reveal";
 import quemSomosAsset from "@/assets/quem-somos.png.asset.json";
 import { CatalogGrid } from "@/components/mimo/CatalogGrid";
+import { SectionTitle } from "@/components/mimo/SectionTitle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -64,9 +65,7 @@ function Index() {
 
       {/* QUEM SOMOS */}
       <section id="quem-somos" className="max-w-7xl mx-auto px-4 py-20">
-        <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">
-          Quem Somos <span className="mimo-heart-beat">💕</span>
-        </h2>
+        <SectionTitle>Quem Somos</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Uma história de amor, família e muita alegria
         </p>
@@ -129,7 +128,7 @@ function Index() {
 
       {/* CATÁLOGO */}
       <section id="catalogo" className="max-w-7xl mx-auto px-4 py-20">
-        <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">Destaques do Catálogo 🎈</h2>
+        <SectionTitle>Destaques do Catálogo</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Uma prévia dos nossos mimos — veja o catálogo completo para se inspirar
         </p>
@@ -193,7 +192,7 @@ function Index() {
 
       {/* FAQ */}
       <section id="faq" className="max-w-3xl mx-auto px-4 py-20">
-        <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">❓ Dúvidas Frequentes</h2>
+        <SectionTitle>Dúvidas Frequentes</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Tire suas dúvidas antes de fazer seu pedido
         </p>
@@ -228,9 +227,7 @@ function Index() {
 
       {/* CONTATO */}
       <section id="contato" className="max-w-6xl mx-auto px-4 py-20">
-        <h2 className="mimo-reveal text-3xl md:text-5xl font-black text-center text-[#F97FAF]">
-          Vamos fazer sua festa brilhar? ✨
-        </h2>
+        <SectionTitle>Vamos fazer sua festa brilhar?</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Conte para a gente o que você sonhou para o seu aniversário
         </p>
