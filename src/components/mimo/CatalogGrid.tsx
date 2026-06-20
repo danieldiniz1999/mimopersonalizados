@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Download, X } from "lucide-react";
+import { Download, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useProducts, type Product } from "@/lib/products-store";
 
 function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string; name?: string }) {
@@ -27,9 +27,11 @@ export function CatalogGrid({ limit }: { limit?: number }) {
   const visible = all.filter((p) => p.active !== false);
   const products: Product[] = limit ? visible.slice(0, limit) : visible;
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const [slideIdx, setSlideIdx] = useState(0);
 
   useEffect(() => {
     if (lightbox !== null) {
+      setSlideIdx(0);
       const onKey = (e: KeyboardEvent) => e.key === "Escape" && setLightbox(null);
       window.addEventListener("keydown", onKey);
       return () => window.removeEventListener("keydown", onKey);
@@ -54,13 +56,18 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                 aria-label={`Ampliar ${p.name}`}
               >
                 <div className="transition-transform duration-500 hover:scale-110">
-                  <ProductPlaceholder hue={p.hue} image={p.image} name={p.name} />
+                  <ProductPlaceholder hue={p.hue} image={p.images?.[0] ?? p.image} name={p.name} />
                 </div>
               </button>
+              {((p.images?.length ?? 0) > 1) && (
+                <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-bold text-white bg-black/55">
+                  +{p.images!.length - 1}
+                </span>
+              )}
               <a
-                href={p.image ?? "#"}
-                download={p.image ? `${p.name}.png` : undefined}
-                onClick={(e) => { if (!p.image) e.preventDefault(); }}
+                href={(p.images?.[0] ?? p.image) ?? "#"}
+                download={(p.images?.[0] ?? p.image) ? `${p.name}.png` : undefined}
+                onClick={(e) => { if (!(p.images?.[0] ?? p.image)) e.preventDefault(); }}
                 aria-label={`Baixar imagem de ${p.name}`}
                 className="mimo-btn mimo-btn-lilac absolute bottom-2 right-2 h-9 w-9 !p-0 grid place-items-center rounded-full shadow-md z-10"
               >
@@ -74,6 +81,13 @@ export function CatalogGrid({ limit }: { limit?: number }) {
 
       {lightbox !== null && (() => {
         const product = products.find((p) => p.id === lightbox) ?? all.find((p) => p.id === lightbox);
+        const gallery = product?.images && product.images.length > 0
+          ? product.images
+          : product?.image ? [product.image] : [];
+        const current = gallery[slideIdx];
+        const total = gallery.length;
+        const next = () => setSlideIdx((i) => (i + 1) % total);
+        const prev = () => setSlideIdx((i) => (i - 1 + total) % total);
         return (
           <div
             className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-300"
@@ -92,22 +106,57 @@ export function CatalogGrid({ limit }: { limit?: number }) {
               className="w-full max-w-3xl bg-white rounded-[24px] p-4 md:p-6 shadow-2xl animate-in zoom-in-95 duration-300"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="overflow-hidden rounded-[20px]">
-                {product?.image ? (
-                  <img src={product.image} alt={product.name} className="w-full aspect-[4/3] object-cover rounded-[20px]" />
+              <div className="relative overflow-hidden rounded-[20px]">
+                {current ? (
+                  <img src={current} alt={product?.name} className="w-full aspect-[4/3] object-cover rounded-[20px]" />
                 ) : (
                   <div className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-8xl md:text-9xl"
                     style={{ background: `linear-gradient(135deg, hsl(${product?.hue ?? 330} 90% 92%), hsl(${((product?.hue ?? 330) + 30) % 360} 90% 85%))` }}>
                     🎁
                   </div>
                 )}
+                {total > 1 && (
+                  <>
+                    <button
+                      onClick={prev}
+                      aria-label="Anterior"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-white/90 text-[#5b2b48] shadow hover:scale-110 transition-transform"
+                    >
+                      <ChevronLeft />
+                    </button>
+                    <button
+                      onClick={next}
+                      aria-label="Próxima"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 h-10 w-10 grid place-items-center rounded-full bg-white/90 text-[#5b2b48] shadow hover:scale-110 transition-transform"
+                    >
+                      <ChevronRight />
+                    </button>
+                    <span className="absolute bottom-2 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-xs font-bold text-white bg-black/55">
+                      {slideIdx + 1} / {total}
+                    </span>
+                  </>
+                )}
               </div>
+              {total > 1 && (
+                <div className="mt-3 flex gap-2 overflow-x-auto">
+                  {gallery.map((src, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setSlideIdx(idx)}
+                      className={`shrink-0 h-16 w-16 rounded-lg overflow-hidden border-2 transition-colors ${idx === slideIdx ? "border-[#F97FAF]" : "border-transparent"}`}
+                      aria-label={`Imagem ${idx + 1}`}
+                    >
+                      <img src={src} alt="" className="h-full w-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
               <div className="mt-4 flex items-center justify-between gap-4">
                 <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48]">{product?.name}</h3>
                 <a
-                  href={product?.image ?? "#"}
-                  download={product?.image ? `${product?.name}.png` : undefined}
-                  onClick={(e) => { if (!product?.image) e.preventDefault(); }}
+                  href={current ?? "#"}
+                  download={current ? `${product?.name}-${slideIdx + 1}.png` : undefined}
+                  onClick={(e) => { if (!current) e.preventDefault(); }}
                   aria-label={`Baixar imagem de ${product?.name}`}
                   className="mimo-btn mimo-btn-lilac h-11 w-11 !p-0 grid place-items-center rounded-full shadow-md"
                 >

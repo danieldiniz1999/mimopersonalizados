@@ -5,7 +5,8 @@ export type Product = {
   name: string;
   isNew: boolean;
   hue: number;
-  image?: string; // data URL opcional
+  image?: string; // data URL opcional (compat — primeira imagem)
+  images?: string[]; // até 5 imagens (data URLs)
   active?: boolean; // default true
 };
 
