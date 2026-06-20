@@ -223,40 +223,63 @@ function ProductModal({
   const [name, setName] = useState(initial.name);
   const [isNew, setIsNew] = useState(initial.isNew);
   const [hue, setHue] = useState(initial.hue);
-  const [image, setImage] = useState<string | undefined>(initial.image);
+  const [images, setImages] = useState<string[]>(
+    initial.images && initial.images.length > 0
+      ? initial.images.slice(0, MAX_IMAGES)
+      : initial.image
+        ? [initial.image]
+        : []
+  );
   const [active, setActive] = useState(initial.active !== false);
   const [dragOver, setDragOver] = useState(false);
 
-  function handleFile(f: File | undefined | null) {
-    if (!f) return;
-    if (!f.type.startsWith("image/")) {
-      alert("Envie um arquivo de imagem (PNG ou JPG).");
+  function handleFiles(files: FileList | File[] | null | undefined) {
+    if (!files) return;
+    const arr = Array.from(files);
+    if (arr.length === 0) return;
+    const remaining = MAX_IMAGES - images.length;
+    if (remaining <= 0) {
+      alert(`Você já adicionou o máximo de ${MAX_IMAGES} imagens.`);
       return;
     }
-    if (f.size > 2 * 1024 * 1024) {
-      alert("Imagem muito grande. Use até 2MB.");
-      return;
+    const toRead = arr.slice(0, remaining);
+    if (arr.length > remaining) {
+      alert(`Apenas ${remaining} imagem(ns) adicionada(s). Limite de ${MAX_IMAGES}.`);
     }
-    const reader = new FileReader();
-    reader.onload = () => setImage(String(reader.result));
-    reader.readAsDataURL(f);
+    toRead.forEach((f) => {
+      if (!f.type.startsWith("image/")) {
+        alert(`"${f.name}" não é uma imagem.`);
+        return;
+      }
+      if (f.size > 2 * 1024 * 1024) {
+        alert(`"${f.name}" é maior que 2MB.`);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => setImages((prev) => (prev.length >= MAX_IMAGES ? prev : [...prev, String(reader.result)]));
+      reader.readAsDataURL(f);
+    });
   }
 
   function onFile(e: React.ChangeEvent<HTMLInputElement>) {
-    handleFile(e.target.files?.[0]);
+    handleFiles(e.target.files);
     e.target.value = "";
   }
 
   function onDrop(e: React.DragEvent<HTMLLabelElement>) {
     e.preventDefault();
     setDragOver(false);
-    handleFile(e.dataTransfer.files?.[0]);
+    handleFiles(e.dataTransfer.files);
+  }
+
+  function removeImage(idx: number) {
+    setImages((prev) => prev.filter((_, i) => i !== idx));
   }
 
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim()) return;
-    onSave({ name: name.trim(), isNew, hue, image, active });
+    onSave({ name: name.trim(), isNew, hue, image: images[0], images, active });
   }
 
   return (
@@ -274,44 +297,51 @@ function ProductModal({
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
 
-        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Imagem</label>
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
+          Imagens <span className="font-normal text-[#7a4a64]">({images.length}/{MAX_IMAGES})</span>
+        </label>
         <label
           onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
           onDragLeave={() => setDragOver(false)}
           onDrop={onDrop}
-          className={`mt-1 flex flex-col items-center justify-center gap-2 cursor-pointer rounded-2xl border-2 border-dashed px-4 py-8 text-center transition-colors ${
+          className={`mt-1 flex flex-col items-center justify-center gap-2 cursor-pointer rounded-2xl border-2 border-dashed px-4 py-6 text-center transition-colors ${
             dragOver ? "border-[#F97FAF] bg-[#fff0f5]" : "border-[#f3c6d5] bg-white hover:bg-[#fff5f8]"
-          }`}
+          } ${images.length >= MAX_IMAGES ? "opacity-60 pointer-events-none" : ""}`}
         >
-          {image ? (
-            <>
-              <img src={image} alt="" className="h-32 w-32 object-cover rounded-xl border border-[#f3dfe7]" />
-              <p className="text-sm text-[#5b2b48] font-bold">Imagem selecionada</p>
-              <p className="text-xs text-[#7a4a64]">Clique ou arraste para trocar</p>
-            </>
-          ) : (
-            <>
-              <div className="h-12 w-12 rounded-full bg-[#fff0f5] grid place-items-center text-[#F97FAF]">
-                <ImagePlus className="h-6 w-6" />
-              </div>
-              <p className="text-sm font-bold text-[#5b2b48]">
-                Arraste a imagem aqui ou <span className="text-[#F97FAF] underline">clique para escolher</span>
-              </p>
-              <p className="text-xs text-[#7a4a64]">PNG ou JPG até 2MB</p>
-            </>
-          )}
-          <input type="file" accept="image/*" onChange={onFile} className="hidden" />
+          <div className="h-12 w-12 rounded-full bg-[#fff0f5] grid place-items-center text-[#F97FAF]">
+            <ImagePlus className="h-6 w-6" />
+          </div>
+          <p className="text-sm font-bold text-[#5b2b48]">
+            {images.length >= MAX_IMAGES
+              ? `Limite de ${MAX_IMAGES} imagens atingido`
+              : <>Arraste as imagens aqui ou <span className="text-[#F97FAF] underline">clique para escolher</span></>}
+          </p>
+          <p className="text-xs text-[#7a4a64]">PNG ou JPG até 2MB cada — até {MAX_IMAGES} imagens</p>
+          <input type="file" accept="image/*" multiple onChange={onFile} className="hidden" disabled={images.length >= MAX_IMAGES} />
         </label>
-        {image && (
-          <button
-            type="button"
-            onClick={() => setImage(undefined)}
-            className="mt-2 text-xs text-red-600 hover:underline"
-          >
-            Remover imagem
-          </button>
+        {images.length > 0 && (
+          <div className="mt-3 grid grid-cols-3 sm:grid-cols-5 gap-2">
+            {images.map((src, idx) => (
+              <div key={idx} className="relative group">
+                <img src={src} alt={`Imagem ${idx + 1}`} className="aspect-square w-full object-cover rounded-lg border border-[#f3dfe7]" />
+                {idx === 0 && (
+                  <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+                    CAPA
+                  </span>
+                )}
+                <button
+                  type="button"
+                  onClick={() => removeImage(idx)}
+                  className="absolute -top-1 -right-1 h-6 w-6 grid place-items-center rounded-full bg-red-600 text-white shadow"
+                  aria-label="Remover"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            ))}
+          </div>
         )}
-        <p className="text-xs text-[#7a4a64] mt-1">Sem imagem, usamos um fundo colorido.</p>
+        <p className="text-xs text-[#7a4a64] mt-2">A primeira imagem é usada como capa. Sem imagens, usamos um fundo colorido.</p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Cor de fundo (matiz: {hue}°)</label>
         <input type="range" min={0} max={360} value={hue} onChange={(e) => setHue(Number(e.target.value))} className="w-full" />
