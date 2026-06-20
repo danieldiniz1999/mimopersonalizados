@@ -59,7 +59,8 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   );
 }
 
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, active: true };
+const MAX_IMAGES = 5;
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -135,13 +136,21 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
                 className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}
               >
                 <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
-                  {p.image ? (
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
-                  ) : (
+                  {(() => {
+                    const cover = p.images?.[0] ?? p.image;
+                    return cover ? (
+                      <img src={cover} alt={p.name} className="w-full h-full object-cover" />
+                    ) : (
                     <div className="w-full h-full grid place-items-center text-3xl"
                       style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
                       🎁
                     </div>
+                    );
+                  })()}
+                  {((p.images?.length ?? 0) > 1) && (
+                    <span className="absolute top-1 right-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded-full">
+                      {p.images!.length} fotos
+                    </span>
                   )}
                   {p.isNew && (
                     <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
