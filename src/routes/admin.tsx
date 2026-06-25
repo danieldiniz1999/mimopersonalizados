@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, Save, X, Eye, EyeOff, ImagePlus } from "lucide-react";
-import { productsStore, useProducts, type Product } from "@/lib/products-store";
+import { Pencil, Trash2, Plus, LogOut, Save, X, Eye, EyeOff, ImagePlus, Package } from "lucide-react";
+import { productsStore, useProducts, type Product, type KitItem } from "@/lib/products-store";
 import logoAsset from "@/assets/logo.png.asset.json";
 
 export const Route = createFileRoute("/admin")({
@@ -60,7 +60,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, isKit: false, kitItems: [] };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -234,6 +234,10 @@ function ProductModal({
   const [priceStr, setPriceStr] = useState<string>(
     typeof initial.price === "number" ? initial.price.toFixed(2).replace(".", ",") : ""
   );
+  const [isKit, setIsKit] = useState<boolean>(initial.isKit ?? false);
+  const [kitItems, setKitItems] = useState<KitItem[]>(
+    initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
+  );
   const [dragOver, setDragOver] = useState(false);
 
   function handleFiles(files: FileList | File[] | null | undefined) {
@@ -288,7 +292,20 @@ function ProductModal({
       alert("Preço inválido. Use por exemplo: 49,90");
       return;
     }
-    onSave({ name: name.trim(), isNew, hue, image: images[0], images, active, price: priceNum });
+    const cleanedItems = kitItems
+      .map((k) => ({ name: k.name.trim(), qty: Number(k.qty) || 1 }))
+      .filter((k) => k.name !== "");
+    onSave({
+      name: name.trim(),
+      isNew,
+      hue,
+      image: images[0],
+      images,
+      active,
+      price: priceNum,
+      isKit,
+      kitItems: isKit ? cleanedItems : [],
+    });
   }
 
   return (
@@ -373,6 +390,67 @@ function ProductModal({
           <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} />
           Marcar como <strong>NOVIDADE</strong>
         </label>
+
+        <div className="mt-5 rounded-xl border border-[#f3dfe7] bg-white p-4">
+          <label className="flex items-center gap-2 text-[#5b2b48]">
+            <input type="checkbox" checked={isKit} onChange={(e) => setIsKit(e.target.checked)} />
+            <Package className="h-4 w-4 text-[#F97FAF]" />
+            Este produto é um <strong>KIT</strong> (contém vários itens)
+          </label>
+
+          {isKit && (
+            <div className="mt-4">
+              <p className="text-sm font-bold text-[#5b2b48]">Itens inclusos no kit</p>
+              <p className="text-xs text-[#7a4a64] mt-0.5">Liste o que vem dentro do kit. Aparecerá ao abrir o produto no site.</p>
+
+              <div className="mt-3 space-y-2">
+                {kitItems.length === 0 && (
+                  <p className="text-xs text-[#7a4a64] italic">Nenhum item ainda. Clique em "Adicionar item" abaixo.</p>
+                )}
+                {kitItems.map((item, idx) => (
+                  <div key={idx} className="flex items-center gap-2">
+                    <input
+                      type="number"
+                      min={1}
+                      value={item.qty}
+                      onChange={(e) => {
+                        const v = Number(e.target.value) || 1;
+                        setKitItems((prev) => prev.map((it, i) => (i === idx ? { ...it, qty: v } : it)));
+                      }}
+                      className="w-16 rounded-xl border border-[#f3dfe7] px-2 py-2 outline-none focus:border-[#F97FAF] text-center"
+                      aria-label="Quantidade"
+                    />
+                    <input
+                      value={item.name}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setKitItems((prev) => prev.map((it, i) => (i === idx ? { ...it, name: v } : it)));
+                      }}
+                      placeholder="Nome do item (ex: Caneca personalizada)"
+                      className="flex-1 min-w-0 rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setKitItems((prev) => prev.filter((_, i) => i !== idx))}
+                      className="h-9 w-9 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100 shrink-0"
+                      aria-label="Remover item"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setKitItems((prev) => [...prev, { name: "", qty: 1 }])}
+                className="mt-3 mimo-btn !py-2 !px-3 text-sm bg-[#fff0f5] text-[#F97FAF] border border-[#f3c6d5]"
+              >
+                <Plus className="h-4 w-4" /> Adicionar item
+              </button>
+            </div>
+          )}
+        </div>
 
         <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-[#f3dfe7] bg-white px-4 py-3">
           <div>

@@ -22,7 +22,9 @@ export type Database = {
           id: number
           image: string | null
           images: Json
+          is_kit: boolean
           is_new: boolean
+          kit_items: Json
           name: string
           price: number | null
           sort_order: number
@@ -35,7 +37,9 @@ export type Database = {
           id?: number
           image?: string | null
           images?: Json
+          is_kit?: boolean
           is_new?: boolean
+          kit_items?: Json
           name: string
           price?: number | null
           sort_order?: number
@@ -48,7 +52,9 @@ export type Database = {
           id?: number
           image?: string | null
           images?: Json
+          is_kit?: boolean
           is_new?: boolean
+          kit_items?: Json
           name?: string
           price?: number | null
           sort_order?: number

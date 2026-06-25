@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Download, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Download, X, ChevronLeft, ChevronRight, Package } from "lucide-react";
 import { useProducts, type Product } from "@/lib/products-store";
 
 const brl = (v: number) =>
@@ -51,6 +51,11 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                 NOVIDADE!
               </span>
             )}
+            {p.isKit && (
+              <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-white bg-[#F97FAF] inline-flex items-center gap-1" style={p.isNew ? { top: "2.6rem" } : undefined}>
+                <Package className="h-3 w-3" /> KIT
+              </span>
+            )}
             <div className="relative">
               <button
                 onClick={() => setLightbox(p.id)}
@@ -80,6 +85,11 @@ export function CatalogGrid({ limit }: { limit?: number }) {
             <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
             {typeof p.price === "number" && (
               <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
+            )}
+            {p.isKit && (p.kitItems?.length ?? 0) > 0 && (
+              <p className="mt-1 text-xs text-[#7a4a64]">
+                Inclui {p.kitItems!.length} {p.kitItems!.length === 1 ? "item" : "itens"}
+              </p>
             )}
           </article>
         ))}
@@ -174,6 +184,21 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                   <Download className="h-5 w-5" />
                 </a>
               </div>
+              {product?.isKit && (product.kitItems?.length ?? 0) > 0 && (
+                <div className="mt-4 rounded-2xl bg-[#fff5f8] border border-[#f3dfe7] p-4">
+                  <p className="text-sm font-black text-[#F97FAF] inline-flex items-center gap-1.5">
+                    <Package className="h-4 w-4" /> O que vem neste kit
+                  </p>
+                  <ul className="mt-2 space-y-1">
+                    {product.kitItems!.map((it, idx) => (
+                      <li key={idx} className="text-sm text-[#5b2b48] flex items-baseline gap-2">
+                        <span className="font-bold text-[#F97FAF] min-w-[2rem]">{it.qty}x</span>
+                        <span>{it.name}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         );

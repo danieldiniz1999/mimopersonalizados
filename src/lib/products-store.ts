@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
+export type KitItem = { name: string; qty: number };
+
 export type Product = {
   id: number;
   name: string;
@@ -10,6 +12,8 @@ export type Product = {
   images?: string[];
   active?: boolean;
   price?: number;
+  isKit?: boolean;
+  kitItems?: KitItem[];
 };
 
 type Row = {
@@ -22,10 +26,22 @@ type Row = {
   active: boolean;
   sort_order: number;
   price: number | string | null;
+  is_kit?: boolean;
+  kit_items?: unknown;
 };
 
 function fromRow(r: Row): Product {
   const imgs = Array.isArray(r.images) ? (r.images as string[]) : [];
+  const ki = Array.isArray(r.kit_items)
+    ? (r.kit_items as unknown[])
+        .map((x) => {
+          const o = x as { name?: unknown; qty?: unknown };
+          const name = typeof o?.name === "string" ? o.name : "";
+          const qty = Number(o?.qty);
+          return { name, qty: Number.isFinite(qty) && qty > 0 ? qty : 1 };
+        })
+        .filter((k) => k.name.trim() !== "")
+    : [];
   return {
     id: Number(r.id),
     name: r.name,
@@ -35,6 +51,8 @@ function fromRow(r: Row): Product {
     images: imgs,
     active: r.active,
     price: r.price == null ? undefined : Number(r.price),
+    isKit: !!r.is_kit,
+    kitItems: ki,
   };
 }
 
@@ -50,7 +68,7 @@ function emit() {
 async function fetchAll(): Promise<Product[]> {
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, image, images, active, sort_order, price")
+    .select("id, name, is_new, hue, image, images, active, sort_order, price, is_kit, kit_items")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   if (error) {
@@ -87,8 +105,10 @@ export const productsStore = {
         images: p.images ?? [],
         active: p.active ?? true,
         price: p.price ?? null,
+        is_kit: p.isKit ?? false,
+        kit_items: p.kitItems ?? [],
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order, price")
+      .select("id, name, is_new, hue, image, images, active, sort_order, price, is_kit, kit_items")
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -107,6 +127,8 @@ export const productsStore = {
       images?: string[];
       active?: boolean;
       price?: number | null;
+      is_kit?: boolean;
+      kit_items?: KitItem[];
     } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
@@ -115,6 +137,8 @@ export const productsStore = {
     if (patch.images !== undefined) dbPatch.images = patch.images ?? [];
     if (patch.active !== undefined) dbPatch.active = patch.active;
     if (patch.price !== undefined) dbPatch.price = patch.price ?? null;
+    if (patch.isKit !== undefined) dbPatch.is_kit = patch.isKit;
+    if (patch.kitItems !== undefined) dbPatch.kit_items = patch.kitItems ?? [];
 
     // otimista
     cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
