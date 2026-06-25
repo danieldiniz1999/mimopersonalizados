@@ -60,7 +60,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -231,6 +231,9 @@ function ProductModal({
         : []
   );
   const [active, setActive] = useState(initial.active !== false);
+  const [priceStr, setPriceStr] = useState<string>(
+    typeof initial.price === "number" ? initial.price.toFixed(2).replace(".", ",") : ""
+  );
   const [dragOver, setDragOver] = useState(false);
 
   function handleFiles(files: FileList | File[] | null | undefined) {
@@ -279,7 +282,13 @@ function ProductModal({
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim()) return;
-    onSave({ name: name.trim(), isNew, hue, image: images[0], images, active });
+    const normalized = priceStr.trim().replace(/\./g, "").replace(",", ".");
+    const priceNum = normalized === "" ? undefined : Number(normalized);
+    if (priceNum !== undefined && (Number.isNaN(priceNum) || priceNum < 0)) {
+      alert("Preço inválido. Use por exemplo: 49,90");
+      return;
+    }
+    onSave({ name: name.trim(), isNew, hue, image: images[0], images, active, price: priceNum });
   }
 
   return (
@@ -296,6 +305,19 @@ function ProductModal({
 
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Preço (R$) <span className="font-normal text-[#7a4a64]">— opcional</span></label>
+        <div className="mt-1 relative">
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
+          <input
+            value={priceStr}
+            onChange={(e) => setPriceStr(e.target.value)}
+            inputMode="decimal"
+            placeholder="49,90"
+            className="w-full rounded-xl border border-[#f3dfe7] pl-10 pr-3 py-2 outline-none focus:border-[#F97FAF]"
+          />
+        </div>
+        <p className="text-xs text-[#7a4a64] mt-1">Use vírgula para os centavos. Deixe vazio para não exibir preço.</p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
           Imagens <span className="font-normal text-[#7a4a64]">({images.length}/{MAX_IMAGES})</span>

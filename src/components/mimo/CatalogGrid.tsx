@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight } from "lucide-react";
 import { useProducts, type Product } from "@/lib/products-store";
 
+const brl = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
 function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string; name?: string }) {
   if (image) {
     return (
@@ -75,6 +78,9 @@ export function CatalogGrid({ limit }: { limit?: number }) {
               </a>
             </div>
             <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
+            {typeof p.price === "number" && (
+              <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
+            )}
           </article>
         ))}
       </div>
@@ -152,7 +158,12 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                 </div>
               )}
               <div className="mt-4 flex items-center justify-between gap-4">
-                <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48]">{product?.name}</h3>
+                <div className="min-w-0">
+                  <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48] truncate">{product?.name}</h3>
+                  {typeof product?.price === "number" && (
+                    <p className="text-[#F97FAF] font-extrabold text-base md:text-lg">{brl(product.price)}</p>
+                  )}
+                </div>
                 <a
                   href={current ?? "#"}
                   download={current ? `${product?.name}-${slideIdx + 1}.png` : undefined}
