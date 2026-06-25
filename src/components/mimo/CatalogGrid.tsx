@@ -158,7 +158,12 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                 </div>
               )}
               <div className="mt-4 flex items-center justify-between gap-4">
-                <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48]">{product?.name}</h3>
+                <div className="min-w-0">
+                  <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48] truncate">{product?.name}</h3>
+                  {typeof product?.price === "number" && (
+                    <p className="text-[#F97FAF] font-extrabold text-base md:text-lg">{brl(product.price)}</p>
+                  )}
+                </div>
                 <a
                   href={current ?? "#"}
                   download={current ? `${product?.name}-${slideIdx + 1}.png` : undefined}
