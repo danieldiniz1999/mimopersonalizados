@@ -258,8 +258,8 @@ function ProductModal({
         alert(`"${f.name}" não é uma imagem.`);
         return;
       }
-      if (f.size > 10 * 1024 * 1024) {
-        alert(`"${f.name}" é maior que 10MB.`);
+      if (f.size > 5 * 1024 * 1024) {
+        alert(`"${f.name}" é maior que 5MB.`);
         return;
       }
       const reader = new FileReader();
@@ -355,7 +355,7 @@ function ProductModal({
               ? `Limite de ${MAX_IMAGES} imagens atingido`
               : <>Arraste as imagens aqui ou <span className="text-[#F97FAF] underline">clique para escolher</span></>}
           </p>
-          <p className="text-xs text-[#7a4a64]">PNG ou JPG até 10MB cada — até {MAX_IMAGES} imagens</p>
+          <p className="text-xs text-[#7a4a64]">PNG ou JPG até 5MB cada — até {MAX_IMAGES} imagens</p>
           <input type="file" accept="image/*" multiple onChange={onFile} className="hidden" disabled={images.length >= MAX_IMAGES} />
         </label>
         {images.length > 0 && (
