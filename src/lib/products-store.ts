@@ -1,82 +1,151 @@
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export type Product = {
   id: number;
   name: string;
   isNew: boolean;
   hue: number;
-  image?: string; // data URL opcional (compat — primeira imagem)
-  images?: string[]; // até 5 imagens (data URLs)
-  active?: boolean; // default true
+  image?: string;
+  images?: string[];
+  active?: boolean;
 };
 
-const KEY = "mimo:products";
+type Row = {
+  id: number;
+  name: string;
+  is_new: boolean;
+  hue: number;
+  image: string | null;
+  images: unknown;
+  active: boolean;
+  sort_order: number;
+};
 
-const DEFAULTS: Product[] = [];
-
-function read(): Product[] {
-  if (typeof window === "undefined") return DEFAULTS;
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return DEFAULTS;
-    const parsed = JSON.parse(raw);
-    if (!Array.isArray(parsed)) return DEFAULTS;
-    return parsed;
-  } catch {
-    return DEFAULTS;
-  }
+function fromRow(r: Row): Product {
+  const imgs = Array.isArray(r.images) ? (r.images as string[]) : [];
+  return {
+    id: Number(r.id),
+    name: r.name,
+    isNew: !!r.is_new,
+    hue: r.hue,
+    image: r.image ?? undefined,
+    images: imgs,
+    active: r.active,
+  };
 }
 
+let cache: Product[] = [];
+let loaded = false;
+let loadingPromise: Promise<Product[]> | null = null;
 const listeners = new Set<() => void>();
 
 function emit() {
   listeners.forEach((l) => l());
 }
 
+async function fetchAll(): Promise<Product[]> {
+  const { data, error } = await supabase
+    .from("produtos")
+    .select("id, name, is_new, hue, image, images, active, sort_order")
+    .order("sort_order", { ascending: true })
+    .order("id", { ascending: true });
+  if (error) {
+    console.error("[produtos] erro ao buscar:", error);
+    return cache;
+  }
+  cache = (data as Row[]).map(fromRow);
+  loaded = true;
+  emit();
+  return cache;
+}
+
+function ensureLoaded() {
+  if (loaded || loadingPromise) return loadingPromise;
+  loadingPromise = fetchAll().finally(() => { loadingPromise = null; });
+  return loadingPromise;
+}
+
 export const productsStore = {
   getAll(): Product[] {
-    return read();
+    return cache;
   },
-  save(list: Product[]) {
-    localStorage.setItem(KEY, JSON.stringify(list));
+  refresh() {
+    return fetchAll();
+  },
+  async add(p: Omit<Product, "id">) {
+    const { data, error } = await supabase
+      .from("produtos")
+      .insert({
+        name: p.name,
+        is_new: p.isNew,
+        hue: p.hue,
+        image: p.image ?? null,
+        images: p.images ?? [],
+        active: p.active ?? true,
+      })
+      .select("id, name, is_new, hue, image, images, active, sort_order")
+      .single();
+    if (error) {
+      console.error("[produtos] erro ao criar:", error);
+      alert("Erro ao criar produto: " + error.message);
+      return;
+    }
+    cache = [...cache, fromRow(data as Row)];
     emit();
-    window.dispatchEvent(new Event("mimo-products-changed"));
   },
-  add(p: Omit<Product, "id">) {
-    const list = read();
-    const id = list.length ? Math.max(...list.map((x) => x.id)) + 1 : 1;
-    this.save([...list, { ...p, id }]);
+  async update(id: number, patch: Partial<Product>) {
+    const dbPatch: {
+      name?: string;
+      is_new?: boolean;
+      hue?: number;
+      image?: string | null;
+      images?: string[];
+      active?: boolean;
+    } = {};
+    if (patch.name !== undefined) dbPatch.name = patch.name;
+    if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
+    if (patch.hue !== undefined) dbPatch.hue = patch.hue;
+    if (patch.image !== undefined) dbPatch.image = patch.image ?? null;
+    if (patch.images !== undefined) dbPatch.images = patch.images ?? [];
+    if (patch.active !== undefined) dbPatch.active = patch.active;
+
+    // otimista
+    cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
+    emit();
+
+    const { error } = await supabase.from("produtos").update(dbPatch).eq("id", id);
+    if (error) {
+      console.error("[produtos] erro ao atualizar:", error);
+      alert("Erro ao atualizar: " + error.message);
+      await fetchAll();
+    }
   },
-  update(id: number, patch: Partial<Product>) {
-    this.save(read().map((p) => (p.id === id ? { ...p, ...patch } : p)));
-  },
-  remove(id: number) {
-    this.save(read().filter((p) => p.id !== id));
-  },
-  reset() {
-    this.save(DEFAULTS);
+  async remove(id: number) {
+    const prev = cache;
+    cache = cache.filter((p) => p.id !== id);
+    emit();
+    const { error } = await supabase.from("produtos").delete().eq("id", id);
+    if (error) {
+      console.error("[produtos] erro ao excluir:", error);
+      alert("Erro ao excluir: " + error.message);
+      cache = prev;
+      emit();
+    }
   },
   subscribe(fn: () => void) {
     listeners.add(fn);
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === KEY) fn();
-    };
-    const onCustom = () => fn();
-    window.addEventListener("storage", onStorage);
-    window.addEventListener("mimo-products-changed", onCustom);
-    return () => {
-      listeners.delete(fn);
-      window.removeEventListener("storage", onStorage);
-      window.removeEventListener("mimo-products-changed", onCustom);
-    };
+    return () => { listeners.delete(fn); };
   },
 };
 
 export function useProducts(): Product[] {
-  const [list, setList] = useState<Product[]>(DEFAULTS);
+  const [list, setList] = useState<Product[]>(cache);
   useEffect(() => {
-    setList(productsStore.getAll());
-    return productsStore.subscribe(() => setList(productsStore.getAll()));
+    setList(cache);
+    const unsub = productsStore.subscribe(() => setList([...cache]));
+    ensureLoaded();
+    return unsub;
   }, []);
   return list;
 }
