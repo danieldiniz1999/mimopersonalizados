@@ -95,7 +95,14 @@ export const productsStore = {
     emit();
   },
   async update(id: number, patch: Partial<Product>) {
-    const dbPatch: Record<string, unknown> = {};
+    const dbPatch: {
+      name?: string;
+      is_new?: boolean;
+      hue?: number;
+      image?: string | null;
+      images?: string[];
+      active?: boolean;
+    } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
     if (patch.hue !== undefined) dbPatch.hue = patch.hue;
