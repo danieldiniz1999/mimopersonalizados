@@ -9,6 +9,7 @@ export type Product = {
   image?: string;
   images?: string[];
   active?: boolean;
+  price?: number;
 };
 
 type Row = {
@@ -20,6 +21,7 @@ type Row = {
   images: unknown;
   active: boolean;
   sort_order: number;
+  price: number | string | null;
 };
 
 function fromRow(r: Row): Product {
@@ -32,6 +34,7 @@ function fromRow(r: Row): Product {
     image: r.image ?? undefined,
     images: imgs,
     active: r.active,
+    price: r.price == null ? undefined : Number(r.price),
   };
 }
 
@@ -47,7 +50,7 @@ function emit() {
 async function fetchAll(): Promise<Product[]> {
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, image, images, active, sort_order")
+    .select("id, name, is_new, hue, image, images, active, sort_order, price")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   if (error) {
@@ -83,8 +86,9 @@ export const productsStore = {
         image: p.image ?? null,
         images: p.images ?? [],
         active: p.active ?? true,
+        price: p.price ?? null,
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order")
+      .select("id, name, is_new, hue, image, images, active, sort_order, price")
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -102,6 +106,7 @@ export const productsStore = {
       image?: string | null;
       images?: string[];
       active?: boolean;
+      price?: number | null;
     } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
@@ -109,6 +114,7 @@ export const productsStore = {
     if (patch.image !== undefined) dbPatch.image = patch.image ?? null;
     if (patch.images !== undefined) dbPatch.images = patch.images ?? [];
     if (patch.active !== undefined) dbPatch.active = patch.active;
+    if (patch.price !== undefined) dbPatch.price = patch.price ?? null;
 
     // otimista
     cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
