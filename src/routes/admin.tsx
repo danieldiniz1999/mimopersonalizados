@@ -313,7 +313,7 @@ function ProductModal({
             value={priceStr}
             onChange={(e) => setPriceStr(e.target.value)}
             inputMode="decimal"
-            placeholder="49,90"
+            placeholder=""
             className="w-full rounded-xl border border-[#f3dfe7] pl-10 pr-3 py-2 outline-none focus:border-[#F97FAF]"
           />
         </div>
