@@ -15,6 +15,7 @@ export const CATEGORIES = [
   "Acrílico",
   "Cofres",
   "Tubolatas",
+  "Convites",
 ] as const;
 export type Category = typeof CATEGORIES[number];
 
