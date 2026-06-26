@@ -31,6 +31,7 @@ export type Database = {
           original_price: number | null
           price: number | null
           sort_order: number
+          thumbnails: Json
           updated_at: string
         }
         Insert: {
@@ -49,6 +50,7 @@ export type Database = {
           original_price?: number | null
           price?: number | null
           sort_order?: number
+          thumbnails?: Json
           updated_at?: string
         }
         Update: {
@@ -67,6 +69,7 @@ export type Database = {
           original_price?: number | null
           price?: number | null
           sort_order?: number
+          thumbnails?: Json
           updated_at?: string
         }
         Relationships: []
