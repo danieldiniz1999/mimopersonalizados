@@ -50,6 +50,7 @@ type Row = {
 
 function fromRow(r: Row): Product {
   const imgs = Array.isArray(r.images) ? (r.images as string[]) : [];
+  const thumbs = Array.isArray(r.thumbnails) ? (r.thumbnails as string[]) : [];
   const ki = Array.isArray(r.kit_items)
     ? (r.kit_items as unknown[])
         .map((x) => {
@@ -67,6 +68,7 @@ function fromRow(r: Row): Product {
     hue: r.hue,
     image: r.image ?? undefined,
     images: imgs,
+    thumbnails: thumbs,
     active: r.active,
     price: r.price == null ? undefined : Number(r.price),
     originalPrice: r.original_price == null ? undefined : Number(r.original_price),
