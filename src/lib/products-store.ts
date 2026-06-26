@@ -94,7 +94,7 @@ async function fetchAll(): Promise<Product[]> {
   emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
+    .select("id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   isLoadingProducts = false;
