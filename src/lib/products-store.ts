@@ -10,6 +10,11 @@ export const CATEGORIES = [
   "Kit Linha Clássica",
   "Kit Linha Luxo",
   "Kit Premium Mimô",
+  "Sacolinhas Personalizadas",
+  "Pipoca Gourmet",
+  "Acrílico",
+  "Cofres",
+  "Tubolatas",
 ] as const;
 export type Category = typeof CATEGORIES[number];
 
