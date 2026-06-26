@@ -84,7 +84,17 @@ export function CatalogGrid({ limit }: { limit?: number }) {
             </div>
             <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
             {typeof p.price === "number" && (
-              <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
+              typeof p.originalPrice === "number" && p.originalPrice > p.price ? (
+                <div className="mt-1 flex items-baseline gap-2 flex-wrap">
+                  <span className="text-xs text-[#9b7585] line-through">{brl(p.originalPrice)}</span>
+                  <span className="text-[#F97FAF] font-extrabold">{brl(p.price)}</span>
+                  <span className="text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+                    -{Math.round((1 - p.price / p.originalPrice) * 100)}%
+                  </span>
+                </div>
+              ) : (
+                <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
+              )
             )}
             {p.isKit && (p.kitItems?.length ?? 0) > 0 && (
               <p className="mt-1 text-xs text-[#7a4a64]">
@@ -171,7 +181,17 @@ export function CatalogGrid({ limit }: { limit?: number }) {
                 <div className="min-w-0">
                   <h3 className="text-lg md:text-xl font-extrabold text-[#5b2b48] truncate">{product?.name}</h3>
                   {typeof product?.price === "number" && (
-                    <p className="text-[#F97FAF] font-extrabold text-base md:text-lg">{brl(product.price)}</p>
+                    typeof product.originalPrice === "number" && product.originalPrice > product.price ? (
+                      <div className="flex items-baseline gap-2 flex-wrap">
+                        <span className="text-sm text-[#9b7585] line-through">{brl(product.originalPrice)}</span>
+                        <span className="text-[#F97FAF] font-extrabold text-base md:text-lg">{brl(product.price)}</span>
+                        <span className="text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+                          -{Math.round((1 - product.price / product.originalPrice) * 100)}%
+                        </span>
+                      </div>
+                    ) : (
+                      <p className="text-[#F97FAF] font-extrabold text-base md:text-lg">{brl(product.price)}</p>
+                    )
                   )}
                 </div>
                 <a

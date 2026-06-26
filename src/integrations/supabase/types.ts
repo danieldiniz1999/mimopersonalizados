@@ -26,6 +26,7 @@ export type Database = {
           is_new: boolean
           kit_items: Json
           name: string
+          original_price: number | null
           price: number | null
           sort_order: number
           updated_at: string
@@ -41,6 +42,7 @@ export type Database = {
           is_new?: boolean
           kit_items?: Json
           name: string
+          original_price?: number | null
           price?: number | null
           sort_order?: number
           updated_at?: string
@@ -56,6 +58,7 @@ export type Database = {
           is_new?: boolean
           kit_items?: Json
           name?: string
+          original_price?: number | null
           price?: number | null
           sort_order?: number
           updated_at?: string

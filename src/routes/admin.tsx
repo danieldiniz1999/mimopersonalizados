@@ -60,7 +60,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, isKit: false, kitItems: [] };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [] };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -234,6 +234,9 @@ function ProductModal({
   const [priceStr, setPriceStr] = useState<string>(
     typeof initial.price === "number" ? initial.price.toFixed(2).replace(".", ",") : ""
   );
+  const [originalPriceStr, setOriginalPriceStr] = useState<string>(
+    typeof initial.originalPrice === "number" ? initial.originalPrice.toFixed(2).replace(".", ",") : ""
+  );
   const [isKit, setIsKit] = useState<boolean>(initial.isKit ?? false);
   const [kitItems, setKitItems] = useState<KitItem[]>(
     initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
@@ -292,6 +295,16 @@ function ProductModal({
       alert("Preço inválido. Use por exemplo: 49,90");
       return;
     }
+    const normalizedOrig = originalPriceStr.trim().replace(/\./g, "").replace(",", ".");
+    const originalPriceNum = normalizedOrig === "" ? undefined : Number(normalizedOrig);
+    if (originalPriceNum !== undefined && (Number.isNaN(originalPriceNum) || originalPriceNum < 0)) {
+      alert("Preço original inválido. Use por exemplo: 79,90");
+      return;
+    }
+    if (originalPriceNum !== undefined && priceNum !== undefined && originalPriceNum <= priceNum) {
+      alert("O preço original (de) deve ser maior que o preço com desconto (por).");
+      return;
+    }
     const cleanedItems = kitItems
       .map((k) => ({ name: k.name.trim(), qty: Number(k.qty) || 1 }))
       .filter((k) => k.name !== "");
@@ -303,6 +316,7 @@ function ProductModal({
       images,
       active,
       price: priceNum,
+      originalPrice: originalPriceNum,
       isKit,
       kitItems: isKit ? cleanedItems : [],
     });
@@ -323,18 +337,35 @@ function ProductModal({
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
 
-        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Preço (R$) <span className="font-normal text-[#7a4a64]">— opcional</span></label>
-        <div className="mt-1 relative">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
-          <input
-            value={priceStr}
-            onChange={(e) => setPriceStr(e.target.value)}
-            inputMode="decimal"
-            placeholder=""
-            className="w-full rounded-xl border border-[#f3dfe7] pl-10 pr-3 py-2 outline-none focus:border-[#F97FAF]"
-          />
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label className="block text-sm font-bold text-[#5b2b48]">Preço original (de) <span className="font-normal text-[#7a4a64]">, opcional</span></label>
+            <div className="mt-1 relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
+              <input
+                value={originalPriceStr}
+                onChange={(e) => setOriginalPriceStr(e.target.value)}
+                inputMode="decimal"
+                placeholder="79,90"
+                className="w-full rounded-xl border border-[#f3dfe7] pl-10 pr-3 py-2 outline-none focus:border-[#F97FAF]"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-bold text-[#5b2b48]">Preço com desconto (por) <span className="font-normal text-[#7a4a64]">, opcional</span></label>
+            <div className="mt-1 relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
+              <input
+                value={priceStr}
+                onChange={(e) => setPriceStr(e.target.value)}
+                inputMode="decimal"
+                placeholder="49,90"
+                className="w-full rounded-xl border border-[#f3dfe7] pl-10 pr-3 py-2 outline-none focus:border-[#F97FAF]"
+              />
+            </div>
+          </div>
         </div>
-        <p className="text-xs text-[#7a4a64] mt-1">Use vírgula para os centavos. Deixe vazio para não exibir preço.</p>
+        <p className="text-xs text-[#7a4a64] mt-1">Use vírgula para os centavos. Preencha só o "por" para mostrar um preço simples, ou os dois para destacar o desconto.</p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
           Imagens <span className="font-normal text-[#7a4a64]">({images.length}/{MAX_IMAGES})</span>

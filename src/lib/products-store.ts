@@ -12,6 +12,7 @@ export type Product = {
   images?: string[];
   active?: boolean;
   price?: number;
+  originalPrice?: number;
   isKit?: boolean;
   kitItems?: KitItem[];
 };
@@ -26,6 +27,7 @@ type Row = {
   active: boolean;
   sort_order: number;
   price: number | string | null;
+  original_price?: number | string | null;
   is_kit?: boolean;
   kit_items?: unknown;
 };
@@ -51,6 +53,7 @@ function fromRow(r: Row): Product {
     images: imgs,
     active: r.active,
     price: r.price == null ? undefined : Number(r.price),
+    originalPrice: r.original_price == null ? undefined : Number(r.original_price),
     isKit: !!r.is_kit,
     kitItems: ki,
   };
@@ -68,7 +71,7 @@ function emit() {
 async function fetchAll(): Promise<Product[]> {
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, image, images, active, sort_order, price, is_kit, kit_items")
+    .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   if (error) {
@@ -105,10 +108,11 @@ export const productsStore = {
         images: p.images ?? [],
         active: p.active ?? true,
         price: p.price ?? null,
+        original_price: p.originalPrice ?? null,
         is_kit: p.isKit ?? false,
         kit_items: p.kitItems ?? [],
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order, price, is_kit, kit_items")
+      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items")
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -127,6 +131,7 @@ export const productsStore = {
       images?: string[];
       active?: boolean;
       price?: number | null;
+      original_price?: number | null;
       is_kit?: boolean;
       kit_items?: KitItem[];
     } = {};
@@ -137,6 +142,7 @@ export const productsStore = {
     if (patch.images !== undefined) dbPatch.images = patch.images ?? [];
     if (patch.active !== undefined) dbPatch.active = patch.active;
     if (patch.price !== undefined) dbPatch.price = patch.price ?? null;
+    if (patch.originalPrice !== undefined) dbPatch.original_price = patch.originalPrice ?? null;
     if (patch.isKit !== undefined) dbPatch.is_kit = patch.isKit;
     if (patch.kitItems !== undefined) dbPatch.kit_items = patch.kitItems ?? [];
 
