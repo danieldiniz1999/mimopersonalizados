@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight, Package } from "lucide-react";
 import { useProducts, useProductsLoading, CATEGORIES, type Product } from "@/lib/products-store";
+import { PromoBanner } from "./PromoBanner";
 
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -35,7 +36,9 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
 
   const groups = groupByCategory
     ? (() => {
-        const list: { key: string; items: Product[] }[] = [];
+        const list: { key: string; items: Product[]; promo?: boolean }[] = [];
+        const promo = products.filter((p) => p.isPromo);
+        if (promo.length > 0) list.push({ key: "__promo__", items: promo, promo: true });
         for (const cat of CATEGORIES) {
           const items = products.filter((p) => p.category === cat);
           if (items.length > 0) list.push({ key: cat, items });
@@ -56,6 +59,18 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
       {p.isKit && (
         <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-white bg-[#F97FAF] inline-flex items-center gap-1" style={p.isNew ? { top: "2.6rem" } : undefined}>
           <Package className="h-3 w-3" /> KIT
+        </span>
+      )}
+      {p.isPromo && (
+        <span
+          className="absolute z-10 px-3 py-1 rounded-full text-xs font-black text-white inline-flex items-center gap-1 shadow-md"
+          style={{
+            top: p.isNew && p.isKit ? "4.2rem" : (p.isNew || p.isKit) ? "2.6rem" : "0.75rem",
+            left: "0.75rem",
+            background: "linear-gradient(135deg,#F97FAF,#d95a8d)",
+          }}
+        >
+          🎉 PROMO
         </span>
       )}
       <div className="relative">
@@ -138,12 +153,16 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
       {groups ? (
         <div className="mt-10 space-y-14">
           {groups.map((g) => (
-            <section key={g.key}>
-              <h2 className="text-2xl md:text-3xl font-black text-[#5b2b48] inline-flex items-center gap-3">
-                {g.key}
-                <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2.5 py-1 rounded-full">{g.items.length}</span>
-              </h2>
-              <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+            <section key={g.key} className={g.promo ? "mimo-reveal" : undefined}>
+              {g.promo ? (
+                <PromoBanner />
+              ) : (
+                <h2 className="text-2xl md:text-3xl font-black text-[#5b2b48] inline-flex items-center gap-3">
+                  {g.key}
+                  <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2.5 py-1 rounded-full">{g.items.length}</span>
+                </h2>
+              )}
+              <div className={`${g.promo ? "mt-6" : "mt-5"} grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5`}>
                 {g.items.map((p, i) => renderCard(p, i))}
               </div>
             </section>
