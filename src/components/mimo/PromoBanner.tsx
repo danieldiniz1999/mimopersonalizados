@@ -67,17 +67,8 @@ export function PromoBanner() {
             <span className="h-px w-10 bg-[#ffc8dc]/50" />
           </span>
 
-          {/* Título tipográfico */}
-          <h2
-            className="mt-5 font-serif italic text-[#fff5f9] leading-[0.95]"
-            style={{ fontFamily: "'Instrument Serif', 'Cormorant Garamond', Georgia, serif", fontSize: "clamp(2.4rem, 5vw, 3.75rem)" }}
-          >
-            Promo<span className="text-[#F97FAF]">ção</span>{" "}
-            <span className="text-[#D5DB1F]">Mimô</span>
-          </h2>
-
           {/* divisor */}
-          <div className="mt-5 flex items-center justify-center gap-3">
+          <div className="mt-6 flex items-center justify-center gap-3">
             <span className="h-px w-16 bg-[#ffc8dc]/40" />
             <span className="text-[#F97FAF] text-xs">✦</span>
             <span className="h-px w-16 bg-[#ffc8dc]/40" />
