@@ -91,12 +91,11 @@ function Index() {
 
         <div className="mt-12 grid md:grid-cols-2 gap-10 items-start">
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
-            <p>Mahyra e Halexia são mais que sócias, são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
-            <p>Mahyra, com sua criatividade afiada e olhar atento para as tendências, sempre foi a tia que caprichava nos presentes e fazia questão de que cada celebração fosse especial. Halexia, sua sobrinha, cresceu vendo esse cuidado e herdou o mesmo brilho nos olhos pela arte de encantar.</p>
-            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a Mimô nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria, para que cada aniversário fosse único, assim como o amor que une essa família.</p>
-            <p>Mahyra desenha, cria e dá vida a cada peça. Halexia organiza, planeja e garante que tudo chegue no tempo certo e com o cuidado que cada cliente merece. Juntas, elas transformam papel em memória, e festa em emoção.</p>
-            <p>Hoje, a Mimô é o reflexo de um laço que vai além do sangue, é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
-            <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
+            <p className="text-xl font-extrabold text-[#C77FC2]">Muito prazer! 💜</p>
+            <p>Nós somos <strong>Halexia</strong> e <strong>Mahyra</strong>, as idealizadoras da Mimô Personalizados. Apaixonadas por transformar momentos especiais em lembranças inesquecíveis, criamos cada mimo com muito carinho, dedicação e atenção aos detalhes.</p>
+            <p>Acreditamos que cada personalizado faz parte de uma história e, por isso, colocamos amor em cada pedido, para tornar a sua comemoração ainda mais especial.</p>
+            <p>Mais do que produzir personalizados, queremos fazer parte dos seus momentos mais felizes.</p>
+            <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">Seja muito bem-vindo(a) à Mimô! Será um prazer fazer parte da sua celebração. ✨</p>
           </div>
 
           <div className="mimo-reveal order-1 md:order-2" style={{ animationDelay: ".2s" }}>
