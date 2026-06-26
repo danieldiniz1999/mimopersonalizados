@@ -10,13 +10,13 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/catalogo")({
   head: () => ({
     meta: [
-      { title: "Catálogo Completo — MIMÔ Personalizados" },
-      { name: "description", content: "Explore o catálogo completo da MIMÔ Personalizados com todos os nossos kits e itens para festas." },
-      { property: "og:title", content: "Catálogo Completo — MIMÔ Personalizados" },
+      { title: "Catálogo Completo — Mimô Personalizados" },
+      { name: "description", content: "Explore o catálogo completo da Mimô Personalizados com todos os nossos kits e itens para festas." },
+      { property: "og:title", content: "Catálogo Completo — Mimô Personalizados" },
       { property: "og:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
       { property: "og:url", content: "https://mimopersonalizados.lovable.app/catalogo" },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Catálogo Completo — MIMÔ Personalizados" },
+      { name: "twitter:title", content: "Catálogo Completo — Mimô Personalizados" },
       { name: "twitter:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
     ],
     links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/catalogo" }],

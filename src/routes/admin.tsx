@@ -5,7 +5,7 @@ import { productsStore, useProducts, type Product, type KitItem } from "@/lib/pr
 import logoAsset from "@/assets/logo.png.asset.json";
 
 export const Route = createFileRoute("/admin")({
-  head: () => ({ meta: [{ title: "Admin — MIMÔ" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Admin — Mimô" }, { name: "robots", content: "noindex" }] }),
   component: AdminPage,
 });
 
@@ -45,8 +45,8 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   return (
     <div className="min-h-screen grid place-items-center bg-[#fff5f8] px-4">
       <form onSubmit={submit} className="w-full max-w-sm bg-white rounded-[24px] p-8 shadow-xl border border-[#f3dfe7]">
-        <img src={logoAsset.url} alt="MIMÔ" className="mx-auto h-16 w-auto mb-3" />
-        <h1 className="text-2xl font-black text-[#F97FAF] text-center">Painel MIMÔ</h1>
+        <img src={logoAsset.url} alt="Mimô" className="mx-auto h-16 w-auto mb-3" />
+        <h1 className="text-2xl font-black text-[#F97FAF] text-center">Painel Mimô</h1>
         <p className="text-sm text-[#7a4a64] text-center mt-1">Faça login para gerenciar o catálogo</p>
         <label className="block mt-6 text-sm font-bold text-[#5b2b48]">Usuário</label>
         <input value={user} onChange={(e) => setUser(e.target.value)} className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" autoFocus />
@@ -74,10 +74,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           <div className="flex items-center gap-3 min-w-0">
             <img
               src={logoAsset.url}
-              alt="MIMÔ"
+              alt="Mimô"
               className="h-10 w-10 rounded-full object-cover border border-[#f3dfe7] shrink-0"
             />
-            <h1 className="text-lg md:text-xl font-black text-[#5b2b48] truncate">Painel MIMÔ</h1>
+            <h1 className="text-lg md:text-xl font-black text-[#5b2b48] truncate">Painel Mimô</h1>
           </div>
           <button
             onClick={onLogout}
