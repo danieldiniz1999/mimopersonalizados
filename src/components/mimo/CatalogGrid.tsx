@@ -40,10 +40,10 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
         const promo = products.filter((p) => p.isPromo);
         if (promo.length > 0) list.push({ key: "__promo__", items: promo, promo: true });
         for (const cat of CATEGORIES) {
-          const items = products.filter((p) => p.category === cat);
+          const items = products.filter((p) => p.category === cat && !p.isPromo);
           if (items.length > 0) list.push({ key: cat, items });
         }
-        const uncategorized = products.filter((p) => !p.category);
+        const uncategorized = products.filter((p) => !p.category && !p.isPromo);
         if (uncategorized.length > 0) list.push({ key: "Outros", items: uncategorized });
         return list;
       })()
