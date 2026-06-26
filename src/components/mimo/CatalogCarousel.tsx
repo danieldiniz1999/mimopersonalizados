@@ -207,7 +207,7 @@ function SteppedCarousel({ items }: { items: Product[] }) {
         className="flex gap-5 w-max"
         style={{
           transform: `translateX(-${index * step}px)`,
-          transition: animate ? "transform 900ms cubic-bezier(0.65, 0, 0.35, 1)" : "none",
+          transition: animate ? "transform 1700ms cubic-bezier(0.45, 0, 0.2, 1)" : "none",
         }}
       >
         {loop.map((p, i) => (
