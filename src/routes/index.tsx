@@ -7,7 +7,7 @@ import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
 import { Particles } from "@/components/mimo/Particles";
 import { useReveal } from "@/hooks/use-reveal";
 import quemSomosAsset from "@/assets/quem-somos.png.asset.json";
-import { CatalogGrid } from "@/components/mimo/CatalogGrid";
+import { CatalogCarousel } from "@/components/mimo/CatalogCarousel";
 import { SectionTitle } from "@/components/mimo/SectionTitle";
 import { TeamSection } from "@/components/mimo/TeamSection";
 import { openSellersModal } from "@/components/mimo/SellersModal";
@@ -151,7 +151,7 @@ function Index() {
           Uma prévia dos nossos mimos, veja o catálogo completo para se inspirar
         </p>
 
-        <CatalogGrid limit={6} />
+        <CatalogCarousel />
 
         <div className="mt-12 flex justify-center">
           <Link to="/catalogo" className="mimo-btn mimo-btn-cta">VER CATÁLOGO COMPLETO</Link>
