@@ -15,13 +15,13 @@ import { openSellersModal } from "@/components/mimo/SellersModal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mimô Personalizados — Aniversários inesquecíveis" },
+      { title: "Mimô Personalizados, Aniversários inesquecíveis" },
       { name: "description", content: "A Mimô transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
-      { property: "og:title", content: "Mimô Personalizados — Aniversários inesquecíveis" },
+      { property: "og:title", content: "Mimô Personalizados, Aniversários inesquecíveis" },
       { property: "og:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
       { property: "og:url", content: "https://mimopersonalizados.lovable.app/" },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "Mimô Personalizados — Aniversários inesquecíveis" },
+      { name: "twitter:title", content: "Mimô Personalizados, Aniversários inesquecíveis" },
       { name: "twitter:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
     ],
     links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/" }],
@@ -91,11 +91,11 @@ function Index() {
 
         <div className="mt-12 grid md:grid-cols-2 gap-10 items-start">
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
-            <p>Mahyra e Halexia são mais que sócias — são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
+            <p>Mahyra e Halexia são mais que sócias, são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
             <p>Mahyra, com sua criatividade afiada e olhar atento para as tendências, sempre foi a tia que caprichava nos presentes e fazia questão de que cada celebração fosse especial. Halexia, sua sobrinha, cresceu vendo esse cuidado e herdou o mesmo brilho nos olhos pela arte de encantar.</p>
-            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a Mimô nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
+            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a Mimô nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria, para que cada aniversário fosse único, assim como o amor que une essa família.</p>
             <p>Mahyra desenha, cria e dá vida a cada peça. Halexia organiza, planeja e garante que tudo chegue no tempo certo e com o cuidado que cada cliente merece. Juntas, elas transformam papel em memória, e festa em emoção.</p>
-            <p>Hoje, a Mimô é o reflexo de um laço que vai além do sangue — é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
+            <p>Hoje, a Mimô é o reflexo de um laço que vai além do sangue, é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
           </div>
 
@@ -103,7 +103,7 @@ function Index() {
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
               <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da Mimô" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
-                Mahyra &amp; Halexia — As fundadoras
+                Mahyra &amp; Halexia, As fundadoras
               </figcaption>
             </figure>
           </div>
@@ -149,7 +149,7 @@ function Index() {
       <section id="catalogo" className="max-w-7xl mx-auto px-4 py-20">
         <SectionTitle>Destaques do Catálogo</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
-          Uma prévia dos nossos mimos — veja o catálogo completo para se inspirar
+          Uma prévia dos nossos mimos, veja o catálogo completo para se inspirar
         </p>
 
         <CatalogGrid limit={6} />
@@ -260,17 +260,17 @@ function Index() {
               onClick={openSellersModal}
               className="mimo-card flex items-center gap-3 text-[#5b2b48] hover:!border-[#F97FAF] w-full text-left"
             >
-              <span className="text-2xl">💬</span> <span><strong>WhatsApp</strong> — Fale com a gente agora</span>
+              <span className="text-2xl">💬</span> <span><strong>WhatsApp</strong>, Fale com a gente agora</span>
             </button>
             <a href="https://www.instagram.com/mimopersonalizadoos" target="_blank" rel="noopener" className="mimo-card flex items-center gap-3 text-[#5b2b48]">
-              <Instagram className="text-[#F97FAF]" /> <span><strong>Instagram</strong> — @mimopersonalizadoos</span>
+              <Instagram className="text-[#F97FAF]" /> <span><strong>Instagram</strong>, @mimopersonalizadoos</span>
             </a>
             <a href="mailto:mimopersonalizados@gmail.com" className="mimo-card flex items-center gap-3 text-[#5b2b48]">
-              <Mail className="text-[#F97FAF]" /> <span><strong>E-mail</strong> — mimopersonalizados@gmail.com</span>
+              <Mail className="text-[#F97FAF]" /> <span><strong>E-mail</strong>, mimopersonalizados@gmail.com</span>
             </a>
             <div className="mimo-card flex items-center gap-3 text-[#5b2b48]">
               <Clock className="text-[#F97FAF]" />
-              <span><strong>Atendimento</strong> — Seg-Sex 9h às 18h | Sáb 9h às 13h</span>
+              <span><strong>Atendimento</strong>, Seg-Sex 9h às 18h | Sáb 9h às 13h</span>
             </div>
           </div>
         </div>

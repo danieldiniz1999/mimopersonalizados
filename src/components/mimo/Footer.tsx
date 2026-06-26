@@ -18,7 +18,7 @@ export function Footer() {
           <a href="mailto:mimopersonalizados@gmail.com" className="text-[#F97FAF] transition-transform duration-300 hover:scale-125"><Mail /></a>
         </div>
       </div>
-      <p className="text-center pb-6 text-sm text-[#7a4a64]">© 2026 Mimô — Feito com amor, família e alegria 💕✨ | Todos os direitos reservados</p>
+      <p className="text-center pb-6 text-sm text-[#7a4a64]">© 2026 Mimô, Feito com amor, família e alegria 💕✨ | Todos os direitos reservados</p>
     </footer>
   );
 }

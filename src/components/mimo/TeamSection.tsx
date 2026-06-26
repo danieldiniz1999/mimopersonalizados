@@ -30,7 +30,7 @@ export function TeamSection() {
       </h2>
       <p className="mimo-reveal text-center text-[#7a4a64] mt-3 max-w-xl mx-auto" style={{ animationDelay: ".2s" }}>
         Somos uma dupla apaixonada por transformar festas em lembranças que ficam para sempre.
-        Pode chamar qualquer uma de nós — o carinho é o mesmo.
+        Pode chamar qualquer uma de nós, o carinho é o mesmo.
       </p>
 
       <div className="mt-12 grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">

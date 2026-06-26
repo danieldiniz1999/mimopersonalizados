@@ -108,7 +108,7 @@ export function SellersModal() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[#7a4a64]">
-          As duas atendem com o mesmo carinho — escolha quem preferir!
+          As duas atendem com o mesmo carinho, escolha quem preferir!
         </p>
       </div>
     </div>
