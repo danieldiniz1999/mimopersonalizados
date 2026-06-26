@@ -256,7 +256,7 @@ function ProductModal({
     if (arr.length > remaining) {
       alert(`Apenas ${remaining} imagem(ns) adicionada(s). Limite de ${MAX_IMAGES}.`);
     }
-    toRead.forEach((f) => {
+    toRead.forEach(async (f) => {
       if (!f.type.startsWith("image/")) {
         alert(`"${f.name}" não é uma imagem.`);
         return;
@@ -265,9 +265,19 @@ function ProductModal({
         alert(`"${f.name}" é maior que 5MB.`);
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => setImages((prev) => (prev.length >= MAX_IMAGES ? prev : [...prev, String(reader.result)]));
-      reader.readAsDataURL(f);
+      const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
+      const { error } = await supabase.storage.from("produtos").upload(path, f, {
+        contentType: f.type,
+        upsert: false,
+      });
+      if (error) {
+        console.error("[storage] upload falhou:", error);
+        alert(`Falha ao enviar "${f.name}": ${error.message}`);
+        return;
+      }
+      const { data } = supabase.storage.from("produtos").getPublicUrl(path);
+      setImages((prev) => (prev.length >= MAX_IMAGES ? prev : [...prev, data.publicUrl]));
     });
   }
 
