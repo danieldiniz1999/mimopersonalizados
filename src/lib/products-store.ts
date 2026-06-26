@@ -37,6 +37,7 @@ type Row = {
   hue: number;
   image: string | null;
   images: unknown;
+  thumbnails?: unknown;
   active: boolean;
   sort_order: number;
   price: number | string | null;
