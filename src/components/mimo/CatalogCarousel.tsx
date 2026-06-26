@@ -147,6 +147,7 @@ function SteppedCarousel({ items }: { items: Product[] }) {
   // duplicamos a lista para o loop ser contínuo
   const loop = [...items, ...items];
   const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [animate, setAnimate] = useState(true);
 
@@ -177,23 +178,32 @@ function SteppedCarousel({ items }: { items: Product[] }) {
 
   // calcula deslocamento em pixels conforme largura real do primeiro card + gap
   const [step, setStep] = useState(300);
+  const [cardWidth, setCardWidth] = useState(280);
+  const [containerWidth, setContainerWidth] = useState(0);
   useEffect(() => {
     const measure = () => {
       const node = trackRef.current;
-      if (!node) return;
+      const container = containerRef.current;
+      if (!node || !container) return;
       const first = node.firstElementChild as HTMLElement | null;
       if (!first) return;
       const style = window.getComputedStyle(node);
       const gap = parseFloat(style.columnGap || style.gap || "20") || 20;
       setStep(first.offsetWidth + gap);
+      setCardWidth(first.offsetWidth);
+      setContainerWidth(container.offsetWidth);
     };
     measure();
     window.addEventListener("resize", measure);
     return () => window.removeEventListener("resize", measure);
   }, [items.length]);
 
+  // centraliza o card atual na tela
+  const centerOffset = Math.max(0, (containerWidth - cardWidth) / 2);
+
   return (
     <div
+      ref={containerRef}
       className="mt-10 relative overflow-hidden"
       style={{
         maskImage:
@@ -206,7 +216,7 @@ function SteppedCarousel({ items }: { items: Product[] }) {
         ref={trackRef}
         className="flex gap-5 w-max"
         style={{
-          transform: `translateX(-${index * step}px)`,
+          transform: `translateX(${centerOffset - index * step}px)`,
           transition: animate ? "transform 1700ms cubic-bezier(0.45, 0, 0.2, 1)" : "none",
         }}
       >
