@@ -120,15 +120,15 @@ export function PromoBanner() {
             <circle cx="200" cy="240" r="2.5" fill="#D5DB1F" />
             <circle cx="520" cy="240" r="2.5" fill="#7CC9F0" />
 
-            {/* selo Mimô no canto */}
-            <g transform="translate(560 218) rotate(-8)">
+            {/* selo Mimô — abaixo, à direita */}
+            <g transform="translate(545 270) rotate(-6)">
               <text
                 fontFamily="'Instrument Serif', Georgia, serif"
                 fontStyle="italic"
-                fontSize="34"
+                fontSize="30"
                 fill="#C77FC2"
               >
-                Mimô
+                by Mimô
               </text>
             </g>
 
