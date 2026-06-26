@@ -33,7 +33,7 @@ export function TeamSection() {
         Pode chamar qualquer uma de nós, o carinho é o mesmo.
       </p>
 
-      <div className="mt-12 grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+      <div className="mt-12 grid sm:grid-cols-2 gap-16 sm:gap-6 max-w-3xl mx-auto">
         {SELLERS.map((s, i) => (
           <div
             key={s.name}
