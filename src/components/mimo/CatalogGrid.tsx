@@ -61,6 +61,18 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
           <Package className="h-3 w-3" /> KIT
         </span>
       )}
+      {p.isPromo && (
+        <span
+          className="absolute z-10 px-3 py-1 rounded-full text-xs font-black text-white inline-flex items-center gap-1 shadow-md"
+          style={{
+            top: p.isNew && p.isKit ? "4.2rem" : (p.isNew || p.isKit) ? "2.6rem" : "0.75rem",
+            left: "0.75rem",
+            background: "linear-gradient(135deg,#F97FAF,#d95a8d)",
+          }}
+        >
+          🎉 PROMO
+        </span>
+      )}
       <div className="relative">
         <button
           onClick={() => setLightbox(p.id)}
