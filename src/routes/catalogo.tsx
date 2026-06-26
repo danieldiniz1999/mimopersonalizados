@@ -39,7 +39,7 @@ function CatalogoPage() {
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Todos os nossos mimos em um só lugar
         </p>
-        <CatalogGrid />
+        <CatalogGrid groupByCategory />
       </section>
       <Footer />
       <FloatingWidgets />
