@@ -61,7 +61,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined, isPromo: false };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined, isPromo: false, description: "" };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -256,6 +256,7 @@ function ProductModal({
     initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
   );
   const [category, setCategory] = useState<Category | "">(initial.category ?? "");
+  const [description, setDescription] = useState<string>(initial.description ?? "");
   const [dragOver, setDragOver] = useState(false);
 
   function handleFiles(files: FileList | File[] | null | undefined) {
@@ -346,6 +347,7 @@ function ProductModal({
       kitItems: isKit ? cleanedItems : [],
       category: category === "" ? undefined : category,
       isPromo,
+      description: description.trim() === "" ? undefined : description.trim(),
     });
   }
 
@@ -363,6 +365,18 @@ function ProductModal({
 
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
+          Descrição <span className="font-normal text-[#7a4a64]">, opcional</span>
+        </label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          rows={4}
+          placeholder="Detalhes do produto que o cliente verá ao clicar para ampliar (materiais, tamanho, personalização, etc.)"
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF] resize-y"
+        />
+        <p className="text-xs text-[#7a4a64] mt-1">Aparece apenas quando o cliente clica no produto para ampliar.</p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Categoria</label>
         <select
