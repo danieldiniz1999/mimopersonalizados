@@ -25,6 +25,7 @@ export type Database = {
           images: Json
           is_kit: boolean
           is_new: boolean
+          is_promo: boolean
           kit_items: Json
           name: string
           original_price: number | null
@@ -42,6 +43,7 @@ export type Database = {
           images?: Json
           is_kit?: boolean
           is_new?: boolean
+          is_promo?: boolean
           kit_items?: Json
           name: string
           original_price?: number | null
@@ -59,6 +61,7 @@ export type Database = {
           images?: Json
           is_kit?: boolean
           is_new?: boolean
+          is_promo?: boolean
           kit_items?: Json
           name?: string
           original_price?: number | null
