@@ -59,22 +59,43 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {loading && products.length === 0 &&
-          Array.from({ length: limit ?? 8 }).map((_, i) => (
+      {loading && products.length === 0 && (
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {Array.from({ length: limit ?? 8 }).map((_, i) => (
             <div key={`sk-${i}`} className="mimo-card">
               <div className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] bg-[#fbe9f0] animate-pulse" />
               <div className="mt-4 h-4 w-3/4 rounded bg-[#fbe9f0] animate-pulse" />
               <div className="mt-2 h-4 w-1/3 rounded bg-[#fbe9f0] animate-pulse" />
             </div>
           ))}
-        {!loading && products.length === 0 && (
-          <p className="col-span-full text-center text-[#7a4a64] py-10">
-            Nenhum produto disponível no momento.
-          </p>
-        )}
-        {products.map((p, i) => (
-          <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
+        </div>
+      )}
+      {!loading && products.length === 0 && (
+        <p className="mt-10 text-center text-[#7a4a64] py-10">
+          Nenhum produto disponível no momento.
+        </p>
+      )}
+      {groups ? (
+        <div className="mt-10 space-y-14">
+          {groups.map((g) => (
+            <section key={g.key}>
+              <h2 className="text-2xl md:text-3xl font-black text-[#5b2b48] inline-flex items-center gap-3">
+                {g.key}
+                <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2.5 py-1 rounded-full">{g.items.length}</span>
+              </h2>
+              <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+                {g.items.map((p, i) => renderCard(p, i, setLightbox))}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : products.length > 0 ? (
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {products.map((p, i) => renderCard(p, i, setLightbox))}
+        </div>
+      ) : null}
+
+      {/* lightbox */}
             {p.isNew && (
               <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-[#3a1a2f]" style={{ backgroundColor: "#D5DB1F" }}>
                 NOVIDADE!
