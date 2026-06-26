@@ -1,99 +1,148 @@
 export function PromoBanner() {
   return (
     <div className="relative py-10 md:py-14 overflow-visible">
-      {/* Balões decorativos — esquerda */}
-      <svg
-        aria-hidden
-        viewBox="0 0 240 320"
-        className="hidden sm:block absolute left-0 md:left-2 top-2 w-[140px] md:w-[180px] pointer-events-none"
-      >
-        <defs>
-          <radialGradient id="pbPink" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#ffe1ee" />
-            <stop offset="55%" stopColor="#F97FAF" />
-            <stop offset="100%" stopColor="#c95a86" />
-          </radialGradient>
-          <radialGradient id="pbYellow" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#fff6a8" />
-            <stop offset="60%" stopColor="#F2D74E" />
-            <stop offset="100%" stopColor="#b89320" />
-          </radialGradient>
-        </defs>
-        {/* fios */}
-        <path d="M70 150 C 74 200, 82 250, 86 320" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".45" />
-        <path d="M150 140 C 146 200, 138 260, 132 320" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".45" />
-        {/* balão coração */}
-        <g className="mimo-float" style={{ animationDelay: "0s" }}>
-          <path
-            d="M70 30 C 55 8, 25 18, 32 50 C 39 82, 70 110, 70 122 C 70 110, 101 82, 108 50 C 115 18, 85 8, 70 30 Z"
-            fill="url(#pbPink)"
-          />
-          <ellipse cx="55" cy="40" rx="5" ry="8" fill="#fff" opacity=".5" />
-          <polygon points="68,124 72,124 70,134" fill="#c95a86" />
-        </g>
-        {/* balão amarelo */}
-        <g className="mimo-float" style={{ animationDelay: ".8s" }}>
-          <ellipse cx="155" cy="80" rx="26" ry="33" fill="url(#pbYellow)" />
-          <ellipse cx="147" cy="68" rx="4" ry="7" fill="#fff" opacity=".5" />
-          <polygon points="153,113 157,113 155,122" fill="#b89320" />
-        </g>
-      </svg>
-
-      {/* Balões decorativos — direita */}
-      <svg
-        aria-hidden
-        viewBox="0 0 200 320"
-        className="hidden sm:block absolute right-0 md:right-2 top-6 w-[120px] md:w-[160px] pointer-events-none"
-      >
-        <defs>
-          <radialGradient id="pbBlue" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#dff1ff" />
-            <stop offset="60%" stopColor="#7CC9F0" />
-            <stop offset="100%" stopColor="#3e91bf" />
-          </radialGradient>
-          <radialGradient id="pbPink2" cx="35%" cy="30%" r="70%">
-            <stop offset="0%" stopColor="#ffe1ee" />
-            <stop offset="55%" stopColor="#F97FAF" />
-            <stop offset="100%" stopColor="#c95a86" />
-          </radialGradient>
-        </defs>
-        <path d="M70 130 C 74 190, 82 250, 86 320" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".45" />
-        <path d="M140 150 C 136 210, 128 270, 122 320" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".45" />
-        <g className="mimo-float" style={{ animationDelay: ".3s" }}>
-          <ellipse cx="70" cy="80" rx="28" ry="35" fill="url(#pbBlue)" />
-          <ellipse cx="61" cy="68" rx="5" ry="8" fill="#fff" opacity=".5" />
-          <polygon points="68,115 72,115 70,124" fill="#3e91bf" />
-        </g>
-        <g className="mimo-float" style={{ animationDelay: "1.1s" }}>
-          <ellipse cx="140" cy="95" rx="24" ry="30" fill="url(#pbPink2)" />
-          <ellipse cx="133" cy="84" rx="4" ry="6" fill="#fff" opacity=".5" />
-          <polygon points="138,125 142,125 140,134" fill="#c95a86" />
-        </g>
-      </svg>
-
-      {/* Confetes sutis */}
-      <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <span className="absolute left-[28%] top-[12%] h-1.5 w-1.5 rotate-45 rounded-full bg-[#F97FAF]/60" />
-        <span className="absolute left-[42%] top-[6%] h-1 w-1 rounded-full bg-[#D5DB1F]" />
-        <span className="absolute right-[32%] top-[14%] h-1.5 w-1.5 rotate-12 rounded-sm bg-[#7CC9F0]/70" />
-        <span className="absolute right-[40%] bottom-[18%] h-1 w-1 rounded-full bg-[#F97FAF]/70" />
-        <span className="absolute left-[36%] bottom-[10%] h-1.5 w-1.5 rotate-12 rounded-sm bg-[#D5DB1F]/80" />
-      </div>
-
-      {/* Conteúdo central */}
       <div className="relative flex flex-col items-center text-center px-4">
+        {/* Etiqueta superior */}
         <span className="inline-flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#F97FAF]">
           <span className="h-px w-10 bg-[#F97FAF]/40" />
-          Oferta por tempo limitado
+          Edição limitada
           <span className="h-px w-10 bg-[#F97FAF]/40" />
         </span>
 
-        <h2
-          className="mt-4 font-black text-[#5b2b48] tracking-tight leading-[0.95]"
-          style={{ fontSize: "clamp(2.4rem, 6vw, 4rem)" }}
-        >
-          Promoção <span className="italic text-[#F97FAF]">Mimô</span>
-        </h2>
+        {/* TÍTULO ARTÍSTICO com balões integrados */}
+        <div className="relative mt-5 mx-auto w-full max-w-[720px]">
+          <svg
+            viewBox="0 0 720 280"
+            className="w-full h-auto"
+            aria-label="Promoção Mimô"
+          >
+            <defs>
+              <radialGradient id="pbHeart" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#ffe1ee" />
+                <stop offset="55%" stopColor="#F97FAF" />
+                <stop offset="100%" stopColor="#c95a86" />
+              </radialGradient>
+              <radialGradient id="pbYel" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#fff6a8" />
+                <stop offset="60%" stopColor="#D5DB1F" />
+                <stop offset="100%" stopColor="#9ea317" />
+              </radialGradient>
+              <radialGradient id="pbBlu" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#dff1ff" />
+                <stop offset="60%" stopColor="#7CC9F0" />
+                <stop offset="100%" stopColor="#3e91bf" />
+              </radialGradient>
+              <radialGradient id="pbLil" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stopColor="#f3dcef" />
+                <stop offset="60%" stopColor="#C77FC2" />
+                <stop offset="100%" stopColor="#8c4d8a" />
+              </radialGradient>
+            </defs>
+
+            {/* Cachos de fios convergindo no centro */}
+            <g stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" strokeLinecap="round">
+              <path d="M118 92  C 200 110, 280 130, 360 158" />
+              <path d="M195 60  C 240 95,  300 130, 360 158" />
+              <path d="M285 48  C 310 90,  335 130, 360 158" />
+              <path d="M610 95  C 540 115, 460 135, 360 158" />
+              <path d="M535 62  C 500 100, 440 132, 360 158" />
+              <path d="M445 50  C 425 95,  395 130, 360 158" />
+            </g>
+
+            {/* nó central onde os fios se encontram */}
+            <circle cx="360" cy="158" r="3.5" fill="#5b2b48" />
+
+            {/* BALÕES — esquerda */}
+            <g className="mimo-float" style={{ animationDelay: "0s" }}>
+              {/* coração rosa */}
+              <path
+                d="M118 50 C 105 30, 78 38, 84 64 C 90 90, 118 110, 118 120 C 118 110, 146 90, 152 64 C 158 38, 131 30, 118 50 Z"
+                fill="url(#pbHeart)"
+              />
+              <ellipse cx="105" cy="58" rx="5" ry="8" fill="#fff" opacity=".55" />
+              <polygon points="116,120 120,120 118,128" fill="#c95a86" />
+            </g>
+            <g className="mimo-float" style={{ animationDelay: ".5s" }}>
+              {/* amarelo */}
+              <ellipse cx="195" cy="60" rx="26" ry="32" fill="url(#pbYel)" />
+              <ellipse cx="187" cy="49" rx="4.5" ry="7" fill="#fff" opacity=".55" />
+              <polygon points="193,92 197,92 195,100" fill="#9ea317" />
+            </g>
+            <g className="mimo-float" style={{ animationDelay: "1s" }}>
+              {/* lilás pequeno */}
+              <ellipse cx="285" cy="50" rx="20" ry="25" fill="url(#pbLil)" />
+              <ellipse cx="279" cy="42" rx="3.5" ry="6" fill="#fff" opacity=".55" />
+              <polygon points="283,75 287,75 285,82" fill="#8c4d8a" />
+            </g>
+
+            {/* BALÕES — direita */}
+            <g className="mimo-float" style={{ animationDelay: ".8s" }}>
+              {/* azul */}
+              <ellipse cx="610" cy="60" rx="26" ry="33" fill="url(#pbBlu)" />
+              <ellipse cx="601" cy="48" rx="4.5" ry="7" fill="#fff" opacity=".55" />
+              <polygon points="608,93 612,93 610,101" fill="#3e91bf" />
+            </g>
+            <g className="mimo-float" style={{ animationDelay: ".2s" }}>
+              {/* rosa redondo */}
+              <ellipse cx="535" cy="58" rx="24" ry="30" fill="url(#pbHeart)" />
+              <ellipse cx="527" cy="48" rx="4.5" ry="7" fill="#fff" opacity=".55" />
+              <polygon points="533,88 537,88 535,96" fill="#c95a86" />
+            </g>
+            <g className="mimo-float" style={{ animationDelay: "1.3s" }}>
+              {/* amarelo pequeno */}
+              <ellipse cx="445" cy="52" rx="18" ry="22" fill="url(#pbYel)" />
+              <ellipse cx="439" cy="44" rx="3.5" ry="5.5" fill="#fff" opacity=".55" />
+              <polygon points="443,74 447,74 445,80" fill="#9ea317" />
+            </g>
+
+            {/* Wordmark "Mimô" — script-like flowing serif */}
+            <text
+              x="360" y="218"
+              textAnchor="middle"
+              fontFamily="'Instrument Serif', 'Cormorant Garamond', Georgia, serif"
+              fontStyle="italic"
+              fontWeight="400"
+              fontSize="92"
+              fill="#5b2b48"
+            >
+              Promo<tspan fill="#F97FAF">ção</tspan>
+            </text>
+
+            {/* sublinha decorativa */}
+            <path
+              d="M205 240 C 280 256, 440 256, 515 240"
+              stroke="#F97FAF"
+              strokeWidth="2.2"
+              fill="none"
+              strokeLinecap="round"
+              opacity=".85"
+            />
+            <circle cx="200" cy="240" r="2.5" fill="#D5DB1F" />
+            <circle cx="520" cy="240" r="2.5" fill="#7CC9F0" />
+
+            {/* selo Mimô no canto */}
+            <g transform="translate(560 218) rotate(-8)">
+              <text
+                fontFamily="'Instrument Serif', Georgia, serif"
+                fontStyle="italic"
+                fontSize="34"
+                fill="#C77FC2"
+              >
+                Mimô
+              </text>
+            </g>
+
+            {/* confetes ao redor */}
+            <g>
+              <rect x="65"  y="120" width="4" height="4" fill="#D5DB1F" transform="rotate(20 67 122)" />
+              <circle cx="660" cy="125" r="2" fill="#F97FAF" />
+              <rect x="370" y="22"  width="3" height="3" fill="#7CC9F0" transform="rotate(35 371 23)" />
+              <circle cx="50"  cy="180" r="2" fill="#C77FC2" />
+              <circle cx="678" cy="200" r="2.2" fill="#D5DB1F" />
+              <rect x="340" y="258" width="3" height="3" fill="#F97FAF" transform="rotate(25 341 260)" />
+            </g>
+          </svg>
+        </div>
 
         <p className="mt-3 text-sm md:text-base text-[#7a4a64] max-w-md">
           Leve mais lembrancinhas para a sua festa — o mimo extra fica por nossa conta.
