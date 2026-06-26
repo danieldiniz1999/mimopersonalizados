@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight, Package } from "lucide-react";
-import { useProducts, useProductsLoading, type Product } from "@/lib/products-store";
+import { useProducts, useProductsLoading, CATEGORIES, type Product } from "@/lib/products-store";
 
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -27,11 +27,24 @@ function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string;
   );
 }
 
-export function CatalogGrid({ limit }: { limit?: number }) {
+export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupByCategory?: boolean }) {
   const all = useProducts();
   const loading = useProductsLoading();
   const visible = all.filter((p) => p.active !== false);
   const products: Product[] = limit ? visible.slice(0, limit) : visible;
+
+  const groups = groupByCategory
+    ? (() => {
+        const list: { key: string; items: Product[] }[] = [];
+        for (const cat of CATEGORIES) {
+          const items = products.filter((p) => p.category === cat);
+          if (items.length > 0) list.push({ key: cat, items });
+        }
+        const uncategorized = products.filter((p) => !p.category);
+        if (uncategorized.length > 0) list.push({ key: "Outros", items: uncategorized });
+        return list;
+      })()
+    : null;
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [slideIdx, setSlideIdx] = useState(0);
 
