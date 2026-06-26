@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Pencil, Trash2, Plus, LogOut, Save, X, Eye, EyeOff, ImagePlus, Package } from "lucide-react";
-import { productsStore, useProducts, type Product, type KitItem } from "@/lib/products-store";
+import { productsStore, useProducts, CATEGORIES, type Product, type KitItem, type Category } from "@/lib/products-store";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/logo.png.asset.json";
 
@@ -61,7 +61,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [] };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -128,67 +128,79 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             </div>
           </div>
         ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-          {products.map((p) => {
-            const inactive = p.active === false;
-            return (
-              <div
-                key={p.id}
-                className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}
-              >
-                <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
-                  {(() => {
-                    const cover = p.images?.[0] ?? p.image;
-                    return cover ? (
-                      <img src={cover} alt={p.name} className="w-full h-full object-cover" />
-                    ) : (
-                    <div className="w-full h-full grid place-items-center text-3xl"
-                      style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
-                      🎁
-                    </div>
+        <div className="space-y-8">
+          {(() => {
+            const groups: { key: string; items: Product[] }[] = [];
+            for (const cat of CATEGORIES) {
+              const items = products.filter((p) => p.category === cat);
+              if (items.length > 0) groups.push({ key: cat, items });
+            }
+            const uncategorized = products.filter((p) => !p.category);
+            if (uncategorized.length > 0) groups.push({ key: "Sem categoria", items: uncategorized });
+            return groups.map((g) => (
+              <section key={g.key}>
+                <h2 className="text-base md:text-lg font-black text-[#5b2b48] mb-3 inline-flex items-center gap-2">
+                  {g.key}
+                  <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2 py-0.5 rounded-full">{g.items.length}</span>
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                  {g.items.map((p) => {
+                    const inactive = p.active === false;
+                    return (
+                      <div key={p.id} className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}>
+                        <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
+                          {(() => {
+                            const cover = p.images?.[0] ?? p.image;
+                            return cover ? (
+                              <img src={cover} alt={p.name} className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full grid place-items-center text-3xl"
+                                style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
+                                🎁
+                              </div>
+                            );
+                          })()}
+                          {((p.images?.length ?? 0) > 1) && (
+                            <span className="absolute top-1 right-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded-full">
+                              {p.images!.length} fotos
+                            </span>
+                          )}
+                          {p.isNew && (
+                            <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">NOVO</span>
+                          )}
+                          {inactive && (
+                            <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-[#5b2b48]/80 px-1.5 py-0.5 rounded-full">INATIVO</span>
+                          )}
+                        </div>
+                        <h3 className="font-bold text-[#5b2b48] text-xs leading-tight line-clamp-2 min-h-[2rem]">{p.name}</h3>
+                        <div className="mt-2 flex items-center justify-between gap-1">
+                          <button
+                            onClick={() => productsStore.update(p.id, { active: inactive ? true : false })}
+                            className={`h-7 w-7 grid place-items-center rounded-md ${inactive ? "bg-[#f3eaf0] text-[#5b2b48]" : "bg-[#eaf7ec] text-emerald-700"} hover:opacity-80`}
+                            title={inactive ? "Ativar" : "Desativar"}
+                          >
+                            {inactive ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+                          </button>
+                          <div className="flex gap-1">
+                            <button onClick={() => setEditing(p)} className="h-7 w-7 grid place-items-center rounded-md bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]" title="Editar">
+                              <Pencil className="h-3.5 w-3.5" />
+                            </button>
+                            <button
+                              onClick={() => { if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id); }}
+                              className="h-7 w-7 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100"
+                              title="Excluir"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     );
-                  })()}
-                  {((p.images?.length ?? 0) > 1) && (
-                    <span className="absolute top-1 right-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded-full">
-                      {p.images!.length} fotos
-                    </span>
-                  )}
-                  {p.isNew && (
-                    <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
-                      NOVO
-                    </span>
-                  )}
-                  {inactive && (
-                    <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-[#5b2b48]/80 px-1.5 py-0.5 rounded-full">
-                      INATIVO
-                    </span>
-                  )}
+                  })}
                 </div>
-                <h3 className="font-bold text-[#5b2b48] text-xs leading-tight line-clamp-2 min-h-[2rem]">{p.name}</h3>
-                <div className="mt-2 flex items-center justify-between gap-1">
-                  <button
-                    onClick={() => productsStore.update(p.id, { active: inactive ? true : false })}
-                    className={`h-7 w-7 grid place-items-center rounded-md ${inactive ? "bg-[#f3eaf0] text-[#5b2b48]" : "bg-[#eaf7ec] text-emerald-700"} hover:opacity-80`}
-                    title={inactive ? "Ativar" : "Desativar"}
-                  >
-                    {inactive ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                  </button>
-                  <div className="flex gap-1">
-                    <button onClick={() => setEditing(p)} className="h-7 w-7 grid place-items-center rounded-md bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]" title="Editar">
-                      <Pencil className="h-3.5 w-3.5" />
-                    </button>
-                    <button
-                      onClick={() => { if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id); }}
-                      className="h-7 w-7 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100"
-                      title="Excluir"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+              </section>
+            ));
+          })()}
         </div>
         )}
       </main>
@@ -242,6 +254,7 @@ function ProductModal({
   const [kitItems, setKitItems] = useState<KitItem[]>(
     initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
   );
+  const [category, setCategory] = useState<Category | "">(initial.category ?? "");
   const [dragOver, setDragOver] = useState(false);
 
   function handleFiles(files: FileList | File[] | null | undefined) {
@@ -330,6 +343,7 @@ function ProductModal({
       originalPrice: originalPriceNum,
       isKit,
       kitItems: isKit ? cleanedItems : [],
+      category: category === "" ? undefined : category,
     });
   }
 
@@ -347,6 +361,18 @@ function ProductModal({
 
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Categoria</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as Category | "")}
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF] bg-white"
+        >
+          <option value="">Sem categoria</option>
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>

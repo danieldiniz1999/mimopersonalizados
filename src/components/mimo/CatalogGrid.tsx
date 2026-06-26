@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight, Package } from "lucide-react";
-import { useProducts, useProductsLoading, type Product } from "@/lib/products-store";
+import { useProducts, useProductsLoading, CATEGORIES, type Product } from "@/lib/products-store";
 
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -27,11 +27,84 @@ function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string;
   );
 }
 
-export function CatalogGrid({ limit }: { limit?: number }) {
+export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupByCategory?: boolean }) {
   const all = useProducts();
   const loading = useProductsLoading();
   const visible = all.filter((p) => p.active !== false);
   const products: Product[] = limit ? visible.slice(0, limit) : visible;
+
+  const groups = groupByCategory
+    ? (() => {
+        const list: { key: string; items: Product[] }[] = [];
+        for (const cat of CATEGORIES) {
+          const items = products.filter((p) => p.category === cat);
+          if (items.length > 0) list.push({ key: cat, items });
+        }
+        const uncategorized = products.filter((p) => !p.category);
+        if (uncategorized.length > 0) list.push({ key: "Outros", items: uncategorized });
+        return list;
+      })()
+    : null;
+
+  const renderCard = (p: Product, i: number) => (
+    <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
+      {p.isNew && (
+        <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-[#3a1a2f]" style={{ backgroundColor: "#D5DB1F" }}>
+          NOVIDADE!
+        </span>
+      )}
+      {p.isKit && (
+        <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-white bg-[#F97FAF] inline-flex items-center gap-1" style={p.isNew ? { top: "2.6rem" } : undefined}>
+          <Package className="h-3 w-3" /> KIT
+        </span>
+      )}
+      <div className="relative">
+        <button
+          onClick={() => setLightbox(p.id)}
+          className="block w-full overflow-hidden rounded-[20px] mimo-float"
+          style={{ animationDelay: `${(i % 5) * 0.4}s` }}
+          aria-label={`Ampliar ${p.name}`}
+        >
+          <div className="transition-transform duration-500 hover:scale-110">
+            <ProductPlaceholder hue={p.hue} image={p.images?.[0] ?? p.image} name={p.name} />
+          </div>
+        </button>
+        {((p.images?.length ?? 0) > 1) && (
+          <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-bold text-white bg-black/55">
+            +{p.images!.length - 1}
+          </span>
+        )}
+        <a
+          href={(p.images?.[0] ?? p.image) ?? "#"}
+          download={(p.images?.[0] ?? p.image) ? `${p.name}.png` : undefined}
+          onClick={(e) => { if (!(p.images?.[0] ?? p.image)) e.preventDefault(); }}
+          aria-label={`Baixar imagem de ${p.name}`}
+          className="mimo-btn mimo-btn-lilac absolute bottom-2 right-2 h-9 w-9 !p-0 grid place-items-center rounded-full shadow-md z-10"
+        >
+          <Download className="h-4 w-4" />
+        </a>
+      </div>
+      <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
+      {typeof p.price === "number" && (
+        typeof p.originalPrice === "number" && p.originalPrice > p.price ? (
+          <div className="mt-1 flex items-baseline gap-2 flex-wrap">
+            <span className="text-xs text-[#9b7585] line-through">{brl(p.originalPrice)}</span>
+            <span className="text-[#F97FAF] font-extrabold">{brl(p.price)}</span>
+            <span className="text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+              -{Math.round((1 - p.price / p.originalPrice) * 100)}%
+            </span>
+          </div>
+        ) : (
+          <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
+        )
+      )}
+      {p.isKit && (p.kitItems?.length ?? 0) > 0 && (
+        <p className="mt-1 text-xs text-[#7a4a64]">
+          Inclui {p.kitItems!.length} {p.kitItems!.length === 1 ? "item" : "itens"}
+        </p>
+      )}
+    </article>
+  );
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [slideIdx, setSlideIdx] = useState(0);
 
@@ -46,80 +119,43 @@ export function CatalogGrid({ limit }: { limit?: number }) {
 
   return (
     <>
-      <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-        {loading && products.length === 0 &&
-          Array.from({ length: limit ?? 8 }).map((_, i) => (
+      {loading && products.length === 0 && (
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {Array.from({ length: limit ?? 8 }).map((_, i) => (
             <div key={`sk-${i}`} className="mimo-card">
               <div className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] bg-[#fbe9f0] animate-pulse" />
               <div className="mt-4 h-4 w-3/4 rounded bg-[#fbe9f0] animate-pulse" />
               <div className="mt-2 h-4 w-1/3 rounded bg-[#fbe9f0] animate-pulse" />
             </div>
           ))}
-        {!loading && products.length === 0 && (
-          <p className="col-span-full text-center text-[#7a4a64] py-10">
-            Nenhum produto disponível no momento.
-          </p>
-        )}
-        {products.map((p, i) => (
-          <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
-            {p.isNew && (
-              <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-[#3a1a2f]" style={{ backgroundColor: "#D5DB1F" }}>
-                NOVIDADE!
-              </span>
-            )}
-            {p.isKit && (
-              <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full text-xs font-black text-white bg-[#F97FAF] inline-flex items-center gap-1" style={p.isNew ? { top: "2.6rem" } : undefined}>
-                <Package className="h-3 w-3" /> KIT
-              </span>
-            )}
-            <div className="relative">
-              <button
-                onClick={() => setLightbox(p.id)}
-                className="block w-full overflow-hidden rounded-[20px] mimo-float"
-                style={{ animationDelay: `${(i % 5) * 0.4}s` }}
-                aria-label={`Ampliar ${p.name}`}
-              >
-                <div className="transition-transform duration-500 hover:scale-110">
-                  <ProductPlaceholder hue={p.hue} image={p.images?.[0] ?? p.image} name={p.name} />
-                </div>
-              </button>
-              {((p.images?.length ?? 0) > 1) && (
-                <span className="absolute top-3 right-3 z-10 px-2 py-0.5 rounded-full text-[11px] font-bold text-white bg-black/55">
-                  +{p.images!.length - 1}
-                </span>
-              )}
-              <a
-                href={(p.images?.[0] ?? p.image) ?? "#"}
-                download={(p.images?.[0] ?? p.image) ? `${p.name}.png` : undefined}
-                onClick={(e) => { if (!(p.images?.[0] ?? p.image)) e.preventDefault(); }}
-                aria-label={`Baixar imagem de ${p.name}`}
-                className="mimo-btn mimo-btn-lilac absolute bottom-2 right-2 h-9 w-9 !p-0 grid place-items-center rounded-full shadow-md z-10"
-              >
-                <Download className="h-4 w-4" />
-              </a>
-            </div>
-            <h3 className="mt-4 font-bold text-[#5b2b48]">{p.name}</h3>
-            {typeof p.price === "number" && (
-              typeof p.originalPrice === "number" && p.originalPrice > p.price ? (
-                <div className="mt-1 flex items-baseline gap-2 flex-wrap">
-                  <span className="text-xs text-[#9b7585] line-through">{brl(p.originalPrice)}</span>
-                  <span className="text-[#F97FAF] font-extrabold">{brl(p.price)}</span>
-                  <span className="text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
-                    -{Math.round((1 - p.price / p.originalPrice) * 100)}%
-                  </span>
-                </div>
-              ) : (
-                <p className="mt-1 text-[#F97FAF] font-extrabold">{brl(p.price)}</p>
-              )
-            )}
-            {p.isKit && (p.kitItems?.length ?? 0) > 0 && (
-              <p className="mt-1 text-xs text-[#7a4a64]">
-                Inclui {p.kitItems!.length} {p.kitItems!.length === 1 ? "item" : "itens"}
-              </p>
-            )}
-          </article>
-        ))}
-      </div>
+        </div>
+      )}
+      {!loading && products.length === 0 && (
+        <p className="mt-10 text-center text-[#7a4a64] py-10">
+          Nenhum produto disponível no momento.
+        </p>
+      )}
+      {groups ? (
+        <div className="mt-10 space-y-14">
+          {groups.map((g) => (
+            <section key={g.key}>
+              <h2 className="text-2xl md:text-3xl font-black text-[#5b2b48] inline-flex items-center gap-3">
+                {g.key}
+                <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2.5 py-1 rounded-full">{g.items.length}</span>
+              </h2>
+              <div className="mt-5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+                {g.items.map((p, i) => renderCard(p, i))}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : products.length > 0 ? (
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+          {products.map((p, i) => renderCard(p, i))}
+        </div>
+      ) : null}
+
+      {/* lightbox */}
 
       {lightbox !== null && (() => {
         const product = products.find((p) => p.id === lightbox) ?? all.find((p) => p.id === lightbox);
