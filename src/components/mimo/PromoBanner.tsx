@@ -2,197 +2,118 @@ export function PromoBanner() {
   return (
     <div className="relative py-8 md:py-12 px-4">
       <div
-        className="relative mx-auto max-w-5xl overflow-hidden rounded-[28px] border border-[#f3c6d5] bg-gradient-to-b from-[#fff7fb] via-white to-[#fff1f6] px-6 py-10 md:px-14 md:py-14 text-center shadow-[0_20px_60px_-30px_rgba(91,43,72,0.35)]"
+        className="relative mx-auto max-w-5xl overflow-hidden rounded-[28px] border border-[#f3c6d5] bg-gradient-to-b from-[#fff7fb] via-white to-[#fff1f6] px-6 py-12 md:px-14 md:py-16 text-center shadow-[0_20px_60px_-30px_rgba(91,43,72,0.35)]"
       >
-        {/* Detalhes decorativos de canto */}
+        {/* Brilhos de fundo */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#F97FAF]/10 blur-3xl" />
-          <div className="absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-[#D5DB1F]/10 blur-3xl" />
+          <div className="absolute -top-28 -left-24 h-72 w-72 rounded-full bg-[#F97FAF]/10 blur-3xl" />
+          <div className="absolute -bottom-28 -right-24 h-72 w-72 rounded-full bg-[#D5DB1F]/10 blur-3xl" />
         </div>
 
-        <div className="relative flex flex-col items-center">
-        {/* Etiqueta superior */}
-        <span className="inline-flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#F97FAF]">
-          <span className="h-px w-10 bg-[#F97FAF]/40" />
-          Edição limitada
-          <span className="h-px w-10 bg-[#F97FAF]/40" />
-        </span>
+        {/* Balões nos cantos */}
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute -top-2 -left-2 md:top-4 md:left-4 hidden sm:block w-20 md:w-24 h-auto mimo-float" style={{ animationDelay: "0s" }}>
+          <defs>
+            <radialGradient id="pbHeart" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#ffe1ee" /><stop offset="55%" stopColor="#F97FAF" /><stop offset="100%" stopColor="#c95a86" />
+            </radialGradient>
+          </defs>
+          <path d="M70 50 C 55 28, 26 36, 32 64 C 38 92, 70 114, 70 126 C 70 114, 102 92, 108 64 C 114 36, 85 28, 70 50 Z" fill="url(#pbHeart)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="55" cy="58" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <path d="M70 128 C 74 150, 66 170, 74 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
 
-        {/* TÍTULO ARTÍSTICO com balões integrados */}
-        <div className="relative mt-5 mx-auto w-full max-w-[720px]">
-          <svg
-            viewBox="0 0 720 310"
-            className="w-full h-auto"
-            aria-label="Promoção Mimô"
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 left-24 md:top-10 md:left-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: ".7s" }}>
+          <defs>
+            <radialGradient id="pbYel" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#fff6a8" /><stop offset="60%" stopColor="#D5DB1F" /><stop offset="100%" stopColor="#9ea317" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="60" rx="32" ry="40" fill="url(#pbYel)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,102 73,102 70,112" fill="#9ea317" />
+          <path d="M70 112 C 74 138, 64 160, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
+
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute -top-2 -right-2 md:top-4 md:right-4 hidden sm:block w-20 md:w-24 h-auto mimo-float" style={{ animationDelay: ".4s" }}>
+          <defs>
+            <radialGradient id="pbBlu" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#dff1ff" /><stop offset="60%" stopColor="#7CC9F0" /><stop offset="100%" stopColor="#3e91bf" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="60" rx="34" ry="42" fill="url(#pbBlu)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,104 73,104 70,114" fill="#3e91bf" />
+          <path d="M70 114 C 66 140, 76 162, 68 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
+
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 right-24 md:top-10 md:right-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: "1.1s" }}>
+          <defs>
+            <radialGradient id="pbLil" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#f3dcef" /><stop offset="60%" stopColor="#C77FC2" /><stop offset="100%" stopColor="#8c4d8a" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="60" rx="30" ry="38" fill="url(#pbLil)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,100 73,100 70,110" fill="#8c4d8a" />
+          <path d="M70 110 C 74 134, 66 158, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
+
+        {/* CONTEÚDO */}
+        <div className="relative flex flex-col items-center px-0 sm:px-28 md:px-40">
+          {/* etiqueta */}
+          <span className="inline-flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#F97FAF]">
+            <span className="h-px w-10 bg-[#F97FAF]/40" />
+            Edição limitada
+            <span className="h-px w-10 bg-[#F97FAF]/40" />
+          </span>
+
+          {/* Título tipográfico */}
+          <h2
+            className="mt-5 font-serif italic text-[#5b2b48] leading-[0.95]"
+            style={{ fontFamily: "'Instrument Serif', 'Cormorant Garamond', Georgia, serif", fontSize: "clamp(2.4rem, 5vw, 3.75rem)" }}
           >
-            <defs>
-              <radialGradient id="pbHeart" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#ffe1ee" />
-                <stop offset="55%" stopColor="#F97FAF" />
-                <stop offset="100%" stopColor="#c95a86" />
-              </radialGradient>
-              <radialGradient id="pbYel" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#fff6a8" />
-                <stop offset="60%" stopColor="#D5DB1F" />
-                <stop offset="100%" stopColor="#9ea317" />
-              </radialGradient>
-              <radialGradient id="pbBlu" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#dff1ff" />
-                <stop offset="60%" stopColor="#7CC9F0" />
-                <stop offset="100%" stopColor="#3e91bf" />
-              </radialGradient>
-              <radialGradient id="pbLil" cx="35%" cy="30%" r="70%">
-                <stop offset="0%" stopColor="#f3dcef" />
-                <stop offset="60%" stopColor="#C77FC2" />
-                <stop offset="100%" stopColor="#8c4d8a" />
-              </radialGradient>
-            </defs>
+            Promo<span className="text-[#F97FAF]">ção</span>{" "}
+            <span className="text-[#C77FC2]">Mimô</span>
+          </h2>
 
-            {/* Cachos de fios convergindo no centro */}
-            <g stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" strokeLinecap="round">
-              <path d="M118 92  C 200 110, 280 130, 360 158" />
-              <path d="M195 60  C 240 95,  300 130, 360 158" />
-              <path d="M285 48  C 310 90,  335 130, 360 158" />
-              <path d="M610 95  C 540 115, 460 135, 360 158" />
-              <path d="M535 62  C 500 100, 440 132, 360 158" />
-              <path d="M445 50  C 425 95,  395 130, 360 158" />
-            </g>
+          {/* divisor */}
+          <div className="mt-5 flex items-center justify-center gap-3">
+            <span className="h-px w-16 bg-[#f3c6d5]" />
+            <span className="text-[#F97FAF] text-xs">✦</span>
+            <span className="h-px w-16 bg-[#f3c6d5]" />
+          </div>
 
-            {/* nó central onde os fios se encontram */}
-            <circle cx="360" cy="158" r="3.5" fill="#5b2b48" />
+          <p className="mt-5 text-sm md:text-base text-[#7a4a64] max-w-md">
+            Leve mais lembrancinhas para a sua festa — o mimo extra fica por nossa conta.
+          </p>
 
-            {/* BALÕES — esquerda */}
-            <g className="mimo-float" style={{ animationDelay: "0s" }}>
-              {/* coração rosa */}
-              <path
-                d="M118 50 C 105 30, 78 38, 84 64 C 90 90, 118 110, 118 120 C 118 110, 146 90, 152 64 C 158 38, 131 30, 118 50 Z"
-                fill="url(#pbHeart)"
-              />
-              <ellipse cx="105" cy="58" rx="5" ry="8" fill="#fff" opacity=".55" />
-              <polygon points="116,120 120,120 118,128" fill="#c95a86" />
-            </g>
-            <g className="mimo-float" style={{ animationDelay: ".5s" }}>
-              {/* amarelo */}
-              <ellipse cx="195" cy="60" rx="26" ry="32" fill="url(#pbYel)" />
-              <ellipse cx="187" cy="49" rx="4.5" ry="7" fill="#fff" opacity=".55" />
-              <polygon points="193,92 197,92 195,100" fill="#9ea317" />
-            </g>
-            <g className="mimo-float" style={{ animationDelay: "1s" }}>
-              {/* lilás pequeno */}
-              <ellipse cx="285" cy="50" rx="20" ry="25" fill="url(#pbLil)" />
-              <ellipse cx="279" cy="42" rx="3.5" ry="6" fill="#fff" opacity=".55" />
-              <polygon points="283,75 287,75 285,82" fill="#8c4d8a" />
-            </g>
+          {/* OFERTA */}
+          <div className="mt-8 flex flex-wrap items-end justify-center gap-x-10 gap-y-5 md:gap-x-14">
+            <div className="text-center">
+              <div className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#7a4a64]">Compre</div>
+              <div className="mt-1.5 flex items-baseline gap-2 justify-center font-black text-[#5b2b48] leading-none">
+                <span style={{ fontSize: "clamp(2.6rem, 5.5vw, 3.75rem)" }}>100</span>
+                <span className="text-sm md:text-base font-extrabold text-[#7a4a64] tracking-wide">caixinhas</span>
+              </div>
+            </div>
 
-            {/* BALÕES — direita */}
-            <g className="mimo-float" style={{ animationDelay: ".8s" }}>
-              {/* azul */}
-              <ellipse cx="610" cy="60" rx="26" ry="33" fill="url(#pbBlu)" />
-              <ellipse cx="601" cy="48" rx="4.5" ry="7" fill="#fff" opacity=".55" />
-              <polygon points="608,93 612,93 610,101" fill="#3e91bf" />
-            </g>
-            <g className="mimo-float" style={{ animationDelay: ".2s" }}>
-              {/* rosa redondo */}
-              <ellipse cx="535" cy="58" rx="24" ry="30" fill="url(#pbHeart)" />
-              <ellipse cx="527" cy="48" rx="4.5" ry="7" fill="#fff" opacity=".55" />
-              <polygon points="533,88 537,88 535,96" fill="#c95a86" />
-            </g>
-            <g className="mimo-float" style={{ animationDelay: "1.3s" }}>
-              {/* amarelo pequeno */}
-              <ellipse cx="445" cy="52" rx="18" ry="22" fill="url(#pbYel)" />
-              <ellipse cx="439" cy="44" rx="3.5" ry="5.5" fill="#fff" opacity=".55" />
-              <polygon points="443,74 447,74 445,80" fill="#9ea317" />
-            </g>
+            <div aria-hidden className="self-center text-2xl md:text-3xl font-light text-[#F97FAF]/70 pb-2">+</div>
 
-            {/* Wordmark "Mimô" — script-like flowing serif */}
-            <text
-              x="360" y="218"
-              textAnchor="middle"
-              fontFamily="'Instrument Serif', 'Cormorant Garamond', Georgia, serif"
-              fontStyle="italic"
-              fontWeight="400"
-              fontSize="92"
-              fill="#5b2b48"
-            >
-              Promo<tspan fill="#F97FAF">ção</tspan>
-            </text>
-
-            {/* sublinha decorativa */}
-            <path
-              d="M205 240 C 280 256, 440 256, 515 240"
-              stroke="#F97FAF"
-              strokeWidth="2.2"
-              fill="none"
-              strokeLinecap="round"
-              opacity=".85"
-            />
-            <circle cx="200" cy="240" r="2.5" fill="#D5DB1F" />
-            <circle cx="520" cy="240" r="2.5" fill="#7CC9F0" />
-
-            {/* selo Mimô — abaixo, à direita */}
-            <g transform="translate(545 270) rotate(-6)">
-              <text
-                fontFamily="'Instrument Serif', Georgia, serif"
-                fontStyle="italic"
-                fontSize="30"
-                fill="#C77FC2"
-              >
-                by Mimô
-              </text>
-            </g>
-
-            {/* confetes ao redor */}
-            <g>
-              <rect x="65"  y="120" width="4" height="4" fill="#D5DB1F" transform="rotate(20 67 122)" />
-              <circle cx="660" cy="125" r="2" fill="#F97FAF" />
-              <rect x="370" y="22"  width="3" height="3" fill="#7CC9F0" transform="rotate(35 371 23)" />
-              <circle cx="50"  cy="180" r="2" fill="#C77FC2" />
-              <circle cx="678" cy="200" r="2.2" fill="#D5DB1F" />
-              <rect x="340" y="258" width="3" height="3" fill="#F97FAF" transform="rotate(25 341 260)" />
-            </g>
-          </svg>
-        </div>
-
-        <p className="mt-3 text-sm md:text-base text-[#7a4a64] max-w-md">
-          Leve mais lembrancinhas para a sua festa — o mimo extra fica por nossa conta.
-        </p>
-
-        {/* Oferta tipográfica */}
-        <div className="mt-8 flex flex-wrap items-end justify-center gap-x-8 gap-y-5 md:gap-x-12">
-          <div className="text-center">
-            <div className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#7a4a64]">Compre</div>
-            <div className="mt-1.5 flex items-baseline gap-1.5 justify-center font-black text-[#5b2b48] leading-none">
-              <span style={{ fontSize: "clamp(2.6rem, 5.5vw, 3.75rem)" }}>100</span>
-              <span className="text-sm md:text-base font-extrabold text-[#7a4a64] tracking-wide">caixinhas</span>
+            <div className="text-center">
+              <div className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#F97FAF]">Ganhe</div>
+              <div className="mt-1.5 flex items-baseline gap-2 justify-center font-black text-[#F97FAF] leading-none">
+                <span style={{ fontSize: "clamp(2.6rem, 5.5vw, 3.75rem)" }}>20</span>
+                <span className="text-sm md:text-base font-extrabold tracking-wide">sacolas</span>
+              </div>
+              <div className="mt-2 inline-block text-[10px] font-black tracking-[0.22em] uppercase text-[#3a1a2f] bg-[#D5DB1F] px-2.5 py-1 rounded-full">
+                Grátis
+              </div>
             </div>
           </div>
 
-          <div aria-hidden className="self-center text-2xl md:text-3xl font-light text-[#F97FAF]/70 pb-2">
-            +
-          </div>
-
-          <div className="text-center">
-            <div className="text-[10px] font-bold tracking-[0.28em] uppercase text-[#F97FAF]">Ganhe</div>
-            <div className="mt-1.5 flex items-baseline gap-1.5 justify-center font-black text-[#F97FAF] leading-none">
-              <span style={{ fontSize: "clamp(2.6rem, 5.5vw, 3.75rem)" }}>20</span>
-              <span className="text-sm md:text-base font-extrabold tracking-wide">sacolas</span>
-            </div>
-            <div className="mt-2 inline-block text-[10px] font-black tracking-[0.22em] uppercase text-[#3a1a2f] bg-[#D5DB1F] px-2.5 py-1 rounded-full">
-              Grátis
-            </div>
-          </div>
-        </div>
-
-        {/* divisor */}
-        <div className="mt-8 flex items-center justify-center gap-3">
-          <span className="h-px w-14 bg-[#f3c6d5]" />
-          <span className="text-[#F97FAF] text-xs">✦</span>
-          <span className="h-px w-14 bg-[#f3c6d5]" />
-        </div>
-
-        <p className="mt-3 text-xs md:text-sm text-[#7a4a64] italic">
-          Aproveite enquanto durar
-        </p>
+          <p className="mt-7 text-xs md:text-sm text-[#7a4a64] italic">
+            Aproveite enquanto durar
+          </p>
         </div>
       </div>
     </div>
