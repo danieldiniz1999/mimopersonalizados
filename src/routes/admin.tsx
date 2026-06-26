@@ -254,6 +254,7 @@ function ProductModal({
   const [kitItems, setKitItems] = useState<KitItem[]>(
     initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
   );
+  const [category, setCategory] = useState<Category | "">(initial.category ?? "");
   const [dragOver, setDragOver] = useState(false);
 
   function handleFiles(files: FileList | File[] | null | undefined) {
@@ -342,6 +343,7 @@ function ProductModal({
       originalPrice: originalPriceNum,
       isKit,
       kitItems: isKit ? cleanedItems : [],
+      category: category === "" ? undefined : category,
     });
   }
 
@@ -359,6 +361,18 @@ function ProductModal({
 
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
         <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Categoria</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as Category | "")}
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF] bg-white"
+        >
+          <option value="">Sem categoria</option>
+          {CATEGORIES.map((c) => (
+            <option key={c} value={c}>{c}</option>
+          ))}
+        </select>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
