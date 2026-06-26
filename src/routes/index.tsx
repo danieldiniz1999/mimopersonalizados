@@ -103,7 +103,7 @@ function Index() {
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
               <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da Mimô" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
-                Mahyra &amp; Halexia — As fundadoras 💕
+                Mahyra &amp; Halexia — As fundadoras
               </figcaption>
             </figure>
           </div>
