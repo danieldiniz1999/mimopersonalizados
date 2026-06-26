@@ -61,7 +61,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined };
+const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined, isPromo: false };
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -235,6 +235,7 @@ function ProductModal({
 }) {
   const [name, setName] = useState(initial.name);
   const [isNew, setIsNew] = useState(initial.isNew);
+  const [isPromo, setIsPromo] = useState<boolean>(initial.isPromo ?? false);
   const [hue, setHue] = useState(initial.hue);
   const [images, setImages] = useState<string[]>(
     initial.images && initial.images.length > 0
@@ -344,6 +345,7 @@ function ProductModal({
       isKit,
       kitItems: isKit ? cleanedItems : [],
       category: category === "" ? undefined : category,
+      isPromo,
     });
   }
 
@@ -457,6 +459,11 @@ function ProductModal({
         <label className="mt-4 flex items-center gap-2 text-[#5b2b48]">
           <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} />
           Marcar como <strong>NOVIDADE</strong>
+        </label>
+
+        <label className="mt-3 flex items-center gap-2 text-[#5b2b48]">
+          <input type="checkbox" checked={isPromo} onChange={(e) => setIsPromo(e.target.checked)} />
+          🎉 Está em <strong>PROMOÇÃO</strong> (aparece na seção promocional do catálogo)
         </label>
 
         <div className="mt-5 rounded-xl border border-[#f3dfe7] bg-white p-4">
