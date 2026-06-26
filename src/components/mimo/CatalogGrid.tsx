@@ -6,32 +6,11 @@ import { PromoBanner } from "./PromoBanner";
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-// Usa o endpoint de transformação de imagem do Supabase para entregar
-// versões redimensionadas e em WebP, reduzindo drasticamente o peso.
-function optimizeImage(url: string | undefined, width: number): string | undefined {
-  if (!url) return url;
-  try {
-    const u = new URL(url);
-    if (!u.pathname.includes("/storage/v1/object/public/")) return url;
-    u.pathname = u.pathname.replace("/storage/v1/object/public/", "/storage/v1/render/image/public/");
-    u.searchParams.set("width", String(width));
-    u.searchParams.set("quality", "70");
-    u.searchParams.set("resize", "cover");
-    return u.toString();
-  } catch {
-    return url;
-  }
-}
-
 function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string; name?: string }) {
   if (image) {
-    const small = optimizeImage(image, 400);
-    const medium = optimizeImage(image, 700);
     return (
       <img
-        src={small}
-        srcSet={small && medium ? `${small} 400w, ${medium} 800w` : undefined}
-        sizes="(min-width:1024px) 280px, (min-width:640px) 33vw, 50vw"
+        src={image}
         alt={name ?? "Produto"}
         loading="lazy"
         decoding="async"
