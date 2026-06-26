@@ -81,7 +81,7 @@ export function SellersModal() {
           {SELLERS.map((s) => (
             <a
               key={s.name}
-              href={`https://wa.me/${s.phone}?text=${encodeURIComponent("Oiê, " + s.name + "! 💕 Vim pelo site da MIMÔ e me apaixonei pelos mimos de vocês ✨ Será que dá pra você me ajudar com um orçamento super especial?")}`}
+              href={`https://wa.me/${s.phone}?text=${encodeURIComponent("Oiê, " + s.name + "! 💕 Vim pelo site da Mimô e me apaixonei pelos mimos de vocês ✨ Será que dá pra você me ajudar com um orçamento super especial?")}`}
               target="_blank"
               rel="noopener"
               className="group flex items-center gap-4 bg-white rounded-[18px] p-3 pr-4 border-2 border-transparent hover:border-[#F97FAF] transition-all hover:-translate-y-0.5 shadow-sm"

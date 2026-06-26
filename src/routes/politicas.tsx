@@ -8,13 +8,13 @@ import { useReveal } from "@/hooks/use-reveal";
 export const Route = createFileRoute("/politicas")({
   head: () => ({
     meta: [
-      { title: "Combinados da MIMÔ — Políticas" },
-      { name: "description", content: "Conheça os combinados da MIMÔ: pedido mínimo, prazos, pagamento, entregas e cancelamentos." },
-      { property: "og:title", content: "Combinados da MIMÔ" },
+      { title: "Combinados da Mimô — Políticas" },
+      { name: "description", content: "Conheça os combinados da Mimô: pedido mínimo, prazos, pagamento, entregas e cancelamentos." },
+      { property: "og:title", content: "Combinados da Mimô" },
       { property: "og:description", content: "Combinados para que tudo dê certo na sua festa." },
       { property: "og:url", content: "https://mimopersonalizados.lovable.app/politicas" },
       { property: "og:type", content: "article" },
-      { name: "twitter:title", content: "Combinados da MIMÔ" },
+      { name: "twitter:title", content: "Combinados da Mimô" },
       { name: "twitter:description", content: "Combinados para que tudo dê certo na sua festa." },
     ],
     links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/politicas" }],
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/politicas")({
   component: PoliticasPage,
 });
 
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi os combinados e quero um orçamento");
+const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá Mimô! Vi os combinados e quero um orçamento");
 
 const CARDS = [
   { icon: "🛒", title: "Pedido Mínimo", text: "R$ 100,00 em compras. Produtos diversos." },
@@ -39,7 +39,7 @@ function PoliticasPage() {
     <div className="min-h-screen">
       <Header />
       <section className="max-w-6xl mx-auto px-4 py-16 md:py-20">
-        <SectionTitle as="h1">Combinados da MIMÔ</SectionTitle>
+        <SectionTitle as="h1">Combinados da Mimô</SectionTitle>
         <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
           Aqui estão nossos combinados para que tudo dê certo na sua festa
         </p>

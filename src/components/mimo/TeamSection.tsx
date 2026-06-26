@@ -12,7 +12,7 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 
 const WA_MSG = (name: string) =>
   encodeURIComponent(
-    `Oiê, ${name}! 💕 Vim pelo site da MIMÔ e me apaixonei pelos mimos de vocês ✨ Será que dá pra você me ajudar com um orçamento super especial?`,
+    `Oiê, ${name}! 💕 Vim pelo site da Mimô e me apaixonei pelos mimos de vocês ✨ Será que dá pra você me ajudar com um orçamento super especial?`,
   );
 
 export function TeamSection() {

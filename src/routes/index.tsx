@@ -15,13 +15,13 @@ import { openSellersModal } from "@/components/mimo/SellersModal";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MIMÔ Personalizados — Aniversários inesquecíveis" },
-      { name: "description", content: "A MIMÔ transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
-      { property: "og:title", content: "MIMÔ Personalizados — Aniversários inesquecíveis" },
+      { title: "Mimô Personalizados — Aniversários inesquecíveis" },
+      { name: "description", content: "A Mimô transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
+      { property: "og:title", content: "Mimô Personalizados — Aniversários inesquecíveis" },
       { property: "og:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
       { property: "og:url", content: "https://mimopersonalizados.lovable.app/" },
       { property: "og:type", content: "website" },
-      { name: "twitter:title", content: "MIMÔ Personalizados — Aniversários inesquecíveis" },
+      { name: "twitter:title", content: "Mimô Personalizados — Aniversários inesquecíveis" },
       { name: "twitter:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
     ],
     links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/" }],
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "MIMÔ Personalizados",
+          name: "Mimô Personalizados",
           url: "https://mimopersonalizados.lovable.app/",
           inLanguage: "pt-BR",
         }),
@@ -41,7 +41,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá MIMÔ! Vi o site e quero um orçamento");
+const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá Mimô! Vi o site e quero um orçamento");
 
 const FAQ = [
   { q: "Qual o valor mínimo do pedido?", a: "O pedido mínimo é de R$ 100,00 em compras de produtos diversos." },
@@ -65,7 +65,7 @@ function Index() {
         <Particles />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
           <h1 className="text-4xl md:text-6xl font-black leading-tight">
-            <span className="mimo-title-glow">A MIMÔ transforma aniversários em memórias inesquecíveis.</span>{" "}
+            <span className="mimo-title-glow">A Mimô transforma aniversários em memórias inesquecíveis.</span>{" "}
             <span className="mimo-heart-beat">💕</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-[#7a4a64]">
@@ -93,15 +93,15 @@ function Index() {
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
             <p>Mahyra e Halexia são mais que sócias — são tia e sobrinha. Uma dupla que une experiência, juventude e muito amor em cada detalhe.</p>
             <p>Mahyra, com sua criatividade afiada e olhar atento para as tendências, sempre foi a tia que caprichava nos presentes e fazia questão de que cada celebração fosse especial. Halexia, sua sobrinha, cresceu vendo esse cuidado e herdou o mesmo brilho nos olhos pela arte de encantar.</p>
-            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a MIMÔ nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
+            <p>Foi em uma conversa descontraída, regada a café e muitos sonhos, que a Mimô nasceu. A ideia era simples e poderosa: criar itens personalizados com alma, cor e alegria — para que cada aniversário fosse único, assim como o amor que une essa família.</p>
             <p>Mahyra desenha, cria e dá vida a cada peça. Halexia organiza, planeja e garante que tudo chegue no tempo certo e com o cuidado que cada cliente merece. Juntas, elas transformam papel em memória, e festa em emoção.</p>
-            <p>Hoje, a MIMÔ é o reflexo de um laço que vai além do sangue — é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
+            <p>Hoje, a Mimô é o reflexo de um laço que vai além do sangue — é amizade, parceria e um propósito em comum: fazer os outros felizes, um item de cada vez. Porque para Mahyra e Halexia, a alegria não se vive apenas... ela se personaliza. 💕✨</p>
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">"O amor que nos une é o mesmo que colocamos em cada item. ✨"</p>
           </div>
 
           <div className="mimo-reveal order-1 md:order-2" style={{ animationDelay: ".2s" }}>
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
-              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da MIMÔ" className="w-full aspect-[4/5] object-cover" />
+              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da Mimô" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
                 Mahyra &amp; Halexia — As fundadoras 💕
               </figcaption>
@@ -276,7 +276,7 @@ function Index() {
         </div>
 
         <div className="mimo-reveal mt-16 text-center bg-white rounded-[20px] p-8 shadow-lg">
-          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a MIMÔ. Vamos conversar? 💬</p>
+          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a Mimô. Vamos conversar? 💬</p>
           <button onClick={openSellersModal} className="mimo-btn mimo-btn-pink mt-5">FALAR NO WHATSAPP</button>
         </div>
       </section>

@@ -17,7 +17,7 @@ export function FloatingWidgets() {
   function send(e: React.FormEvent) {
     e.preventDefault();
     if (!msg.trim()) return;
-    const text = encodeURIComponent("Olá MIMÔ! " + msg);
+    const text = encodeURIComponent("Olá Mimô! " + msg);
     window.open(`https://wa.me/?text=${text}`, "_blank");
     setMsg("");
   }
@@ -38,7 +38,7 @@ export function FloatingWidgets() {
         {open && (
           <div className="mb-3 w-72 bg-white rounded-[20px] shadow-2xl p-4 border-2 border-[#C77FC2] animate-in fade-in zoom-in duration-300">
             <div className="flex justify-between items-center mb-2">
-              <strong className="text-[#F97FAF]">MIMÔ Chat</strong>
+              <strong className="text-[#F97FAF]">Mimô Chat</strong>
               <button onClick={() => setOpen(false)} aria-label="Fechar"><X className="h-4 w-4" /></button>
             </div>
             <div className="bg-[#FEF5F6] rounded-[14px] p-3 text-sm text-[#5b2b48] mb-3">

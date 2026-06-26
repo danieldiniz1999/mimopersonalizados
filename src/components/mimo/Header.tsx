@@ -26,7 +26,7 @@ export function Header() {
         </button>
 
         <Link to="/" className="flex items-center gap-2 shrink-0 transition-transform duration-300 hover:scale-105">
-          <img src={logoAsset.url} alt="MIMÔ Personalizados" className="h-20 md:h-24 w-auto rounded-[20px]" />
+          <img src={logoAsset.url} alt="Mimô Personalizados" className="h-20 md:h-24 w-auto rounded-[20px]" />
         </Link>
       </div>
       {open && (
