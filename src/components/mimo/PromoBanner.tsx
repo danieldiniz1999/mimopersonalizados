@@ -12,7 +12,7 @@ export function PromoBanner() {
         {/* TÍTULO ARTÍSTICO com balões integrados */}
         <div className="relative mt-5 mx-auto w-full max-w-[720px]">
           <svg
-            viewBox="0 0 720 280"
+            viewBox="0 0 720 310"
             className="w-full h-auto"
             aria-label="Promoção Mimô"
           >
