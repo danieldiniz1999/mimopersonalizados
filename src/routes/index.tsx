@@ -89,7 +89,7 @@ function Index() {
           Uma história de amor, família e muita alegria
         </p>
 
-        <div className="mt-12 grid md:grid-cols-2 gap-10 items-start">
+        <div className="mt-12 grid md:grid-cols-2 gap-10 items-center">
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
             <p className="text-xl font-extrabold text-[#C77FC2]">Muito prazer! 💜</p>
             <p>Nós somos <strong>Halexia</strong> e <strong>Mahyra</strong>, as idealizadoras da Mimô Personalizados. Apaixonadas por transformar momentos especiais em lembranças inesquecíveis, criamos cada mimo com muito carinho, dedicação e atenção aos detalhes.</p>
@@ -98,7 +98,7 @@ function Index() {
             <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">Seja muito bem-vindo(a) à Mimô! Será um prazer fazer parte da sua celebração. ✨</p>
           </div>
 
-          <div className="mimo-reveal order-1 md:order-2" style={{ animationDelay: ".2s" }}>
+          <div className="mimo-reveal order-1 md:order-2 max-w-sm w-full mx-auto" style={{ animationDelay: ".2s" }}>
             <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
               <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da Mimô" className="w-full aspect-[4/5] object-cover" />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
