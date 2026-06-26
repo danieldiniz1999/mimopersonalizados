@@ -59,7 +59,7 @@ export function PromoBanner() {
         </svg>
 
         {/* CONTEÚDO */}
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center px-0 sm:px-28 md:px-40">
           {/* etiqueta */}
           <span className="inline-flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#F97FAF]">
             <span className="h-px w-10 bg-[#F97FAF]/40" />
@@ -70,7 +70,7 @@ export function PromoBanner() {
           {/* Título tipográfico */}
           <h2
             className="mt-5 font-serif italic text-[#5b2b48] leading-[0.95]"
-            style={{ fontFamily: "'Instrument Serif', 'Cormorant Garamond', Georgia, serif", fontSize: "clamp(2.8rem, 7vw, 5rem)" }}
+            style={{ fontFamily: "'Instrument Serif', 'Cormorant Garamond', Georgia, serif", fontSize: "clamp(2.4rem, 5vw, 3.75rem)" }}
           >
             Promo<span className="text-[#F97FAF]">ção</span>{" "}
             <span className="text-[#C77FC2]">Mimô</span>
