@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { Package } from "lucide-react";
 import { useProducts, useProductsLoading, CATEGORIES, type Product } from "@/lib/products-store";
@@ -140,10 +140,57 @@ export function CatalogCarousel() {
     );
   }
 
-  // duplicamos a lista para o loop ser contínuo (marquee)
+  return <SteppedCarousel items={items} />;
+}
+
+function SteppedCarousel({ items }: { items: Product[] }) {
+  // duplicamos a lista para o loop ser contínuo
   const loop = [...items, ...items];
-  // velocidade proporcional ao número de itens (mais itens = mais tempo)
-  const duration = Math.max(40, items.length * 5);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [animate, setAnimate] = useState(true);
+
+  // avança 1 item a cada 2,8s (sem pausar)
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setIndex((i) => i + 1);
+    }, 2800);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  // quando chega na metade (lista duplicada), reseta para 0 sem animação
+  useEffect(() => {
+    if (index < items.length) return;
+    const node = trackRef.current;
+    if (!node) return;
+    const onEnd = () => {
+      setAnimate(false);
+      setIndex(0);
+      // re-habilita a animação no próximo frame
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setAnimate(true));
+      });
+    };
+    node.addEventListener("transitionend", onEnd, { once: true });
+    return () => node.removeEventListener("transitionend", onEnd);
+  }, [index, items.length]);
+
+  // calcula deslocamento em pixels conforme largura real do primeiro card + gap
+  const [step, setStep] = useState(300);
+  useEffect(() => {
+    const measure = () => {
+      const node = trackRef.current;
+      if (!node) return;
+      const first = node.firstElementChild as HTMLElement | null;
+      if (!first) return;
+      const style = window.getComputedStyle(node);
+      const gap = parseFloat(style.columnGap || style.gap || "20") || 20;
+      setStep(first.offsetWidth + gap);
+    };
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [items.length]);
 
   return (
     <div
@@ -156,8 +203,12 @@ export function CatalogCarousel() {
       }}
     >
       <div
-        className="flex gap-5 w-max mimo-marquee hover:[animation-play-state:paused]"
-        style={{ animationDuration: `${duration}s` }}
+        ref={trackRef}
+        className="flex gap-5 w-max"
+        style={{
+          transform: `translateX(-${index * step}px)`,
+          transition: animate ? "transform 900ms cubic-bezier(0.65, 0, 0.35, 1)" : "none",
+        }}
       >
         {loop.map((p, i) => (
           <Card key={`${p.id}-${i}`} p={p} />
