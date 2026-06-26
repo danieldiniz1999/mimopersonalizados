@@ -19,6 +19,7 @@ export type Database = {
           active: boolean
           category: string | null
           created_at: string
+          description: string | null
           hue: number
           id: number
           image: string | null
@@ -38,6 +39,7 @@ export type Database = {
           active?: boolean
           category?: string | null
           created_at?: string
+          description?: string | null
           hue?: number
           id?: number
           image?: string | null
@@ -57,6 +59,7 @@ export type Database = {
           active?: boolean
           category?: string | null
           created_at?: string
+          description?: string | null
           hue?: number
           id?: number
           image?: string | null

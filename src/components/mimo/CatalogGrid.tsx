@@ -279,6 +279,13 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
                   <Download className="h-5 w-5" />
                 </a>
               </div>
+              {product?.description && product.description.trim() !== "" && (
+                <div className="mt-4 rounded-2xl bg-[#fff5f8] border border-[#f3dfe7] p-4">
+                  <p className="text-sm text-[#5b2b48] whitespace-pre-line leading-relaxed">
+                    {product.description}
+                  </p>
+                </div>
+              )}
               {product?.isKit && (product.kitItems?.length ?? 0) > 0 && (
                 <div className="mt-4 rounded-2xl bg-[#fff5f8] border border-[#f3dfe7] p-4">
                   <p className="text-sm font-black text-[#F97FAF] inline-flex items-center gap-1.5">
