@@ -17,9 +17,9 @@ export function PromoBanner() {
               <stop offset="0%" stopColor="#ffe1ee" /><stop offset="55%" stopColor="#F97FAF" /><stop offset="100%" stopColor="#c95a86" />
             </radialGradient>
           </defs>
-          <path d="M70 50 C 55 28, 26 36, 32 64 C 38 92, 70 114, 70 126 C 70 114, 102 92, 108 64 C 114 36, 85 28, 70 50 Z" fill="url(#pbHeart)" stroke="#5b2b48" strokeWidth="1" />
+          <path d="M70 50 C 55 28, 26 36, 32 64 C 38 92, 70 114, 70 126 C 70 114, 102 92, 108 64 C 114 36, 85 28, 70 50 Z" fill="url(#pbHeart)" stroke="#ffe1ee" strokeWidth="1" />
           <ellipse cx="55" cy="58" rx="5" ry="8" fill="#fff" opacity=".6" />
-          <path d="M70 128 C 74 150, 66 170, 74 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+          <path d="M70 128 C 74 150, 66 170, 74 198" stroke="#ffe1ee" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
         <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 left-24 md:top-10 md:left-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: ".7s" }}>
@@ -28,10 +28,10 @@ export function PromoBanner() {
               <stop offset="0%" stopColor="#fff6a8" /><stop offset="60%" stopColor="#D5DB1F" /><stop offset="100%" stopColor="#9ea317" />
             </radialGradient>
           </defs>
-          <ellipse cx="70" cy="60" rx="32" ry="40" fill="url(#pbYel)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="70" cy="60" rx="32" ry="40" fill="url(#pbYel)" stroke="#ffe1ee" strokeWidth="1" />
           <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
           <polygon points="67,102 73,102 70,112" fill="#9ea317" />
-          <path d="M70 112 C 74 138, 64 160, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+          <path d="M70 112 C 74 138, 64 160, 72 198" stroke="#ffe1ee" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
         <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute -top-2 -right-2 md:top-4 md:right-4 hidden sm:block w-20 md:w-24 h-auto mimo-float" style={{ animationDelay: ".4s" }}>
@@ -40,10 +40,10 @@ export function PromoBanner() {
               <stop offset="0%" stopColor="#dff1ff" /><stop offset="60%" stopColor="#7CC9F0" /><stop offset="100%" stopColor="#3e91bf" />
             </radialGradient>
           </defs>
-          <ellipse cx="70" cy="60" rx="34" ry="42" fill="url(#pbBlu)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="70" cy="60" rx="34" ry="42" fill="url(#pbBlu)" stroke="#ffe1ee" strokeWidth="1" />
           <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
           <polygon points="67,104 73,104 70,114" fill="#3e91bf" />
-          <path d="M70 114 C 66 140, 76 162, 68 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+          <path d="M70 114 C 66 140, 76 162, 68 198" stroke="#ffe1ee" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
         <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 right-24 md:top-10 md:right-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: "1.1s" }}>
@@ -52,10 +52,10 @@ export function PromoBanner() {
               <stop offset="0%" stopColor="#f3dcef" /><stop offset="60%" stopColor="#C77FC2" /><stop offset="100%" stopColor="#8c4d8a" />
             </radialGradient>
           </defs>
-          <ellipse cx="70" cy="60" rx="30" ry="38" fill="url(#pbLil)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="70" cy="60" rx="30" ry="38" fill="url(#pbLil)" stroke="#ffe1ee" strokeWidth="1" />
           <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
           <polygon points="67,100 73,100 70,110" fill="#8c4d8a" />
-          <path d="M70 110 C 74 134, 66 158, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+          <path d="M70 110 C 74 134, 66 158, 72 198" stroke="#ffe1ee" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
         {/* CONTEÚDO */}
