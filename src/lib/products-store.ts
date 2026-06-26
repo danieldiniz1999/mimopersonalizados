@@ -20,6 +20,7 @@ export type Product = {
   hue: number;
   image?: string;
   images?: string[];
+  thumbnails?: string[];
   active?: boolean;
   price?: number;
   originalPrice?: number;
@@ -36,6 +37,7 @@ type Row = {
   hue: number;
   image: string | null;
   images: unknown;
+  thumbnails?: unknown;
   active: boolean;
   sort_order: number;
   price: number | string | null;
@@ -48,6 +50,7 @@ type Row = {
 
 function fromRow(r: Row): Product {
   const imgs = Array.isArray(r.images) ? (r.images as string[]) : [];
+  const thumbs = Array.isArray(r.thumbnails) ? (r.thumbnails as string[]) : [];
   const ki = Array.isArray(r.kit_items)
     ? (r.kit_items as unknown[])
         .map((x) => {
@@ -65,6 +68,7 @@ function fromRow(r: Row): Product {
     hue: r.hue,
     image: r.image ?? undefined,
     images: imgs,
+    thumbnails: thumbs,
     active: r.active,
     price: r.price == null ? undefined : Number(r.price),
     originalPrice: r.original_price == null ? undefined : Number(r.original_price),
@@ -90,7 +94,7 @@ async function fetchAll(): Promise<Product[]> {
   emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
+    .select("id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   isLoadingProducts = false;
