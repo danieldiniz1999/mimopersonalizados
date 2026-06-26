@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Download, X, ChevronLeft, ChevronRight, Package } from "lucide-react";
-import { useProducts, type Product } from "@/lib/products-store";
+import { useProducts, useProductsLoading, type Product } from "@/lib/products-store";
 
 const brl = (v: number) =>
   v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -11,6 +11,8 @@ function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string;
       <img
         src={image}
         alt={name ?? "Produto"}
+        loading="lazy"
+        decoding="async"
         className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] object-cover"
       />
     );
@@ -27,6 +29,7 @@ function ProductPlaceholder({ hue, image, name }: { hue: number; image?: string;
 
 export function CatalogGrid({ limit }: { limit?: number }) {
   const all = useProducts();
+  const loading = useProductsLoading();
   const visible = all.filter((p) => p.active !== false);
   const products: Product[] = limit ? visible.slice(0, limit) : visible;
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -44,6 +47,19 @@ export function CatalogGrid({ limit }: { limit?: number }) {
   return (
     <>
       <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+        {loading && products.length === 0 &&
+          Array.from({ length: limit ?? 8 }).map((_, i) => (
+            <div key={`sk-${i}`} className="mimo-card">
+              <div className="aspect-square sm:aspect-[4/3] w-full rounded-[20px] bg-[#fbe9f0] animate-pulse" />
+              <div className="mt-4 h-4 w-3/4 rounded bg-[#fbe9f0] animate-pulse" />
+              <div className="mt-2 h-4 w-1/3 rounded bg-[#fbe9f0] animate-pulse" />
+            </div>
+          ))}
+        {!loading && products.length === 0 && (
+          <p className="col-span-full text-center text-[#7a4a64] py-10">
+            Nenhum produto disponível no momento.
+          </p>
+        )}
         {products.map((p, i) => (
           <article key={p.id} className="mimo-reveal mimo-card relative" style={{ animationDelay: `${0.1 * i}s` }}>
             {p.isNew && (

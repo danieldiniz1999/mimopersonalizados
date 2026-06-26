@@ -63,19 +63,24 @@ let cache: Product[] = [];
 let loaded = false;
 let loadingPromise: Promise<Product[]> | null = null;
 const listeners = new Set<() => void>();
+export let isLoadingProducts = false;
 
 function emit() {
   listeners.forEach((l) => l());
 }
 
 async function fetchAll(): Promise<Product[]> {
+  isLoadingProducts = true;
+  emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items")
+    .select("id, name, is_new, hue, images, active, sort_order, price, original_price, is_kit, kit_items")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
+  isLoadingProducts = false;
   if (error) {
     console.error("[produtos] erro ao buscar:", error);
+    emit();
     return cache;
   }
   cache = (data as Row[]).map(fromRow);
@@ -184,4 +189,14 @@ export function useProducts(): Product[] {
     return unsub;
   }, []);
   return list;
+}
+
+export function useProductsLoading(): boolean {
+  const [loading, setLoading] = useState<boolean>(isLoadingProducts || !loaded);
+  useEffect(() => {
+    const update = () => setLoading(isLoadingProducts || !loaded);
+    update();
+    return productsStore.subscribe(update);
+  }, []);
+  return loading;
 }
