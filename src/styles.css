@@ -245,6 +245,19 @@
 
 .mimo-particle { position:absolute; top:0; animation: mimo-particle linear infinite both; pointer-events:none; user-select:none; }
 
+/* Carrossel infinito (marquee) — duplicamos a lista no JSX e movemos -50% */
+@keyframes mimo-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.mimo-marquee {
+  animation: mimo-marquee linear infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mimo-marquee { animation: none; }
+}
+
 #lovable-badge {
   display: none !important;
 }
