@@ -81,7 +81,11 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
           aria-label={`Ampliar ${p.name}`}
         >
           <div className="transition-transform duration-500 hover:scale-110">
-            <ProductPlaceholder hue={p.hue} image={p.images?.[0] ?? p.image} name={p.name} />
+            <ProductPlaceholder
+              hue={p.hue}
+              image={p.thumbnails?.[0] ?? p.images?.[0] ?? p.image}
+              name={p.name}
+            />
           </div>
         </button>
         {((p.images?.length ?? 0) > 1) && (
