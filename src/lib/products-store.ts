@@ -20,6 +20,7 @@ export type Product = {
   hue: number;
   image?: string;
   images?: string[];
+  thumbnails?: string[];
   active?: boolean;
   price?: number;
   originalPrice?: number;
