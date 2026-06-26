@@ -10,66 +10,52 @@ export function PromoBanner() {
           <div className="absolute -bottom-28 -right-24 h-72 w-72 rounded-full bg-[#D5DB1F]/10 blur-3xl" />
         </div>
 
-        {/* Balões flutuantes — laterais */}
-        <svg
-          aria-hidden
-          viewBox="0 0 200 320"
-          className="pointer-events-none absolute left-2 md:left-6 top-1/2 -translate-y-1/2 hidden sm:block h-[78%] w-auto"
-        >
+        {/* Balões nos cantos */}
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute -top-2 -left-2 md:top-4 md:left-4 hidden sm:block w-20 md:w-24 h-auto mimo-float" style={{ animationDelay: "0s" }}>
           <defs>
-            <radialGradient id="pbL1" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stopColor="#ffe1ee" />
-              <stop offset="55%" stopColor="#F97FAF" />
-              <stop offset="100%" stopColor="#c95a86" />
-            </radialGradient>
-            <radialGradient id="pbL2" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stopColor="#fff6a8" />
-              <stop offset="60%" stopColor="#D5DB1F" />
-              <stop offset="100%" stopColor="#9ea317" />
+            <radialGradient id="pbHeart" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#ffe1ee" /><stop offset="55%" stopColor="#F97FAF" /><stop offset="100%" stopColor="#c95a86" />
             </radialGradient>
           </defs>
-          <g className="mimo-float" style={{ animationDelay: "0s" }}>
-            <path d="M120 60 C 105 38, 76 46, 82 74 C 88 102, 120 124, 120 136 C 120 124, 152 102, 158 74 C 164 46, 135 38, 120 60 Z" fill="url(#pbL1)" stroke="#5b2b48" strokeWidth="1" />
-            <ellipse cx="105" cy="68" rx="5" ry="8" fill="#fff" opacity=".6" />
-            <path d="M120 138 C 122 160, 116 180, 122 210" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" />
-          </g>
-          <g className="mimo-float" style={{ animationDelay: ".8s" }}>
-            <ellipse cx="60" cy="170" rx="28" ry="34" fill="url(#pbL2)" stroke="#5b2b48" strokeWidth="1" />
-            <ellipse cx="52" cy="159" rx="5" ry="7.5" fill="#fff" opacity=".6" />
-            <polygon points="58,204 62,204 60,212" fill="#9ea317" />
-            <path d="M60 212 C 64 234, 58 252, 66 280" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" />
-          </g>
+          <path d="M70 50 C 55 28, 26 36, 32 64 C 38 92, 70 114, 70 126 C 70 114, 102 92, 108 64 C 114 36, 85 28, 70 50 Z" fill="url(#pbHeart)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="55" cy="58" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <path d="M70 128 C 74 150, 66 170, 74 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
-        <svg
-          aria-hidden
-          viewBox="0 0 200 320"
-          className="pointer-events-none absolute right-2 md:right-6 top-1/2 -translate-y-1/2 hidden sm:block h-[78%] w-auto"
-        >
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 left-24 md:top-10 md:left-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: ".7s" }}>
           <defs>
-            <radialGradient id="pbR1" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stopColor="#dff1ff" />
-              <stop offset="60%" stopColor="#7CC9F0" />
-              <stop offset="100%" stopColor="#3e91bf" />
-            </radialGradient>
-            <radialGradient id="pbR2" cx="35%" cy="30%" r="70%">
-              <stop offset="0%" stopColor="#f3dcef" />
-              <stop offset="60%" stopColor="#C77FC2" />
-              <stop offset="100%" stopColor="#8c4d8a" />
+            <radialGradient id="pbYel" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#fff6a8" /><stop offset="60%" stopColor="#D5DB1F" /><stop offset="100%" stopColor="#9ea317" />
             </radialGradient>
           </defs>
-          <g className="mimo-float" style={{ animationDelay: ".4s" }}>
-            <ellipse cx="80" cy="70" rx="30" ry="36" fill="url(#pbR1)" stroke="#5b2b48" strokeWidth="1" />
-            <ellipse cx="71" cy="58" rx="5" ry="8" fill="#fff" opacity=".6" />
-            <polygon points="78,108 82,108 80,116" fill="#3e91bf" />
-            <path d="M80 116 C 84 138, 76 156, 84 186" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" />
-          </g>
-          <g className="mimo-float" style={{ animationDelay: "1.1s" }}>
-            <ellipse cx="140" cy="180" rx="24" ry="29" fill="url(#pbR2)" stroke="#5b2b48" strokeWidth="1" />
-            <ellipse cx="133" cy="170" rx="4.5" ry="6.5" fill="#fff" opacity=".6" />
-            <polygon points="138,210 142,210 140,217" fill="#8c4d8a" />
-            <path d="M140 217 C 136 238, 144 254, 138 282" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".5" />
-          </g>
+          <ellipse cx="70" cy="60" rx="32" ry="40" fill="url(#pbYel)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,102 73,102 70,112" fill="#9ea317" />
+          <path d="M70 112 C 74 138, 64 160, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
+
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute -top-2 -right-2 md:top-4 md:right-4 hidden sm:block w-20 md:w-24 h-auto mimo-float" style={{ animationDelay: ".4s" }}>
+          <defs>
+            <radialGradient id="pbBlu" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#dff1ff" /><stop offset="60%" stopColor="#7CC9F0" /><stop offset="100%" stopColor="#3e91bf" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="60" rx="34" ry="42" fill="url(#pbBlu)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,104 73,104 70,114" fill="#3e91bf" />
+          <path d="M70 114 C 66 140, 76 162, 68 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
+        </svg>
+
+        <svg aria-hidden viewBox="0 0 140 200" className="pointer-events-none absolute top-6 right-24 md:top-10 md:right-32 hidden md:block w-16 h-auto mimo-float" style={{ animationDelay: "1.1s" }}>
+          <defs>
+            <radialGradient id="pbLil" cx="35%" cy="30%" r="70%">
+              <stop offset="0%" stopColor="#f3dcef" /><stop offset="60%" stopColor="#C77FC2" /><stop offset="100%" stopColor="#8c4d8a" />
+            </radialGradient>
+          </defs>
+          <ellipse cx="70" cy="60" rx="30" ry="38" fill="url(#pbLil)" stroke="#5b2b48" strokeWidth="1" />
+          <ellipse cx="60" cy="46" rx="5" ry="8" fill="#fff" opacity=".6" />
+          <polygon points="67,100 73,100 70,110" fill="#8c4d8a" />
+          <path d="M70 110 C 74 134, 66 158, 72 198" stroke="#5b2b48" strokeWidth="1" fill="none" opacity=".55" />
         </svg>
 
         {/* CONTEÚDO */}
