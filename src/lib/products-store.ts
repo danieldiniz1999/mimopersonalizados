@@ -28,6 +28,7 @@ export type Product = {
   kitItems?: KitItem[];
   category?: Category;
   isPromo?: boolean;
+  description?: string;
 };
 
 type Row = {
@@ -46,6 +47,7 @@ type Row = {
   kit_items?: unknown;
   category?: string | null;
   is_promo?: boolean;
+  description?: string | null;
 };
 
 function fromRow(r: Row): Product {
@@ -76,6 +78,7 @@ function fromRow(r: Row): Product {
     kitItems: ki,
     category: (r.category ?? undefined) as Category | undefined,
     isPromo: !!r.is_promo,
+    description: r.description ?? undefined,
   };
 }
 
@@ -94,7 +97,7 @@ async function fetchAll(): Promise<Product[]> {
   emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
+    .select("id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   isLoadingProducts = false;
@@ -138,8 +141,9 @@ export const productsStore = {
         kit_items: p.kitItems ?? [],
         category: p.category ?? null,
         is_promo: p.isPromo ?? false,
+        description: p.description ?? null,
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
+      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description")
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -163,6 +167,7 @@ export const productsStore = {
       kit_items?: KitItem[];
       category?: string | null;
       is_promo?: boolean;
+      description?: string | null;
     } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
@@ -176,6 +181,7 @@ export const productsStore = {
     if (patch.kitItems !== undefined) dbPatch.kit_items = patch.kitItems ?? [];
     if (patch.category !== undefined) dbPatch.category = patch.category ?? null;
     if (patch.isPromo !== undefined) dbPatch.is_promo = patch.isPromo ?? false;
+    if (patch.description !== undefined) dbPatch.description = patch.description ?? null;
 
     // otimista
     cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
