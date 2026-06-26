@@ -26,6 +26,7 @@ export type Product = {
   isKit?: boolean;
   kitItems?: KitItem[];
   category?: Category;
+  isPromo?: boolean;
 };
 
 type Row = {
@@ -42,6 +43,7 @@ type Row = {
   is_kit?: boolean;
   kit_items?: unknown;
   category?: string | null;
+  is_promo?: boolean;
 };
 
 function fromRow(r: Row): Product {
@@ -69,6 +71,7 @@ function fromRow(r: Row): Product {
     isKit: !!r.is_kit,
     kitItems: ki,
     category: (r.category ?? undefined) as Category | undefined,
+    isPromo: !!r.is_promo,
   };
 }
 
@@ -87,7 +90,7 @@ async function fetchAll(): Promise<Product[]> {
   emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, images, active, sort_order, price, original_price, is_kit, kit_items, category")
+    .select("id, name, is_new, hue, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   isLoadingProducts = false;
@@ -130,8 +133,9 @@ export const productsStore = {
         is_kit: p.isKit ?? false,
         kit_items: p.kitItems ?? [],
         category: p.category ?? null,
+        is_promo: p.isPromo ?? false,
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category")
+      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo")
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -154,6 +158,7 @@ export const productsStore = {
       is_kit?: boolean;
       kit_items?: KitItem[];
       category?: string | null;
+      is_promo?: boolean;
     } = {};
     if (patch.name !== undefined) dbPatch.name = patch.name;
     if (patch.isNew !== undefined) dbPatch.is_new = patch.isNew;
@@ -166,6 +171,7 @@ export const productsStore = {
     if (patch.isKit !== undefined) dbPatch.is_kit = patch.isKit;
     if (patch.kitItems !== undefined) dbPatch.kit_items = patch.kitItems ?? [];
     if (patch.category !== undefined) dbPatch.category = patch.category ?? null;
+    if (patch.isPromo !== undefined) dbPatch.is_promo = patch.isPromo ?? false;
 
     // otimista
     cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
