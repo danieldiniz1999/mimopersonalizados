@@ -1,0 +1,1 @@
+ALTER TABLE public.produtos ADD COLUMN is_promo boolean NOT NULL DEFAULT false;
