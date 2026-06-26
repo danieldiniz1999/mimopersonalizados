@@ -1,7 +1,16 @@
 export function PromoBanner() {
   return (
-    <div className="relative py-10 md:py-14 overflow-visible">
-      <div className="relative flex flex-col items-center text-center px-4">
+    <div className="relative py-8 md:py-12 px-4">
+      <div
+        className="relative mx-auto max-w-5xl overflow-hidden rounded-[28px] border border-[#f3c6d5] bg-gradient-to-b from-[#fff7fb] via-white to-[#fff1f6] px-6 py-10 md:px-14 md:py-14 text-center shadow-[0_20px_60px_-30px_rgba(91,43,72,0.35)]"
+      >
+        {/* Detalhes decorativos de canto */}
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 -left-24 h-64 w-64 rounded-full bg-[#F97FAF]/10 blur-3xl" />
+          <div className="absolute -bottom-24 -right-24 h-64 w-64 rounded-full bg-[#D5DB1F]/10 blur-3xl" />
+        </div>
+
+        <div className="relative flex flex-col items-center">
         {/* Etiqueta superior */}
         <span className="inline-flex items-center gap-3 text-[11px] font-bold tracking-[0.32em] uppercase text-[#F97FAF]">
           <span className="h-px w-10 bg-[#F97FAF]/40" />
@@ -184,6 +193,7 @@ export function PromoBanner() {
         <p className="mt-3 text-xs md:text-sm text-[#7a4a64] italic">
           Aproveite enquanto durar
         </p>
+        </div>
       </div>
     </div>
   );
