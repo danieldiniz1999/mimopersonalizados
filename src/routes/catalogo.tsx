@@ -4,6 +4,7 @@ import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
 import { CatalogGrid } from "@/components/mimo/CatalogGrid";
+import { BuyersPopup } from "@/components/mimo/BuyersPopup";
 import { SectionTitle } from "@/components/mimo/SectionTitle";
 import { useReveal } from "@/hooks/use-reveal";
 
@@ -42,6 +43,7 @@ function CatalogoPage() {
         <CatalogGrid groupByCategory />
       </section>
       <Footer />
+      <BuyersPopup variant="catalog" />
       <FloatingWidgets />
     </div>
   );
