@@ -54,7 +54,7 @@ export function BuyersPopup() {
 
   return (
     <div
-      className={`fixed left-4 sm:left-6 bottom-24 z-40 w-[calc(100vw-2rem)] max-w-[320px] transition-all duration-500 ${
+      className={`fixed left-4 sm:left-6 bottom-4 sm:bottom-6 z-40 w-[calc(100vw-2rem)] max-w-[320px] transition-all duration-500 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
       role="status"

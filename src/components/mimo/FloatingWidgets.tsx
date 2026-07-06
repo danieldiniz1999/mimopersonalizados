@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { MessageCircle, Send, X } from "lucide-react";
 import { SellersModal, openSellersModal } from "./SellersModal";
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
@@ -11,17 +9,6 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 export function FloatingWidgets() {
-  const [open, setOpen] = useState(false);
-  const [msg, setMsg] = useState("");
-
-  function send(e: React.FormEvent) {
-    e.preventDefault();
-    if (!msg.trim()) return;
-    const text = encodeURIComponent("Olá Mimô! " + msg);
-    window.open(`https://wa.me/?text=${text}`, "_blank");
-    setMsg("");
-  }
-
   return (
     <>
       <button
@@ -33,32 +20,6 @@ export function FloatingWidgets() {
         <WhatsAppIcon className="h-8 w-8" />
       </button>
       <SellersModal />
-
-      <div className="fixed bottom-6 left-6 z-50">
-        {open && (
-          <div className="mb-3 w-72 bg-white rounded-[20px] shadow-2xl p-4 border-2 border-[#C77FC2] animate-in fade-in zoom-in duration-300">
-            <div className="flex justify-between items-center mb-2">
-              <strong className="text-[#F97FAF]">Mimô Chat</strong>
-              <button onClick={() => setOpen(false)} aria-label="Fechar"><X className="h-4 w-4" /></button>
-            </div>
-            <div className="bg-[#FEF5F6] rounded-[14px] p-3 text-sm text-[#5b2b48] mb-3">
-              Olá! Como podemos ajudar você hoje? 💕
-            </div>
-            <form onSubmit={send} className="flex gap-2">
-              <input value={msg} onChange={(e) => setMsg(e.target.value)} maxLength={300} placeholder="Sua mensagem..." className="mimo-input !py-2 text-sm" />
-              <button className="mimo-btn mimo-btn-pink !px-3 !py-2" aria-label="Enviar"><Send className="h-4 w-4" /></button>
-            </form>
-          </div>
-        )}
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="grid place-items-center h-14 w-14 rounded-full text-white shadow-lg transition-transform duration-300 hover:scale-110"
-          style={{ backgroundColor: "#C77FC2" }}
-          aria-label="Chat"
-        >
-          <MessageCircle className="h-7 w-7" />
-        </button>
-      </div>
     </>
   );
 }
