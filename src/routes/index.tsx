@@ -11,6 +11,7 @@ import { CatalogCarousel } from "@/components/mimo/CatalogCarousel";
 import { SectionTitle } from "@/components/mimo/SectionTitle";
 import { TeamSection } from "@/components/mimo/TeamSection";
 import { openSellersModal } from "@/components/mimo/SellersModal";
+import { BuyersPopup } from "@/components/mimo/BuyersPopup";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -282,6 +283,7 @@ function Index() {
 
       <Footer />
       <FloatingWidgets />
+      <BuyersPopup />
     </div>
   );
 }
