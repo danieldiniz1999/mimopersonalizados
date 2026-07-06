@@ -3,7 +3,7 @@ import { ShoppingBag, X } from "lucide-react";
 
 type Buyer = { name: string; city: string; state: string; product: string };
 
-const BUYERS: Buyer[] = [
+const BUYERS_HOME: Buyer[] = [
   { name: "Ana Beatriz", city: "Fortaleza", state: "CE", product: "Sacolinhas Personalizadas" },
   { name: "Camila Souza", city: "São Paulo", state: "SP", product: "Tubolatas" },
   { name: "Juliana Alves", city: "Rio de Janeiro", state: "RJ", product: "Convites" },
@@ -18,9 +18,25 @@ const BUYERS: Buyer[] = [
   { name: "Vanessa Nunes", city: "Porto Alegre", state: "RS", product: "Acrílico" },
 ];
 
+const BUYERS_CATALOG: Buyer[] = [
+  { name: "Aline Cardoso", city: "Sobral", state: "CE", product: "Tubolatas" },
+  { name: "Beatriz Moura", city: "Campinas", state: "SP", product: "Convites" },
+  { name: "Carolina Freitas", city: "Niterói", state: "RJ", product: "Sacolinhas Personalizadas" },
+  { name: "Débora Pinheiro", city: "Uberlândia", state: "MG", product: "Acrílico" },
+  { name: "Elaine Barros", city: "Olinda", state: "PE", product: "Cofres" },
+  { name: "Gabriela Teixeira", city: "Maracanaú", state: "CE", product: "Pipoca Gourmet" },
+  { name: "Helena Rocha", city: "Feira de Santana", state: "BA", product: "Convites" },
+  { name: "Isabela Mendes", city: "Londrina", state: "PR", product: "Tubolatas" },
+  { name: "Karina Vieira", city: "Mossoró", state: "RN", product: "Sacolinhas Personalizadas" },
+  { name: "Luana Farias", city: "Taguatinga", state: "DF", product: "Acrílico" },
+  { name: "Marcela Andrade", city: "Parintins", state: "AM", product: "Pipoca Gourmet" },
+  { name: "Natália Guimarães", city: "Canoas", state: "RS", product: "Cofres" },
+];
+
 const MINUTES = [1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6];
 
-export function BuyersPopup() {
+export function BuyersPopup({ variant = "home" }: { variant?: "home" | "catalog" } = {}) {
+  const BUYERS = variant === "catalog" ? BUYERS_CATALOG : BUYERS_HOME;
   const [index, setIndex] = useState(0);
   const [visible, setVisible] = useState(false);
   const [dismissed, setDismissed] = useState(false);
@@ -45,7 +61,7 @@ export function BuyersPopup() {
       clearTimeout(first);
       clearTimeout(timer);
     };
-  }, [dismissed]);
+  }, [dismissed, BUYERS.length]);
 
   if (dismissed) return null;
 
