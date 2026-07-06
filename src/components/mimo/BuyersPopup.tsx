@@ -18,7 +18,7 @@ const BUYERS: Buyer[] = [
   { name: "Vanessa Nunes", city: "Porto Alegre", state: "RS", product: "Acrílico" },
 ];
 
-const MINUTES = [2, 3, 4, 5, 7, 8, 10, 12, 15, 18, 22, 27];
+const MINUTES = [1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 6];
 
 export function BuyersPopup() {
   const [index, setIndex] = useState(0);
@@ -51,6 +51,7 @@ export function BuyersPopup() {
 
   const buyer = BUYERS[index];
   const minutes = MINUTES[index % MINUTES.length];
+  const minuteLabel = minutes === 1 ? "1 minuto" : `${minutes} minutos`;
 
   return (
     <div
@@ -80,7 +81,7 @@ export function BuyersPopup() {
             comprou <span className="font-semibold text-[#C77FC2]">{buyer.product}</span>
           </p>
           <p className="text-[11px] text-[#a97a8f] mt-0.5">
-            {buyer.city} - {buyer.state} · há {minutes} min
+            {buyer.city} - {buyer.state} · há {minuteLabel}
           </p>
         </div>
       </div>
