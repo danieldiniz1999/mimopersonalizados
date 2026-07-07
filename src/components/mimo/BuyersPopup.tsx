@@ -71,13 +71,13 @@ export function BuyersPopup({ variant = "home" }: { variant?: "home" | "catalog"
 
   return (
     <div
-      className={`fixed left-4 sm:left-6 bottom-4 sm:bottom-6 z-40 w-[calc(100vw-2rem)] max-w-[320px] transition-all duration-500 ${
+      className={`fixed left-2 sm:left-6 bottom-2 sm:bottom-6 z-40 w-[240px] sm:w-[calc(100vw-2rem)] sm:max-w-[320px] transition-all duration-500 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
       }`}
       role="status"
       aria-live="polite"
     >
-      <div className="bg-white rounded-[18px] shadow-2xl border-2 border-[#f7dde6] p-3 pr-8 flex items-center gap-3 relative">
+      <div className="bg-white rounded-[14px] sm:rounded-[18px] shadow-2xl border-2 border-[#f7dde6] p-2 pr-6 sm:p-3 sm:pr-8 flex items-center gap-2 sm:gap-3 relative">
         <button
           onClick={() => setDismissed(true)}
           className="absolute top-1.5 right-1.5 text-[#7a4a64] hover:text-[#F97FAF] transition-colors"
@@ -86,17 +86,17 @@ export function BuyersPopup({ variant = "home" }: { variant?: "home" | "catalog"
           <X className="h-3.5 w-3.5" />
         </button>
         <div
-          className="h-11 w-11 shrink-0 rounded-full grid place-items-center text-white"
+          className="h-8 w-8 sm:h-11 sm:w-11 shrink-0 rounded-full grid place-items-center text-white"
           style={{ background: "linear-gradient(135deg, #F97FAF, #C77FC2)" }}
         >
-          <ShoppingBag className="h-5 w-5" />
+          <ShoppingBag className="h-4 w-4 sm:h-5 sm:w-5" />
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-bold text-[#5b2b48] truncate">{buyer.name}</p>
-          <p className="text-xs text-[#7a4a64] leading-tight">
+          <p className="text-[11px] sm:text-sm font-bold text-[#5b2b48] truncate">{buyer.name}</p>
+          <p className="text-[10px] sm:text-xs text-[#7a4a64] leading-tight truncate">
             comprou <span className="font-semibold text-[#C77FC2]">{buyer.product}</span>
           </p>
-          <p className="text-[11px] text-[#a97a8f] mt-0.5">
+          <p className="text-[9px] sm:text-[11px] text-[#a97a8f] mt-0.5 truncate">
             {buyer.city} - {buyer.state} · há {minuteLabel}
           </p>
         </div>
