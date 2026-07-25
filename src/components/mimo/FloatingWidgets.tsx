@@ -13,11 +13,11 @@ export function FloatingWidgets() {
     <>
       <button
         onClick={openSellersModal}
-        className="mimo-wa-pulse fixed bottom-6 right-6 z-50 grid place-items-center h-14 w-14 rounded-full text-white shadow-lg transition-transform duration-300 hover:scale-110"
+        className="mimo-wa-pulse fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-50 grid place-items-center h-12 w-12 sm:h-14 sm:w-14 rounded-full text-white shadow-lg transition-transform duration-300 hover:scale-110"
         style={{ backgroundColor: "#25D366" }}
         aria-label="WhatsApp"
       >
-        <WhatsAppIcon className="h-8 w-8" />
+        <WhatsAppIcon className="h-7 w-7 sm:h-8 sm:w-8" />
       </button>
       <SellersModal />
     </>
