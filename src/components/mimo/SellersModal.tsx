@@ -54,7 +54,7 @@ export function SellersModal() {
 
   return (
     <div
-      className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm grid place-items-center p-5 sm:p-6 animate-in fade-in duration-200"
       onClick={() => setOpen(false)}
       role="dialog"
       aria-modal="true"
