@@ -204,14 +204,14 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
               <X />
             </button>
             <div
-              className="w-full max-w-3xl bg-white rounded-[24px] p-4 md:p-6 shadow-2xl animate-in zoom-in-95 duration-300"
+              className="w-full max-w-3xl max-h-[90vh] overflow-y-auto overscroll-contain bg-white rounded-[24px] p-4 md:p-6 shadow-2xl animate-in zoom-in-95 duration-300"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative overflow-hidden rounded-[20px]">
                 {current ? (
-                  <img src={current} alt={product?.name} className="w-full aspect-[4/3] object-cover rounded-[20px]" />
+                  <img src={current} alt={product?.name} className="w-full max-h-[45vh] sm:max-h-[55vh] aspect-[4/3] object-cover rounded-[20px]" />
                 ) : (
-                  <div className="aspect-[4/3] w-full rounded-[20px] grid place-items-center text-8xl md:text-9xl"
+                  <div className="aspect-[4/3] w-full max-h-[45vh] sm:max-h-[55vh] rounded-[20px] grid place-items-center text-8xl md:text-9xl"
                     style={{ background: `linear-gradient(135deg, hsl(${product?.hue ?? 330} 90% 92%), hsl(${((product?.hue ?? 330) + 30) % 360} 90% 85%))` }}>
                     🎁
                   </div>
