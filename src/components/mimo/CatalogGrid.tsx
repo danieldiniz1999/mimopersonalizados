@@ -191,13 +191,13 @@ export function CatalogGrid({ limit, groupByCategory }: { limit?: number; groupB
         const prev = () => setSlideIdx((i) => (i - 1 + total) % total);
         return (
           <div
-            className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 animate-in fade-in duration-300"
+            className="fixed inset-0 z-[60] bg-black/70 backdrop-blur-sm grid place-items-center p-4 sm:p-6 animate-in fade-in duration-300"
             onClick={() => setLightbox(null)}
             role="dialog"
             aria-modal="true"
           >
             <button
-              className="absolute top-4 right-4 h-12 w-12 grid place-items-center rounded-full bg-white text-[#F97FAF] shadow-lg hover:scale-110 transition-transform"
+              className="absolute top-5 right-5 sm:top-6 sm:right-6 h-11 w-11 sm:h-12 sm:w-12 grid place-items-center rounded-full bg-white text-[#F97FAF] shadow-lg hover:scale-110 transition-transform z-10"
               onClick={() => setLightbox(null)}
               aria-label="Fechar"
             >
