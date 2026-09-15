@@ -1,26 +1,42 @@
-# MIMÔ
+﻿# MIMÔ Personalizados
 
-.
+Aplicação web e catálogo online da **MIMÔ Personalizados**, desenvolvida com React 19, TanStack Start, Tailwind CSS e Supabase, pronta para deploy na **Vercel**.
 
-This project was built with [Lovable](https://lovable.dev).
+## 🚀 Tecnologias
 
-**Live app**: https://mimopersonalizados.lovable.app
+- **Framework:** [React 19](https://react.dev) + [TanStack Start](https://tanstack.com/start)
+- **Roteamento:** [TanStack Router](https://tanstack.com/router)
+- **Estilização:** [Tailwind CSS v4](https://tailwindcss.com) + [Radix UI](https://www.radix-ui.com)
+- **Backend & Autenticação:** [Supabase](https://supabase.com)
+- **Deploy:** [Vercel](https://vercel.com) (Build Output API v3 via Nitro)
 
-## Build with Lovable
+## 💻 Desenvolvimento Local
 
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/70a85547-422e-4223-97df-1b8e2cc007eb).
+1. Instale as dependências:
+   `sh
+npm install
+`
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+2. Configure o arquivo .env com as credenciais do Supabase (consulte .env.example).
 
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+3. Inicie o servidor de desenvolvimento:
+   `sh
 npm run dev
-```
+`
+
+4. Acesse em http://localhost:3000 (ou na porta indicada no terminal).
+
+## 📦 Build e Deploy na Vercel
+
+### Deploy com Git (Recomendado)
+
+1. Crie um novo projeto na [Vercel](https://vercel.com/new).
+2. Importe o repositório danieldiniz1999/mimopersonalizados.
+3. Em **Environment Variables**, adicione as variáveis contidas no arquivo .env.example:
+   - VITE_SUPABASE_URL
+   - VITE_SUPABASE_PUBLISHABLE_KEY
+   - VITE_SUPABASE_PROJECT_ID
+   - SUPABASE_URL
+   - SUPABASE_PUBLISHABLE_KEY
+   - SUPABASE_PROJECT_ID
+4. Clique em **Deploy**. A Vercel detectará e construirá a aplicação automaticamente utilizando a saída de .vercel/output.

@@ -10,10 +10,8 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
-import logoAsset from "../assets/logo.png.asset.json";
 
-const LOGO_URL = `https://mimopersonalizados.lovable.app${logoAsset.url}`;
+const LOGO_URL = "/logo.png";
 
 function NotFoundComponent() {
   return (
@@ -38,11 +36,8 @@ function NotFoundComponent() {
 }
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
-  console.error(error);
+  console.error("[App Error]", error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -91,11 +86,29 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Mimô Personalizados — Mimos para Aniversários" },
       { property: "og:title", content: "Mimô Personalizados — Mimos para Aniversários" },
       { name: "twitter:title", content: "Mimô Personalizados — Mimos para Aniversários" },
-      { name: "description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { property: "og:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { name: "twitter:description", content: "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4b690716-5783-4cd3-85f5-8f3cc8a56970/id-preview-5f56c7e4--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781910903780.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/4b690716-5783-4cd3-85f5-8f3cc8a56970/id-preview-5f56c7e4--70a85547-422e-4223-97df-1b8e2cc007eb.lovable.app-1781910903780.png" },
+      {
+        name: "description",
+        content:
+          "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho.",
+      },
+      {
+        property: "og:description",
+        content:
+          "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho.",
+      },
+      {
+        name: "twitter:description",
+        content:
+          "Itens personalizados feitos com amor para tornar aniversários inesquecíveis. Lembrancinhas, kits e decoração com criatividade e carinho.",
+      },
+      {
+        property: "og:image",
+        content: "/og-image.png",
+      },
+      {
+        name: "twitter:image",
+        content: "/og-image.png",
+      },
     ],
     links: [
       {
@@ -104,7 +117,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
-      { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@500;600;700&display=swap",
+      },
     ],
     scripts: [
       {
@@ -113,7 +129,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "@context": "https://schema.org",
           "@type": "Organization",
           name: "Mimô Personalizados",
-          url: "https://mimopersonalizados.lovable.app",
+          url: "https://mimopersonalizados.com.br",
           logo: LOGO_URL,
           description:
             "Itens personalizados para festas e aniversários, feitos com amor em Caucaia-CE.",

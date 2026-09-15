@@ -1,7 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Pencil, Trash2, Plus, LogOut, Save, X, Eye, EyeOff, ImagePlus, Package } from "lucide-react";
-import { productsStore, useProducts, CATEGORIES, type Product, type KitItem, type Category } from "@/lib/products-store";
+import {
+  Pencil,
+  Trash2,
+  Plus,
+  LogOut,
+  Save,
+  X,
+  Eye,
+  EyeOff,
+  ImagePlus,
+  Package,
+} from "lucide-react";
+import {
+  productsStore,
+  useProducts,
+  CATEGORIES,
+  type Product,
+  type KitItem,
+  type Category,
+} from "@/lib/products-store";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/logo.png.asset.json";
 
@@ -25,7 +43,14 @@ function AdminPage() {
 
   if (!checked) return null;
   if (!authed) return <LoginScreen onLogin={() => setAuthed(true)} />;
-  return <Dashboard onLogout={() => { sessionStorage.removeItem(AUTH_KEY); setAuthed(false); }} />;
+  return (
+    <Dashboard
+      onLogout={() => {
+        sessionStorage.removeItem(AUTH_KEY);
+        setAuthed(false);
+      }}
+    />
+  );
 }
 
 function LoginScreen({ onLogin }: { onLogin: () => void }) {
@@ -45,23 +70,54 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
   return (
     <div className="min-h-screen grid place-items-center bg-[#fff5f8] px-4">
-      <form onSubmit={submit} className="w-full max-w-sm bg-white rounded-[24px] p-8 shadow-xl border border-[#f3dfe7]">
+      <form
+        onSubmit={submit}
+        className="w-full max-w-sm bg-white rounded-[24px] p-8 shadow-xl border border-[#f3dfe7]"
+      >
         <img src={logoAsset.url} alt="Mimô" className="mx-auto h-16 w-auto mb-3" />
         <h1 className="text-2xl font-black text-[#F97FAF] text-center">Painel Mimô</h1>
-        <p className="text-sm text-[#7a4a64] text-center mt-1">Faça login para gerenciar o catálogo</p>
+        <p className="text-sm text-[#7a4a64] text-center mt-1">
+          Faça login para gerenciar o catálogo
+        </p>
         <label className="block mt-6 text-sm font-bold text-[#5b2b48]">Usuário</label>
-        <input value={user} onChange={(e) => setUser(e.target.value)} className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" autoFocus />
+        <input
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
+          autoFocus
+        />
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Senha</label>
-        <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+        <input
+          type="password"
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
+        />
         {err && <p className="mt-3 text-sm text-red-600">{err}</p>}
-        <button type="submit" className="mimo-btn mimo-btn-pink mt-6 w-full justify-center">Entrar</button>
+        <button type="submit" className="mimo-btn mimo-btn-pink mt-6 w-full justify-center">
+          Entrar
+        </button>
       </form>
     </div>
   );
 }
 
 const MAX_IMAGES = 5;
-const EMPTY: Omit<Product, "id"> = { name: "", isNew: false, hue: 330, image: undefined, images: [], active: true, price: undefined, originalPrice: undefined, isKit: false, kitItems: [], category: undefined, isPromo: false, description: "" };
+const EMPTY: Omit<Product, "id"> = {
+  name: "",
+  isNew: false,
+  hue: 330,
+  image: undefined,
+  images: [],
+  active: true,
+  price: undefined,
+  originalPrice: undefined,
+  isKit: false,
+  kitItems: [],
+  category: undefined,
+  isPromo: false,
+  description: "",
+};
 
 function Dashboard({ onLogout }: { onLogout: () => void }) {
   const products = useProducts();
@@ -92,7 +148,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
       <main className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-5 gap-2 flex-wrap">
           <p className="text-sm text-[#7a4a64]">{products.length} produto(s)</p>
-          <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-3 text-sm">
+          <button
+            onClick={() => setCreating(true)}
+            className="mimo-btn mimo-btn-pink !py-2 !px-3 text-sm"
+          >
             <Plus className="h-4 w-4" /> Novo produto
           </button>
         </div>
@@ -108,100 +167,141 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               marcar como novidade e ativar ou desativar a qualquer momento.
             </p>
             <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-              <button onClick={() => setCreating(true)} className="mimo-btn mimo-btn-pink !py-2 !px-4 text-sm">
+              <button
+                onClick={() => setCreating(true)}
+                className="mimo-btn mimo-btn-pink !py-2 !px-4 text-sm"
+              >
                 <Plus className="h-4 w-4" /> Cadastrar primeiro produto
               </button>
             </div>
             <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 text-left max-w-2xl mx-auto">
               <div className="rounded-xl bg-[#fff5f8] p-4">
                 <p className="text-xs font-black text-[#F97FAF]">1. Cadastrar</p>
-                <p className="text-xs text-[#7a4a64] mt-1">Clique em "Novo produto" e preencha as informações.</p>
+                <p className="text-xs text-[#7a4a64] mt-1">
+                  Clique em "Novo produto" e preencha as informações.
+                </p>
               </div>
               <div className="rounded-xl bg-[#fff5f8] p-4">
                 <p className="text-xs font-black text-[#F97FAF]">2. Organizar</p>
-                <p className="text-xs text-[#7a4a64] mt-1">Marque novidades e ative ou desative quando quiser.</p>
+                <p className="text-xs text-[#7a4a64] mt-1">
+                  Marque novidades e ative ou desative quando quiser.
+                </p>
               </div>
               <div className="rounded-xl bg-[#fff5f8] p-4">
                 <p className="text-xs font-black text-[#F97FAF]">3. Publicar</p>
-                <p className="text-xs text-[#7a4a64] mt-1">Os produtos ativos aparecem automaticamente no site.</p>
+                <p className="text-xs text-[#7a4a64] mt-1">
+                  Os produtos ativos aparecem automaticamente no site.
+                </p>
               </div>
             </div>
           </div>
         ) : (
-        <div className="space-y-8">
-          {(() => {
-            const groups: { key: string; items: Product[] }[] = [];
-            for (const cat of CATEGORIES) {
-              const items = products.filter((p) => p.category === cat);
-              if (items.length > 0) groups.push({ key: cat, items });
-            }
-            const uncategorized = products.filter((p) => !p.category);
-            if (uncategorized.length > 0) groups.push({ key: "Sem categoria", items: uncategorized });
-            return groups.map((g) => (
-              <section key={g.key}>
-                <h2 className="text-base md:text-lg font-black text-[#5b2b48] mb-3 inline-flex items-center gap-2">
-                  {g.key}
-                  <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2 py-0.5 rounded-full">{g.items.length}</span>
-                </h2>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
-                  {g.items.map((p) => {
-                    const inactive = p.active === false;
-                    return (
-                      <div key={p.id} className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}>
-                        <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
-                          {(() => {
-                            const cover = p.images?.[0] ?? p.image;
-                            return cover ? (
-                              <img src={cover} alt={p.name} className="w-full h-full object-cover" />
-                            ) : (
-                              <div className="w-full h-full grid place-items-center text-3xl"
-                                style={{ background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))` }}>
-                                🎁
-                              </div>
-                            );
-                          })()}
-                          {((p.images?.length ?? 0) > 1) && (
-                            <span className="absolute top-1 right-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded-full">
-                              {p.images!.length} fotos
-                            </span>
-                          )}
-                          {p.isNew && (
-                            <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">NOVO</span>
-                          )}
-                          {inactive && (
-                            <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-[#5b2b48]/80 px-1.5 py-0.5 rounded-full">INATIVO</span>
-                          )}
-                        </div>
-                        <h3 className="font-bold text-[#5b2b48] text-xs leading-tight line-clamp-2 min-h-[2rem]">{p.name}</h3>
-                        <div className="mt-2 flex items-center justify-between gap-1">
-                          <button
-                            onClick={() => productsStore.update(p.id, { active: inactive ? true : false })}
-                            className={`h-7 w-7 grid place-items-center rounded-md ${inactive ? "bg-[#f3eaf0] text-[#5b2b48]" : "bg-[#eaf7ec] text-emerald-700"} hover:opacity-80`}
-                            title={inactive ? "Ativar" : "Desativar"}
-                          >
-                            {inactive ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                          </button>
-                          <div className="flex gap-1">
-                            <button onClick={() => setEditing(p)} className="h-7 w-7 grid place-items-center rounded-md bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]" title="Editar">
-                              <Pencil className="h-3.5 w-3.5" />
-                            </button>
+          <div className="space-y-8">
+            {(() => {
+              const groups: { key: string; items: Product[] }[] = [];
+              for (const cat of CATEGORIES) {
+                const items = products.filter((p) => p.category === cat);
+                if (items.length > 0) groups.push({ key: cat, items });
+              }
+              const uncategorized = products.filter((p) => !p.category);
+              if (uncategorized.length > 0)
+                groups.push({ key: "Sem categoria", items: uncategorized });
+              return groups.map((g) => (
+                <section key={g.key}>
+                  <h2 className="text-base md:text-lg font-black text-[#5b2b48] mb-3 inline-flex items-center gap-2">
+                    {g.key}
+                    <span className="text-xs font-bold text-[#F97FAF] bg-[#fff0f5] px-2 py-0.5 rounded-full">
+                      {g.items.length}
+                    </span>
+                  </h2>
+                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+                    {g.items.map((p) => {
+                      const inactive = p.active === false;
+                      return (
+                        <div
+                          key={p.id}
+                          className={`bg-white rounded-xl p-2 border border-[#f3dfe7] shadow-sm ${inactive ? "opacity-60" : ""}`}
+                        >
+                          <div className="aspect-square rounded-lg overflow-hidden mb-2 relative">
+                            {(() => {
+                              const cover = p.images?.[0] ?? p.image;
+                              return cover ? (
+                                <img
+                                  src={cover}
+                                  alt={p.name}
+                                  className="w-full h-full object-cover"
+                                />
+                              ) : (
+                                <div
+                                  className="w-full h-full grid place-items-center text-3xl"
+                                  style={{
+                                    background: `linear-gradient(135deg, hsl(${p.hue} 90% 92%), hsl(${(p.hue + 30) % 360} 90% 85%))`,
+                                  }}
+                                >
+                                  🎁
+                                </div>
+                              );
+                            })()}
+                            {(p.images?.length ?? 0) > 1 && (
+                              <span className="absolute top-1 right-1 text-[10px] font-bold text-white bg-black/60 px-1.5 py-0.5 rounded-full">
+                                {p.images!.length} fotos
+                              </span>
+                            )}
+                            {p.isNew && (
+                              <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
+                                NOVO
+                              </span>
+                            )}
+                            {inactive && (
+                              <span className="absolute bottom-1 left-1 text-[10px] font-bold text-white bg-[#5b2b48]/80 px-1.5 py-0.5 rounded-full">
+                                INATIVO
+                              </span>
+                            )}
+                          </div>
+                          <h3 className="font-bold text-[#5b2b48] text-xs leading-tight line-clamp-2 min-h-[2rem]">
+                            {p.name}
+                          </h3>
+                          <div className="mt-2 flex items-center justify-between gap-1">
                             <button
-                              onClick={() => { if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id); }}
-                              className="h-7 w-7 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100"
-                              title="Excluir"
+                              onClick={() =>
+                                productsStore.update(p.id, { active: inactive ? true : false })
+                              }
+                              className={`h-7 w-7 grid place-items-center rounded-md ${inactive ? "bg-[#f3eaf0] text-[#5b2b48]" : "bg-[#eaf7ec] text-emerald-700"} hover:opacity-80`}
+                              title={inactive ? "Ativar" : "Desativar"}
                             >
-                              <Trash2 className="h-3.5 w-3.5" />
+                              {inactive ? (
+                                <EyeOff className="h-3.5 w-3.5" />
+                              ) : (
+                                <Eye className="h-3.5 w-3.5" />
+                              )}
                             </button>
+                            <div className="flex gap-1">
+                              <button
+                                onClick={() => setEditing(p)}
+                                className="h-7 w-7 grid place-items-center rounded-md bg-[#fff0f5] text-[#F97FAF] hover:bg-[#ffe3ee]"
+                                title="Editar"
+                              >
+                                <Pencil className="h-3.5 w-3.5" />
+                              </button>
+                              <button
+                                onClick={() => {
+                                  if (confirm(`Excluir "${p.name}"?`)) productsStore.remove(p.id);
+                                }}
+                                className="h-7 w-7 grid place-items-center rounded-md bg-red-50 text-red-600 hover:bg-red-100"
+                                title="Excluir"
+                              >
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </section>
-            ));
-          })()}
-        </div>
+                      );
+                    })}
+                  </div>
+                </section>
+              ));
+            })()}
+          </div>
         )}
       </main>
 
@@ -210,7 +310,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           initial={EMPTY}
           title="Novo produto"
           onClose={() => setCreating(false)}
-          onSave={(data) => { productsStore.add(data); setCreating(false); }}
+          onSave={(data) => {
+            productsStore.add(data);
+            setCreating(false);
+          }}
         />
       )}
       {editing && (
@@ -218,7 +321,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           initial={editing}
           title="Editar produto"
           onClose={() => setEditing(null)}
-          onSave={(data) => { productsStore.update(editing.id, data); setEditing(null); }}
+          onSave={(data) => {
+            productsStore.update(editing.id, data);
+            setEditing(null);
+          }}
         />
       )}
     </div>
@@ -226,7 +332,10 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
 }
 
 function ProductModal({
-  initial, title, onClose, onSave,
+  initial,
+  title,
+  onClose,
+  onSave,
 }: {
   initial: Omit<Product, "id"> | Product;
   title: string;
@@ -242,18 +351,20 @@ function ProductModal({
       ? initial.images.slice(0, MAX_IMAGES)
       : initial.image
         ? [initial.image]
-        : []
+        : [],
   );
   const [active, setActive] = useState(initial.active !== false);
   const [priceStr, setPriceStr] = useState<string>(
-    typeof initial.price === "number" ? initial.price.toFixed(2).replace(".", ",") : ""
+    typeof initial.price === "number" ? initial.price.toFixed(2).replace(".", ",") : "",
   );
   const [originalPriceStr, setOriginalPriceStr] = useState<string>(
-    typeof initial.originalPrice === "number" ? initial.originalPrice.toFixed(2).replace(".", ",") : ""
+    typeof initial.originalPrice === "number"
+      ? initial.originalPrice.toFixed(2).replace(".", ",")
+      : "",
   );
   const [isKit, setIsKit] = useState<boolean>(initial.isKit ?? false);
   const [kitItems, setKitItems] = useState<KitItem[]>(
-    initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : []
+    initial.kitItems && initial.kitItems.length > 0 ? initial.kitItems : [],
   );
   const [category, setCategory] = useState<Category | "">(initial.category ?? "");
   const [description, setDescription] = useState<string>(initial.description ?? "");
@@ -323,7 +434,10 @@ function ProductModal({
     }
     const normalizedOrig = originalPriceStr.trim().replace(/\./g, "").replace(",", ".");
     const originalPriceNum = normalizedOrig === "" ? undefined : Number(normalizedOrig);
-    if (originalPriceNum !== undefined && (Number.isNaN(originalPriceNum) || originalPriceNum < 0)) {
+    if (
+      originalPriceNum !== undefined &&
+      (Number.isNaN(originalPriceNum) || originalPriceNum < 0)
+    ) {
       alert("Preço original inválido. Use por exemplo: 79,90");
       return;
     }
@@ -356,15 +470,24 @@ function ProductModal({
       <header className="sticky top-0 bg-white border-b border-[#f3dfe7] z-10">
         <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
           <h2 className="text-lg md:text-xl font-black text-[#5b2b48] truncate">{title}</h2>
-          <button type="button" onClick={onClose} className="h-9 w-9 grid place-items-center rounded-full hover:bg-[#fff0f5]" aria-label="Fechar">
+          <button
+            type="button"
+            onClick={onClose}
+            className="h-9 w-9 grid place-items-center rounded-full hover:bg-[#fff0f5]"
+            aria-label="Fechar"
+          >
             <X className="h-5 w-5 text-[#5b2b48]" />
           </button>
         </div>
       </header>
       <form onSubmit={submit} className="max-w-3xl mx-auto px-4 py-6">
-
         <label className="block text-sm font-bold text-[#5b2b48]">Nome do produto</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} required className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]" />
+        <input
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+          className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
+        />
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
           Descrição <span className="font-normal text-[#7a4a64]">, opcional</span>
@@ -376,7 +499,9 @@ function ProductModal({
           placeholder="Detalhes do produto que o cliente verá ao clicar para ampliar (materiais, tamanho, personalização, etc.)"
           className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF] resize-y"
         />
-        <p className="text-xs text-[#7a4a64] mt-1">Aparece apenas quando o cliente clica no produto para ampliar.</p>
+        <p className="text-xs text-[#7a4a64] mt-1">
+          Aparece apenas quando o cliente clica no produto para ampliar.
+        </p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Categoria</label>
         <select
@@ -386,15 +511,21 @@ function ProductModal({
         >
           <option value="">Sem categoria</option>
           {CATEGORIES.map((c) => (
-            <option key={c} value={c}>{c}</option>
+            <option key={c} value={c}>
+              {c}
+            </option>
           ))}
         </select>
 
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-sm font-bold text-[#5b2b48]">Preço original (de) <span className="font-normal text-[#7a4a64]">, opcional</span></label>
+            <label className="block text-sm font-bold text-[#5b2b48]">
+              Preço original (de) <span className="font-normal text-[#7a4a64]">, opcional</span>
+            </label>
             <div className="mt-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">
+                R$
+              </span>
               <input
                 value={originalPriceStr}
                 onChange={(e) => setOriginalPriceStr(e.target.value)}
@@ -405,9 +536,14 @@ function ProductModal({
             </div>
           </div>
           <div>
-            <label className="block text-sm font-bold text-[#5b2b48]">Preço com desconto (por) <span className="font-normal text-[#7a4a64]">, opcional</span></label>
+            <label className="block text-sm font-bold text-[#5b2b48]">
+              Preço com desconto (por){" "}
+              <span className="font-normal text-[#7a4a64]">, opcional</span>
+            </label>
             <div className="mt-1 relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">R$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#7a4a64] font-bold">
+                R$
+              </span>
               <input
                 value={priceStr}
                 onChange={(e) => setPriceStr(e.target.value)}
@@ -418,35 +554,64 @@ function ProductModal({
             </div>
           </div>
         </div>
-        <p className="text-xs text-[#7a4a64] mt-1">Use vírgula para os centavos. Preencha só o "por" para mostrar um preço simples, ou os dois para destacar o desconto.</p>
+        <p className="text-xs text-[#7a4a64] mt-1">
+          Use vírgula para os centavos. Preencha só o "por" para mostrar um preço simples, ou os
+          dois para destacar o desconto.
+        </p>
 
         <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
-          Imagens <span className="font-normal text-[#7a4a64]">({images.length}/{MAX_IMAGES})</span>
+          Imagens{" "}
+          <span className="font-normal text-[#7a4a64]">
+            ({images.length}/{MAX_IMAGES})
+          </span>
         </label>
         <label
-          onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setDragOver(true);
+          }}
           onDragLeave={() => setDragOver(false)}
           onDrop={onDrop}
           className={`mt-1 flex flex-col items-center justify-center gap-2 cursor-pointer rounded-2xl border-2 border-dashed px-4 py-6 text-center transition-colors ${
-            dragOver ? "border-[#F97FAF] bg-[#fff0f5]" : "border-[#f3c6d5] bg-white hover:bg-[#fff5f8]"
+            dragOver
+              ? "border-[#F97FAF] bg-[#fff0f5]"
+              : "border-[#f3c6d5] bg-white hover:bg-[#fff5f8]"
           } ${images.length >= MAX_IMAGES ? "opacity-60 pointer-events-none" : ""}`}
         >
           <div className="h-12 w-12 rounded-full bg-[#fff0f5] grid place-items-center text-[#F97FAF]">
             <ImagePlus className="h-6 w-6" />
           </div>
           <p className="text-sm font-bold text-[#5b2b48]">
-            {images.length >= MAX_IMAGES
-              ? `Limite de ${MAX_IMAGES} imagens atingido`
-              : <>Arraste as imagens aqui ou <span className="text-[#F97FAF] underline">clique para escolher</span></>}
+            {images.length >= MAX_IMAGES ? (
+              `Limite de ${MAX_IMAGES} imagens atingido`
+            ) : (
+              <>
+                Arraste as imagens aqui ou{" "}
+                <span className="text-[#F97FAF] underline">clique para escolher</span>
+              </>
+            )}
           </p>
-          <p className="text-xs text-[#7a4a64]">PNG ou JPG até 5MB cada — até {MAX_IMAGES} imagens</p>
-          <input type="file" accept="image/*" multiple onChange={onFile} className="hidden" disabled={images.length >= MAX_IMAGES} />
+          <p className="text-xs text-[#7a4a64]">
+            PNG ou JPG até 5MB cada — até {MAX_IMAGES} imagens
+          </p>
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={onFile}
+            className="hidden"
+            disabled={images.length >= MAX_IMAGES}
+          />
         </label>
         {images.length > 0 && (
           <div className="mt-3 grid grid-cols-3 sm:grid-cols-5 gap-2">
             {images.map((src, idx) => (
               <div key={idx} className="relative group">
-                <img src={src} alt={`Imagem ${idx + 1}`} className="aspect-square w-full object-cover rounded-lg border border-[#f3dfe7]" />
+                <img
+                  src={src}
+                  alt={`Imagem ${idx + 1}`}
+                  className="aspect-square w-full object-cover rounded-lg border border-[#f3dfe7]"
+                />
                 {idx === 0 && (
                   <span className="absolute top-1 left-1 text-[10px] font-black text-[#3a1a2f] bg-[#D5DB1F] px-1.5 py-0.5 rounded-full">
                     CAPA
@@ -464,11 +629,27 @@ function ProductModal({
             ))}
           </div>
         )}
-        <p className="text-xs text-[#7a4a64] mt-2">A primeira imagem é usada como capa. Sem imagens, usamos um fundo colorido.</p>
+        <p className="text-xs text-[#7a4a64] mt-2">
+          A primeira imagem é usada como capa. Sem imagens, usamos um fundo colorido.
+        </p>
 
-        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">Cor de fundo (matiz: {hue}°)</label>
-        <input type="range" min={0} max={360} value={hue} onChange={(e) => setHue(Number(e.target.value))} className="w-full" />
-        <div className="h-6 rounded-lg mt-1" style={{ background: `linear-gradient(135deg, hsl(${hue} 90% 92%), hsl(${(hue + 30) % 360} 90% 85%))` }} />
+        <label className="block mt-4 text-sm font-bold text-[#5b2b48]">
+          Cor de fundo (matiz: {hue}°)
+        </label>
+        <input
+          type="range"
+          min={0}
+          max={360}
+          value={hue}
+          onChange={(e) => setHue(Number(e.target.value))}
+          className="w-full"
+        />
+        <div
+          className="h-6 rounded-lg mt-1"
+          style={{
+            background: `linear-gradient(135deg, hsl(${hue} 90% 92%), hsl(${(hue + 30) % 360} 90% 85%))`,
+          }}
+        />
 
         <label className="mt-4 flex items-center gap-2 text-[#5b2b48]">
           <input type="checkbox" checked={isNew} onChange={(e) => setIsNew(e.target.checked)} />
@@ -490,11 +671,15 @@ function ProductModal({
           {isKit && (
             <div className="mt-4">
               <p className="text-sm font-bold text-[#5b2b48]">Itens inclusos no kit</p>
-              <p className="text-xs text-[#7a4a64] mt-0.5">Liste o que vem dentro do kit. Aparecerá ao abrir o produto no site.</p>
+              <p className="text-xs text-[#7a4a64] mt-0.5">
+                Liste o que vem dentro do kit. Aparecerá ao abrir o produto no site.
+              </p>
 
               <div className="mt-3 space-y-2">
                 {kitItems.length === 0 && (
-                  <p className="text-xs text-[#7a4a64] italic">Nenhum item ainda. Clique em "Adicionar item" abaixo.</p>
+                  <p className="text-xs text-[#7a4a64] italic">
+                    Nenhum item ainda. Clique em "Adicionar item" abaixo.
+                  </p>
                 )}
                 {kitItems.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2">
@@ -504,7 +689,9 @@ function ProductModal({
                       value={item.qty}
                       onChange={(e) => {
                         const v = Number(e.target.value) || 1;
-                        setKitItems((prev) => prev.map((it, i) => (i === idx ? { ...it, qty: v } : it)));
+                        setKitItems((prev) =>
+                          prev.map((it, i) => (i === idx ? { ...it, qty: v } : it)),
+                        );
                       }}
                       className="w-16 rounded-xl border border-[#f3dfe7] px-2 py-2 outline-none focus:border-[#F97FAF] text-center"
                       aria-label="Quantidade"
@@ -513,7 +700,9 @@ function ProductModal({
                       value={item.name}
                       onChange={(e) => {
                         const v = e.target.value;
-                        setKitItems((prev) => prev.map((it, i) => (i === idx ? { ...it, name: v } : it)));
+                        setKitItems((prev) =>
+                          prev.map((it, i) => (i === idx ? { ...it, name: v } : it)),
+                        );
                       }}
                       placeholder="Nome do item (ex: Caneca personalizada)"
                       className="flex-1 min-w-0 rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
@@ -560,7 +749,13 @@ function ProductModal({
         </div>
 
         <div className="mt-8 flex justify-end gap-2">
-          <button type="button" onClick={onClose} className="mimo-btn !py-2 bg-white border border-[#f3dfe7] text-[#5b2b48]">Cancelar</button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="mimo-btn !py-2 bg-white border border-[#f3dfe7] text-[#5b2b48]"
+          >
+            Cancelar
+          </button>
           <button type="submit" className="mimo-btn mimo-btn-pink !py-2">
             <Save className="h-4 w-4" /> Salvar
           </button>

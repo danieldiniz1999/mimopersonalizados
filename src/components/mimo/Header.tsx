@@ -34,10 +34,7 @@ export function Header() {
               <Menu className="h-7 w-7" />
             </button>
           </SheetTrigger>
-          <SheetContent
-            side="left"
-            className="bg-[#FEF5F6] border-[#f7dde6] p-0 flex flex-col"
-          >
+          <SheetContent side="left" className="bg-[#FEF5F6] border-[#f7dde6] p-0 flex flex-col">
             <div className="px-6 pt-6 pb-4 border-b border-[#f7dde6]">
               <img
                 src={logoAsset.url}

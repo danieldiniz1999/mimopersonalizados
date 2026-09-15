@@ -1,7 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
-
-const BASE_URL = "https://mimopersonalizados.lovable.app";
+const BASE_URL =
+  process.env.SITE_URL ||
+  (process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "https://mimopersonalizados.com.br");
 
 interface SitemapEntry {
   path: string;

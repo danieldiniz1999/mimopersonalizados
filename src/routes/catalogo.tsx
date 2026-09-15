@@ -12,15 +12,25 @@ export const Route = createFileRoute("/catalogo")({
   head: () => ({
     meta: [
       { title: "Catálogo Completo — Mimô Personalizados" },
-      { name: "description", content: "Explore o catálogo completo da Mimô Personalizados com todos os nossos kits e itens para festas." },
+      {
+        name: "description",
+        content:
+          "Explore o catálogo completo da Mimô Personalizados com todos os nossos kits e itens para festas.",
+      },
       { property: "og:title", content: "Catálogo Completo — Mimô Personalizados" },
-      { property: "og:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
-      { property: "og:url", content: "https://mimopersonalizados.lovable.app/catalogo" },
+      {
+        property: "og:description",
+        content: "Veja todos os mimos personalizados disponíveis para a sua festa.",
+      },
+      { property: "og:url", content: "/catalogo" },
       { property: "og:type", content: "website" },
       { name: "twitter:title", content: "Catálogo Completo — Mimô Personalizados" },
-      { name: "twitter:description", content: "Veja todos os mimos personalizados disponíveis para a sua festa." },
+      {
+        name: "twitter:description",
+        content: "Veja todos os mimos personalizados disponíveis para a sua festa.",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/catalogo" }],
+    links: [{ rel: "canonical", href: "/catalogo" }],
   }),
   component: CatalogoPage,
 });
@@ -32,12 +42,18 @@ function CatalogoPage() {
       <Header />
       <section className="max-w-7xl mx-auto px-4 py-16">
         <div className="mb-6">
-          <Link to="/" className="inline-flex items-center gap-2 text-[#7a4a64] hover:text-[#F97FAF] font-bold transition-colors">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-[#7a4a64] hover:text-[#F97FAF] font-bold transition-colors"
+          >
             <ArrowLeft className="h-4 w-4" /> Voltar para a home
           </Link>
         </div>
         <SectionTitle as="h1">Catálogo Completo</SectionTitle>
-        <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+        <p
+          className="mimo-reveal text-center text-[#7a4a64] mt-3"
+          style={{ animationDelay: ".2s" }}
+        >
           Todos os nossos mimos em um só lugar
         </p>
         <CatalogGrid groupByCategory />

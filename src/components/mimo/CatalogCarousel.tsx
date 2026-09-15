@@ -3,8 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { Package } from "lucide-react";
 import { useProducts, useProductsLoading, CATEGORIES, type Product } from "@/lib/products-store";
 
-const brl = (v: number) =>
-  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const brl = (v: number) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
 function selectCarouselItems(all: Product[], max = 12): Product[] {
   const visible = all.filter((p) => p.active !== false);
@@ -206,10 +205,8 @@ function SteppedCarousel({ items }: { items: Product[] }) {
       ref={containerRef}
       className="mt-10 relative overflow-hidden"
       style={{
-        maskImage:
-          "linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)",
-        WebkitMaskImage:
-          "linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)",
+        maskImage: "linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)",
+        WebkitMaskImage: "linear-gradient(to right, transparent, #000 6%, #000 94%, transparent)",
       }}
     >
       <div

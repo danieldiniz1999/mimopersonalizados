@@ -1,10 +1,25 @@
-<!-- LOVABLE:BEGIN -->
-> [!IMPORTANT]
-> This project is connected to [Lovable](https://lovable.dev). Avoid rewriting
-> published git history — force pushing, or rebasing/amending/squashing commits
-> that are already pushed — as it rewrites history on Lovable's side and the
-> user will likely lose their project history.
->
-> Commits you push to the connected branch sync back to Lovable and show up in
-> the editor, so keep the branch in a working state.
-<!-- LOVABLE:END -->
+﻿# MIMÔ - Diretrizes para Agentes de Desenvolvimento
+
+## Visão Geral
+
+Projeto e-commerce e catálogo da marca **MIMÔ**, desenvolvido com:
+
+- **Framework:** React 19 + TanStack Start (SSR) + TanStack Router
+- **Estilização:** Tailwind CSS v4 + Radix UI + Lucide Icons + Sonner
+- **Deploy:** Vercel (Build Output API v3 via Nitro)
+- **Backend/Banco:** Supabase
+
+## Comandos Principais
+
+-
+
+pm run dev: Inicia o servidor de desenvolvimento local
+-
+
+pm run build: Executa a compilação de produção e gera o bundle Vercel em .vercel/output
+-
+
+pm run preview: Visualiza o build localmente
+-
+
+pm run lint: Executa a verificação estática com ESLint

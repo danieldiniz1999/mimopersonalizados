@@ -17,7 +17,7 @@ export const CATEGORIES = [
   "Tubolatas",
   "Convites",
 ] as const;
-export type Category = typeof CATEGORIES[number];
+export type Category = (typeof CATEGORIES)[number];
 
 export type Product = {
   id: number;
@@ -103,7 +103,9 @@ async function fetchAll(): Promise<Product[]> {
   emit();
   const { data, error } = await supabase
     .from("produtos")
-    .select("id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description")
+    .select(
+      "id, name, is_new, hue, images, thumbnails, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description",
+    )
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
   isLoadingProducts = false;
@@ -120,7 +122,9 @@ async function fetchAll(): Promise<Product[]> {
 
 function ensureLoaded() {
   if (loaded || loadingPromise) return loadingPromise;
-  loadingPromise = fetchAll().finally(() => { loadingPromise = null; });
+  loadingPromise = fetchAll().finally(() => {
+    loadingPromise = null;
+  });
   return loadingPromise;
 }
 
@@ -149,7 +153,9 @@ export const productsStore = {
         is_promo: p.isPromo ?? false,
         description: p.description ?? null,
       })
-      .select("id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description")
+      .select(
+        "id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description",
+      )
       .single();
     if (error) {
       console.error("[produtos] erro ao criar:", error);
@@ -214,7 +220,9 @@ export const productsStore = {
   },
   subscribe(fn: () => void) {
     listeners.add(fn);
-    return () => { listeners.delete(fn); };
+    return () => {
+      listeners.delete(fn);
+    };
   },
 };
 

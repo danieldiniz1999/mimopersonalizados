@@ -1,6 +1,21 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ChevronDown, Plus, Minus, Instagram, Mail, Clock, Heart, Palette, Users, Sparkles, ShieldCheck, BadgeCheck, Truck, MessageCircle } from "lucide-react";
+import {
+  ChevronDown,
+  Plus,
+  Minus,
+  Instagram,
+  Mail,
+  Clock,
+  Heart,
+  Palette,
+  Users,
+  Sparkles,
+  ShieldCheck,
+  BadgeCheck,
+  Truck,
+  MessageCircle,
+} from "lucide-react";
 import { Header } from "@/components/mimo/Header";
 import { Footer } from "@/components/mimo/Footer";
 import { FloatingWidgets } from "@/components/mimo/FloatingWidgets";
@@ -17,15 +32,25 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Mimô Personalizados, Aniversários inesquecíveis" },
-      { name: "description", content: "A Mimô transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor." },
+      {
+        name: "description",
+        content:
+          "A Mimô transforma aniversários em memórias inesquecíveis com itens personalizados feitos com amor.",
+      },
       { property: "og:title", content: "Mimô Personalizados, Aniversários inesquecíveis" },
-      { property: "og:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
-      { property: "og:url", content: "https://mimopersonalizados.lovable.app/" },
+      {
+        property: "og:description",
+        content: "Itens personalizados para festas, feitos com amor, família e alegria.",
+      },
+      { property: "og:url", content: "/" },
       { property: "og:type", content: "website" },
       { name: "twitter:title", content: "Mimô Personalizados, Aniversários inesquecíveis" },
-      { name: "twitter:description", content: "Itens personalizados para festas, feitos com amor, família e alegria." },
+      {
+        name: "twitter:description",
+        content: "Itens personalizados para festas, feitos com amor, família e alegria.",
+      },
     ],
-    links: [{ rel: "canonical", href: "https://mimopersonalizados.lovable.app/" }],
+    links: [{ rel: "canonical", href: "/" }],
     scripts: [
       {
         type: "application/ld+json",
@@ -33,7 +58,7 @@ export const Route = createFileRoute("/")({
           "@context": "https://schema.org",
           "@type": "WebSite",
           name: "Mimô Personalizados",
-          url: "https://mimopersonalizados.lovable.app/",
+          url: "https://mimopersonalizados.com.br/",
           inLanguage: "pt-BR",
         }),
       },
@@ -42,15 +67,34 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const WA_URL = "https://wa.me/?text=" + encodeURIComponent("Olá Mimô! Vi o site e quero um orçamento");
+const WA_URL =
+  "https://wa.me/?text=" + encodeURIComponent("Olá Mimô! Vi o site e quero um orçamento");
 
 const FAQ = [
-  { q: "Qual o valor mínimo do pedido?", a: "O pedido mínimo é de R$ 100,00 em compras de produtos diversos." },
-  { q: "Como funciona o prazo de entrega?", a: "Trabalhamos por agendamento. Nos informe o dia da festa que vemos a data disponível para o envio." },
-  { q: "Quais formas de pagamento vocês aceitam?", a: "Aceitamos PIX (entrada de 50% e o restante 1 dia antes do envio) e Cartão de Crédito (pagamento integral, consultar taxas)." },
-  { q: "Como funciona a entrega?", a: "Oferecemos retirada no ateliê em Caucaia-CE, UBER para Fortaleza e Região Metropolitana (cliente solicita) e Correios/Transportadora para todo o Brasil." },
-  { q: "E se eu desistir da compra?", a: "Em caso de desistência o valor da entrada não será devolvido. Se informar com 15 dias de antecedência, fica como crédito para futuras compras (válido por 1 ano)." },
-  { q: "As embalagens vêm com doces?", a: "Não. Todas as nossas embalagens são vazias. Trabalhamos apenas com os itens personalizados." },
+  {
+    q: "Qual o valor mínimo do pedido?",
+    a: "O pedido mínimo é de R$ 100,00 em compras de produtos diversos.",
+  },
+  {
+    q: "Como funciona o prazo de entrega?",
+    a: "Trabalhamos por agendamento. Nos informe o dia da festa que vemos a data disponível para o envio.",
+  },
+  {
+    q: "Quais formas de pagamento vocês aceitam?",
+    a: "Aceitamos PIX (entrada de 50% e o restante 1 dia antes do envio) e Cartão de Crédito (pagamento integral, consultar taxas).",
+  },
+  {
+    q: "Como funciona a entrega?",
+    a: "Oferecemos retirada no ateliê em Caucaia-CE, UBER para Fortaleza e Região Metropolitana (cliente solicita) e Correios/Transportadora para todo o Brasil.",
+  },
+  {
+    q: "E se eu desistir da compra?",
+    a: "Em caso de desistência o valor da entrada não será devolvido. Se informar com 15 dias de antecedência, fica como crédito para futuras compras (válido por 1 ano).",
+  },
+  {
+    q: "As embalagens vêm com doces?",
+    a: "Não. Todas as nossas embalagens são vazias. Trabalhamos apenas com os itens personalizados.",
+  },
 ];
 
 function Index() {
@@ -66,17 +110,25 @@ function Index() {
         <Particles />
         <div className="relative max-w-5xl mx-auto px-4 py-20 md:py-28 text-center">
           <h1 className="text-4xl md:text-6xl font-black leading-tight">
-            <span className="mimo-title-glow">A Mimô transforma aniversários em memórias inesquecíveis.</span>{" "}
+            <span className="mimo-title-glow">
+              A Mimô transforma aniversários em memórias inesquecíveis.
+            </span>{" "}
             <span className="mimo-heart-beat">💕</span>
           </h1>
           <p className="mt-6 text-lg md:text-xl text-[#7a4a64]">
             Itens personalizados feitos com amor, criatividade e muito carinho para a sua festa.
           </p>
           <div className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="#catalogo" className="mimo-btn mimo-btn-cta">VER CATÁLOGO</a>
+            <a href="#catalogo" className="mimo-btn mimo-btn-cta">
+              VER CATÁLOGO
+            </a>
           </div>
           <div className="mt-14 flex justify-center">
-            <a href="#quem-somos" aria-label="Role para baixo" className="mimo-bounce-down text-[#F97FAF]">
+            <a
+              href="#quem-somos"
+              aria-label="Role para baixo"
+              className="mimo-bounce-down text-[#F97FAF]"
+            >
               <ChevronDown className="h-10 w-10" />
             </a>
           </div>
@@ -86,22 +138,47 @@ function Index() {
       {/* QUEM SOMOS */}
       <section id="quem-somos" className="max-w-7xl mx-auto px-4 py-20">
         <SectionTitle>Quem Somos</SectionTitle>
-        <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+        <p
+          className="mimo-reveal text-center text-[#7a4a64] mt-3"
+          style={{ animationDelay: ".2s" }}
+        >
           Uma história de amor, família e muita alegria
         </p>
 
         <div className="mt-12 grid md:grid-cols-2 gap-10 items-center">
           <div className="mimo-reveal order-2 md:order-1 space-y-4 text-[#5b2b48] leading-relaxed">
             <p className="text-xl font-extrabold text-[#C77FC2]">Muito prazer! 💜</p>
-            <p>Nós somos <strong>Halexia</strong> e <strong>Mahyra</strong>, as idealizadoras da Mimô Personalizados. Apaixonadas por transformar momentos especiais em lembranças inesquecíveis, criamos cada mimo com muito carinho, dedicação e atenção aos detalhes.</p>
-            <p>Acreditamos que cada personalizado faz parte de uma história e, por isso, colocamos amor em cada pedido, para tornar a sua comemoração ainda mais especial.</p>
-            <p>Mais do que produzir personalizados, queremos fazer parte dos seus momentos mais felizes.</p>
-            <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">Seja muito bem-vindo(a) à Mimô! Será um prazer fazer parte da sua celebração. ✨</p>
+            <p>
+              Nós somos <strong>Halexia</strong> e <strong>Mahyra</strong>, as idealizadoras da Mimô
+              Personalizados. Apaixonadas por transformar momentos especiais em lembranças
+              inesquecíveis, criamos cada mimo com muito carinho, dedicação e atenção aos detalhes.
+            </p>
+            <p>
+              Acreditamos que cada personalizado faz parte de uma história e, por isso, colocamos
+              amor em cada pedido, para tornar a sua comemoração ainda mais especial.
+            </p>
+            <p>
+              Mais do que produzir personalizados, queremos fazer parte dos seus momentos mais
+              felizes.
+            </p>
+            <p className="mt-6 text-lg font-bold text-[#C77FC2] italic">
+              Seja muito bem-vindo(a) à Mimô! Será um prazer fazer parte da sua celebração. ✨
+            </p>
           </div>
 
-          <div className="mimo-reveal order-1 md:order-2 max-w-sm w-full mx-auto" style={{ animationDelay: ".2s" }}>
-            <figure className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105" style={{ borderColor: "#F97FAF" }}>
-              <img src={quemSomosAsset.url} alt="Mahyra e Halexia, fundadoras da Mimô" className="w-full aspect-[4/5] object-cover" />
+          <div
+            className="mimo-reveal order-1 md:order-2 max-w-sm w-full mx-auto"
+            style={{ animationDelay: ".2s" }}
+          >
+            <figure
+              className="overflow-hidden rounded-[20px] border-4 transition-transform duration-500 hover:scale-105"
+              style={{ borderColor: "#F97FAF" }}
+            >
+              <img
+                src={quemSomosAsset.url}
+                alt="Mahyra e Halexia, fundadoras da Mimô"
+                className="w-full aspect-[4/5] object-cover"
+              />
               <figcaption className="bg-white p-4 text-center font-bold text-[#5b2b48]">
                 Mahyra &amp; Halexia — As fundadoras
               </figcaption>
@@ -112,10 +189,26 @@ function Index() {
         {/* Valores */}
         <div className="mt-20 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { Icon: Heart,    title: "Amor em cada detalhe",     desc: "Cada peça é feita com cuidado e atenção em todos os mínimos detalhes." },
-            { Icon: Palette,  title: "Criatividade sem limites", desc: "Designs únicos e exclusivos que dão personalidade à sua festa." },
-            { Icon: Users,    title: "Parceria e família",        desc: "Mais que um negócio, um laço de confiança com cada cliente." },
-            { Icon: Sparkles, title: "Alegria contagiante",       desc: "Levamos brilho e emoção para tornar o seu dia inesquecível." },
+            {
+              Icon: Heart,
+              title: "Amor em cada detalhe",
+              desc: "Cada peça é feita com cuidado e atenção em todos os mínimos detalhes.",
+            },
+            {
+              Icon: Palette,
+              title: "Criatividade sem limites",
+              desc: "Designs únicos e exclusivos que dão personalidade à sua festa.",
+            },
+            {
+              Icon: Users,
+              title: "Parceria e família",
+              desc: "Mais que um negócio, um laço de confiança com cada cliente.",
+            },
+            {
+              Icon: Sparkles,
+              title: "Alegria contagiante",
+              desc: "Levamos brilho e emoção para tornar o seu dia inesquecível.",
+            },
           ].map((v, i) => (
             <div
               key={v.title}
@@ -134,7 +227,10 @@ function Index() {
               />
               <div
                 className="h-12 w-12 rounded-[14px] grid place-items-center transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"
-                style={{ background: "linear-gradient(135deg, #FEF5F6, #f7dde6)", color: "#F97FAF" }}
+                style={{
+                  background: "linear-gradient(135deg, #FEF5F6, #f7dde6)",
+                  color: "#F97FAF",
+                }}
               >
                 <v.Icon className="h-6 w-6" strokeWidth={2.2} />
               </div>
@@ -148,14 +244,19 @@ function Index() {
       {/* CATÁLOGO */}
       <section id="catalogo" className="max-w-7xl mx-auto px-4 py-20">
         <SectionTitle>Destaques do Catálogo</SectionTitle>
-        <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+        <p
+          className="mimo-reveal text-center text-[#7a4a64] mt-3"
+          style={{ animationDelay: ".2s" }}
+        >
           Uma prévia dos nossos mimos, veja o catálogo completo para se inspirar
         </p>
 
         <CatalogCarousel />
 
         <div className="mt-12 flex justify-center">
-          <Link to="/catalogo" className="mimo-btn mimo-btn-cta">VER CATÁLOGO COMPLETO</Link>
+          <Link to="/catalogo" className="mimo-btn mimo-btn-cta">
+            VER CATÁLOGO COMPLETO
+          </Link>
         </div>
       </section>
 
@@ -173,16 +274,33 @@ function Index() {
               Sua festa nas mãos de quem cuida 💕
             </h2>
             <p className="mimo-reveal text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
-              Trabalhamos com transparência do orçamento à entrega para você comprar com tranquilidade.
+              Trabalhamos com transparência do orçamento à entrega para você comprar com
+              tranquilidade.
             </p>
           </div>
 
           <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
-              { Icon: ShieldCheck, title: "Pagamento protegido", desc: "PIX com entrada de 50% e saldo 1 dia antes do envio, ou cartão de crédito." },
-              { Icon: BadgeCheck, title: "Garantia de qualidade", desc: "Cada peça é conferida com carinho antes de sair do ateliê." },
-              { Icon: Truck, title: "Envio rastreado", desc: "Retirada no ateliê, UBER em Fortaleza ou Correios para todo o Brasil." },
-              { Icon: MessageCircle, title: "Atendimento humano", desc: "Tire dúvidas direto no WhatsApp, de segunda a sábado." },
+              {
+                Icon: ShieldCheck,
+                title: "Pagamento protegido",
+                desc: "PIX com entrada de 50% e saldo 1 dia antes do envio, ou cartão de crédito.",
+              },
+              {
+                Icon: BadgeCheck,
+                title: "Garantia de qualidade",
+                desc: "Cada peça é conferida com carinho antes de sair do ateliê.",
+              },
+              {
+                Icon: Truck,
+                title: "Envio rastreado",
+                desc: "Retirada no ateliê, UBER em Fortaleza ou Correios para todo o Brasil.",
+              },
+              {
+                Icon: MessageCircle,
+                title: "Atendimento humano",
+                desc: "Tire dúvidas direto no WhatsApp, de segunda a sábado.",
+              },
             ].map((v, i) => (
               <div
                 key={v.title}
@@ -191,7 +309,10 @@ function Index() {
               >
                 <div
                   className="h-12 w-12 rounded-[14px] grid place-items-center"
-                  style={{ background: "linear-gradient(135deg, #FEF5F6, #f7dde6)", color: "#F97FAF" }}
+                  style={{
+                    background: "linear-gradient(135deg, #FEF5F6, #f7dde6)",
+                    color: "#F97FAF",
+                  }}
                 >
                   <v.Icon className="h-6 w-6" strokeWidth={2.2} />
                 </div>
@@ -211,11 +332,13 @@ function Index() {
         </div>
       </section>
 
-
       {/* FAQ */}
       <section id="faq" className="max-w-3xl mx-auto px-4 py-20">
         <SectionTitle>Dúvidas Frequentes</SectionTitle>
-        <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+        <p
+          className="mimo-reveal text-center text-[#7a4a64] mt-3"
+          style={{ animationDelay: ".2s" }}
+        >
           Tire suas dúvidas antes de fazer seu pedido
         </p>
 
@@ -223,14 +346,24 @@ function Index() {
           {FAQ.map((item, i) => {
             const isOpen = openFaq === i;
             return (
-              <div key={item.q} className="mimo-reveal mimo-card !p-0 overflow-hidden" style={{ animationDelay: `${0.1 * i}s` }}>
+              <div
+                key={item.q}
+                className="mimo-reveal mimo-card !p-0 overflow-hidden"
+                style={{ animationDelay: `${0.1 * i}s` }}
+              >
                 <button
                   onClick={() => setOpenFaq(isOpen ? null : i)}
                   className="w-full flex items-center justify-between gap-4 p-5 text-left font-bold text-[#5b2b48] transition-colors duration-300 hover:text-[#F97FAF]"
                 >
                   <span>{item.q}</span>
-                  <span className={`transition-transform duration-500 ${isOpen ? "rotate-180" : ""}`}>
-                    {isOpen ? <Minus className="h-5 w-5 text-[#F97FAF]" /> : <Plus className="h-5 w-5 text-[#F97FAF]" />}
+                  <span
+                    className={`transition-transform duration-500 ${isOpen ? "rotate-180" : ""}`}
+                  >
+                    {isOpen ? (
+                      <Minus className="h-5 w-5 text-[#F97FAF]" />
+                    ) : (
+                      <Plus className="h-5 w-5 text-[#F97FAF]" />
+                    )}
                   </span>
                 </button>
                 <div
@@ -250,7 +383,10 @@ function Index() {
       {/* CONTATO */}
       <section id="contato" className="max-w-6xl mx-auto px-4 py-20">
         <SectionTitle>Vamos fazer sua festa brilhar?</SectionTitle>
-        <p className="mimo-reveal text-center text-[#7a4a64] mt-3" style={{ animationDelay: ".2s" }}>
+        <p
+          className="mimo-reveal text-center text-[#7a4a64] mt-3"
+          style={{ animationDelay: ".2s" }}
+        >
           Conte para a gente o que você sonhou para o seu aniversário
         </p>
 
@@ -260,24 +396,47 @@ function Index() {
               onClick={openSellersModal}
               className="mimo-card flex items-center gap-3 text-[#5b2b48] hover:!border-[#F97FAF] w-full text-left"
             >
-              <span className="text-2xl">💬</span> <span><strong>WhatsApp</strong>, Fale com a gente agora</span>
+              <span className="text-2xl">💬</span>{" "}
+              <span>
+                <strong>WhatsApp</strong>, Fale com a gente agora
+              </span>
             </button>
-            <a href="https://www.instagram.com/mimopersonalizadoos" target="_blank" rel="noopener" className="mimo-card flex items-center gap-3 text-[#5b2b48]">
-              <Instagram className="text-[#F97FAF]" /> <span><strong>Instagram</strong>, @mimopersonalizadoos</span>
+            <a
+              href="https://www.instagram.com/mimopersonalizadoos"
+              target="_blank"
+              rel="noopener"
+              className="mimo-card flex items-center gap-3 text-[#5b2b48]"
+            >
+              <Instagram className="text-[#F97FAF]" />{" "}
+              <span>
+                <strong>Instagram</strong>, @mimopersonalizadoos
+              </span>
             </a>
-            <a href="mailto:mimopersonalizados@gmail.com" className="mimo-card flex items-center gap-3 text-[#5b2b48]">
-              <Mail className="text-[#F97FAF]" /> <span><strong>E-mail</strong>, mimopersonalizados@gmail.com</span>
+            <a
+              href="mailto:mimopersonalizados@gmail.com"
+              className="mimo-card flex items-center gap-3 text-[#5b2b48]"
+            >
+              <Mail className="text-[#F97FAF]" />{" "}
+              <span>
+                <strong>E-mail</strong>, mimopersonalizados@gmail.com
+              </span>
             </a>
             <div className="mimo-card flex items-center gap-3 text-[#5b2b48]">
               <Clock className="text-[#F97FAF]" />
-              <span><strong>Atendimento</strong>, Seg-Sex 9h às 18h | Sáb 9h às 13h</span>
+              <span>
+                <strong>Atendimento</strong>, Seg-Sex 9h às 18h | Sáb 9h às 13h
+              </span>
             </div>
           </div>
         </div>
 
         <div className="mimo-reveal mt-16 text-center bg-white rounded-[20px] p-8 shadow-lg">
-          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">Sua festa merece a Mimô. Vamos conversar? 💬</p>
-          <button onClick={openSellersModal} className="mimo-btn mimo-btn-pink mt-5">FALAR NO WHATSAPP</button>
+          <p className="text-xl md:text-2xl font-black text-[#5b2b48]">
+            Sua festa merece a Mimô. Vamos conversar? 💬
+          </p>
+          <button onClick={openSellersModal} className="mimo-btn mimo-btn-pink mt-5">
+            FALAR NO WHATSAPP
+          </button>
         </div>
       </section>
 
