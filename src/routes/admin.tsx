@@ -22,23 +22,43 @@ import {
 } from "@/lib/products-store";
 import { supabase } from "@/integrations/supabase/client";
 import logoAsset from "@/assets/logo.png.asset.json";
+import { adminLoginFn, verifyAdminSessionFn } from "@/lib/admin-auth";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({ meta: [{ title: "Admin — Mimô" }, { name: "robots", content: "noindex" }] }),
   component: AdminPage,
 });
 
-const AUTH_KEY = "mimo:admin-auth";
-const USER = "admin";
-const PASS = "admin123";
+const AUTH_TOKEN_KEY = "mimo:admin-token";
 
 function AdminPage() {
   const [authed, setAuthed] = useState(false);
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    setAuthed(sessionStorage.getItem(AUTH_KEY) === "1");
-    setChecked(true);
+    async function verify() {
+      const token = sessionStorage.getItem(AUTH_TOKEN_KEY);
+      if (!token) {
+        setAuthed(false);
+        setChecked(true);
+        return;
+      }
+      try {
+        const res = await verifyAdminSessionFn({ data: { token } });
+        if (res?.valid) {
+          setAuthed(true);
+        } else {
+          sessionStorage.removeItem(AUTH_TOKEN_KEY);
+          setAuthed(false);
+        }
+      } catch {
+        sessionStorage.removeItem(AUTH_TOKEN_KEY);
+        setAuthed(false);
+      } finally {
+        setChecked(true);
+      }
+    }
+    verify();
   }, []);
 
   if (!checked) return null;
@@ -46,7 +66,7 @@ function AdminPage() {
   return (
     <Dashboard
       onLogout={() => {
-        sessionStorage.removeItem(AUTH_KEY);
+        sessionStorage.removeItem(AUTH_TOKEN_KEY);
         setAuthed(false);
       }}
     />
@@ -57,14 +77,26 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (user === USER && pass === PASS) {
-      sessionStorage.setItem(AUTH_KEY, "1");
-      onLogin();
-    } else {
-      setErr("Usuário ou senha inválidos.");
+    if (loading) return;
+    setErr("");
+    setLoading(true);
+
+    try {
+      const res = await adminLoginFn({ data: { user, pass } });
+      if (res?.success && res.token) {
+        sessionStorage.setItem(AUTH_TOKEN_KEY, res.token);
+        onLogin();
+      } else {
+        setErr(res?.message || "Usuário ou senha inválidos.");
+      }
+    } catch {
+      setErr("Erro ao conectar com o servidor. Tente novamente.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -94,8 +126,12 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
           className="mt-1 w-full rounded-xl border border-[#f3dfe7] px-3 py-2 outline-none focus:border-[#F97FAF]"
         />
         {err && <p className="mt-3 text-sm text-red-600">{err}</p>}
-        <button type="submit" className="mimo-btn mimo-btn-pink mt-6 w-full justify-center">
-          Entrar
+        <button
+          type="submit"
+          disabled={loading}
+          className="mimo-btn mimo-btn-pink mt-6 w-full justify-center disabled:opacity-50"
+        >
+          {loading ? "Entrando..." : "Entrar"}
         </button>
       </form>
     </div>
