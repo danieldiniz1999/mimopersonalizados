@@ -1,10 +1,16 @@
-﻿import { defineConfig } from "vite";
+import { defineConfig } from "vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { nitro } from "nitro/vite";
 import path from "node:path";
+
+// A publicação envia a pasta `dist/`. O preset "cloudflare-module" escreve o
+// app ahí (dist/server + dist/client). Para gerar o pacote da Vercel, rode:
+//   NITRO_PRESET=vercel npm run build   (sai em .vercel/output)
+const nitroPreset = process.env.NITRO_PRESET || "cloudflare-module";
+const publishesToDist = nitroPreset === "cloudflare-module";
 
 export default defineConfig(({ command }) => ({
   resolve: {
@@ -35,7 +41,20 @@ export default defineConfig(({ command }) => ({
     }),
     command === "build" &&
       nitro({
-        preset: process.env.NITRO_PRESET || "vercel",
+        preset: nitroPreset,
+        ...(publishesToDist
+          ? {
+              output: {
+                dir: "dist",
+                serverDir: "dist/server",
+                publicDir: "dist/client",
+              },
+              cloudflare: {
+                nodeCompat: true,
+                deployConfig: true,
+              },
+            }
+          : {}),
       }),
     viteReact(),
   ].filter(Boolean),
