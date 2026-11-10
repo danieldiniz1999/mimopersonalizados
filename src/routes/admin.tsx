@@ -21,6 +21,7 @@ import {
   type Category,
 } from "@/lib/products-store";
 import { supabase } from "@/integrations/supabase/client";
+import { adminCreateUploadUrl } from "@/lib/admin-products.functions";
 import logoAsset from "@/assets/logo.png.asset.json";
 import { adminLoginFn, verifyAdminSessionFn } from "@/lib/admin-auth";
 
@@ -429,11 +430,20 @@ function ProductModal({
         return;
       }
       const ext = (f.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
-      const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
-      const { error } = await supabase.storage.from("produtos").upload(path, f, {
-        contentType: f.type,
-        upsert: false,
-      });
+      let path = "";
+      let error: { message: string } | null = null;
+      try {
+        const signed = await adminCreateUploadUrl({
+          data: { token: sessionStorage.getItem(AUTH_TOKEN_KEY) || "", ext },
+        });
+        path = signed.path;
+        const r = await supabase.storage
+          .from("produtos")
+          .uploadToSignedUrl(signed.path, signed.token, f, { contentType: f.type });
+        error = r.error;
+      } catch (e) {
+        error = { message: e instanceof Error ? e.message : String(e) };
+      }
       if (error) {
         console.error("[storage] upload falhou:", error);
         alert(`Falha ao enviar "${f.name}": ${error.message}`);

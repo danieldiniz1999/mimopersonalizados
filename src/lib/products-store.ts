@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { adminCreateProduct, adminUpdateProduct, adminDeleteProduct } from "@/lib/admin-products.functions";
+
+function adminToken(): string {
+  return (typeof window !== "undefined" && sessionStorage.getItem("mimo:admin-token")) || "";
+}
+
+async function run<T>(fn: () => Promise<T>): Promise<{ data?: T; error?: { message: string } }> {
+  try {
+    return { data: await fn() };
+  } catch (e) {
+    return { error: { message: e instanceof Error ? e.message : String(e) } };
+  }
+}
 
 export type KitItem = { name: string; qty: number };
 
@@ -136,9 +149,8 @@ export const productsStore = {
     return fetchAll();
   },
   async add(p: Omit<Product, "id">) {
-    const { data, error } = await supabase
-      .from("produtos")
-      .insert({
+    const { data, error } = await run(() =>
+      adminCreateProduct({ data: { token: adminToken(), row: {
         name: p.name,
         is_new: p.isNew,
         hue: p.hue,
@@ -152,11 +164,8 @@ export const productsStore = {
         category: p.category ?? null,
         is_promo: p.isPromo ?? false,
         description: p.description ?? null,
-      })
-      .select(
-        "id, name, is_new, hue, image, images, active, sort_order, price, original_price, is_kit, kit_items, category, is_promo, description",
-      )
-      .single();
+      } } }),
+    );
     if (error) {
       console.error("[produtos] erro ao criar:", error);
       alert("Erro ao criar produto: " + error.message);
@@ -199,7 +208,9 @@ export const productsStore = {
     cache = cache.map((p) => (p.id === id ? { ...p, ...patch } : p));
     emit();
 
-    const { error } = await supabase.from("produtos").update(dbPatch).eq("id", id);
+    const { error } = await run(() =>
+      adminUpdateProduct({ data: { token: adminToken(), id, patch: dbPatch } }),
+    );
     if (error) {
       console.error("[produtos] erro ao atualizar:", error);
       alert("Erro ao atualizar: " + error.message);
@@ -210,7 +221,7 @@ export const productsStore = {
     const prev = cache;
     cache = cache.filter((p) => p.id !== id);
     emit();
-    const { error } = await supabase.from("produtos").delete().eq("id", id);
+    const { error } = await run(() => adminDeleteProduct({ data: { token: adminToken(), id } }));
     if (error) {
       console.error("[produtos] erro ao excluir:", error);
       alert("Erro ao excluir: " + error.message);
